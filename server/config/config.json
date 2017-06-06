@@ -1,0 +1,26 @@
+{
+  "development": {
+    "username": "RayNjeri",
+    "password": null,
+    "database": "dochut-dev",
+    "host": "127.0.0.1",
+    "port": 5432,
+    "dialect": "postgres"
+  },
+  "test": {
+    "username": "RayNjeri",
+    "password": null,
+    "database": "dochut-test",
+    "host": "127.0.0.1",
+    "port": 5432,
+    "dialect": "postgres"
+  },
+  "production": {
+    "username": "RayNjeri",
+    "password": null,
+    "database": "dochut-production",
+    "host": "127.0.0.1",
+    "port": 5432,
+    "dialect": "postgres"
+  }
+}
