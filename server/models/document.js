@@ -12,9 +12,9 @@ module.exports = function (sequelize, DataTypes) {
   },
     {
       classMethods: {
-        associate: function (models) {
+        associate: (models) => {
           // associations can be defined here
-          document.belongsTo(models.User, {
+          Document.belongsTo(models.User, {
             foreignKey: 'userId',
             onDelete: 'CASCADE',
           });
