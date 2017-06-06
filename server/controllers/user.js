@@ -1,6 +1,21 @@
 const user = require('../models').User;
 const document = require('../models').Document;
 
+const findWithDocuments = (method, params) => {
+  const includeDocuments = {
+    include: [{
+      model: document,
+      as: 'documents',
+    }],
+  };
+
+  if (params) {
+    return user[method](params, includeDocuments);
+  }
+
+  return user[method](includeDocuments);
+}
+
 module.exports = {
   create(req, res) {
     user.create({
@@ -10,27 +25,12 @@ module.exports = {
       .catch(error => res.status(400).send(error));
   },
   list(req, res) {
-    user.all()
-      .then(user => res.status(200).send(user))
-      .catch(error => res.status(400).send(error));
-  },
-  list(req, res) {
-    user.findAll({
-      include: [{
-        model: document,
-        as: 'documents',
-      }],
-    })
+    findWithDocuments('findAll')
       .then(user => res.status(200).send(user))
       .catch(error => res.status(400).send(error));
   },
   retrieve(req, res) {
-    user.findById(req.params.userId, {
-      include: [{
-        model: document,
-        as: 'documents',
-      }],
-    })
+    findWithDocuments('findById', req.params.userId)
       .then(user => {
         if (!user) {
           return res.status(404).send({
@@ -41,4 +41,7 @@ module.exports = {
       })
       .catch(error => res.status(400).send(error));
   },
+  update(req, res) {
+
+  }
 };
