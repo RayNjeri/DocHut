@@ -42,6 +42,18 @@ module.exports = {
       .catch(error => res.status(400).send(error));
   },
   update(req, res) {
+    findWithDocuments('findById', req.params.userId)
+      .then(user => {
+        if (!user) {
+          return res.status(404).send({
+            message: 'User Not Found',
+          });
+        }
+        user.update({ content: req.body.userName || user.userName, })
+          .then(() => res.status(200).send(user))
+          .catch((error) => res.status(400).send(error));
+      })
+      .catch((error) => res.status(400).send(error));
 
   }
 };
