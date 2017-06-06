@@ -7,6 +7,7 @@ module.exports = function (sequelize, DataTypes) {
     },
   },
     {
+      tableName: 'users',
       classMethods: {
         associate: function (models) {
           // associations can be defined here

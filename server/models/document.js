@@ -7,10 +7,10 @@ module.exports = function (sequelize, DataTypes) {
     },
     access: {
       type: DataTypes.BOOLEAN,
-      allowNull: false
+      // allowNull: false
     },
-  },
-    {
+  }, {
+      tableName: 'documents',
       classMethods: {
         associate: (models) => {
           // associations can be defined here
