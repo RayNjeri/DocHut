@@ -1,6 +1,6 @@
 'use strict';
 module.exports = function (sequelize, DataTypes) {
-  var document = sequelize.define('document', {
+  const Document = sequelize.define('Document', {
     content: {
       type: DataTypes.STRING,
       allowNull: false
@@ -21,5 +21,5 @@ module.exports = function (sequelize, DataTypes) {
         },
       },
     });
-  return document;
+  return Document;
 };
