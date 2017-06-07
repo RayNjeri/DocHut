@@ -19,11 +19,19 @@ const findWithDocuments = (method, params) => {
 module.exports = {
   create(req, res) {
     user.create({
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
       userName: req.body.userName,
+      email: req.body.email,
+      password: req.body.password,
     })
-      .then(user => res.status(201).send(user))
-      .catch(error => res.status(400).send(error));
+    if (!firstName || !lastName || !email || !userName || !password) {
+      return res.status(400).send({
+        message: 'Fill all the required fields',
+      });
+    }
   },
+
   list(req, res) {
     findWithDocuments('findAll')
       .then(user => res.status(200).send(user))
@@ -58,7 +66,7 @@ module.exports = {
   destroy(req, res) {
     findWithDocuments('findById', req.params.userId)
       .then(user => {
-        if (!todo) {
+        if (!user) {
           return res.status(400).send({
             message: 'User Not Found',
           });
