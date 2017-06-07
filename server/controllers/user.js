@@ -20,14 +20,24 @@ const findWithDocuments = (method, params) => {
 
 module.exports = {
   create(req, res) {
+    let firstName = req.body.firstName;
+    let lastName = req.body.lastName;
+    let userName = req.body.userName;
+    let email = req.body.email;
+    let password = req.body.password;
+
+    if (!firstName || !lastName || !userName || !email || !password) {
+      return res.status(400).json({ message: 'Enter All Required Fields' });
+    }
+
     User.create({
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
-      userName: req.body.userName,
-      email: req.body.email,
-      password: req.body.password,
+      firstName,
+      lastName,
+      userName,
+      email,
+      password,
     })
-      .then(user => res.status(201).send(user))
+      .then(user => res.status(201).json(user))
       .catch(error => res.status(400).send(error));
   },
 
