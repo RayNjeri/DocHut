@@ -1,5 +1,7 @@
-const user = require('../models').User;
-const document = require('../models').Document;
+const jwt = require('jsonwebtoken');
+const secretKey = process.env.SECRET_TOKEN_KEY;
+
+const { Document, User } = require('../models')
 
 const findWithDocuments = (method, params) => {
   const includeDocuments = {
@@ -10,33 +12,32 @@ const findWithDocuments = (method, params) => {
   };
 
   if (params) {
-    return user[method](params, includeDocuments);
+    return User[method](params, includeDocuments);
   }
 
-  return user[method](includeDocuments);
+  return User[method](includeDocuments);
 }
 
 module.exports = {
   create(req, res) {
-    user.create({
+    User.create({
       firstName: req.body.firstName,
       lastName: req.body.lastName,
       userName: req.body.userName,
       email: req.body.email,
       password: req.body.password,
     })
-    if (!firstName || !lastName || !email || !userName || !password) {
-      return res.status(400).send({
-        message: 'Fill all the required fields',
-      });
-    }
+      .then(user => res.status(201).send(user))
+      .catch(error => res.status(400).send(error));
   },
+
 
   list(req, res) {
     findWithDocuments('findAll')
       .then(user => res.status(200).send(user))
       .catch(error => res.status(400).send(error));
   },
+
   retrieve(req, res) {
     findWithDocuments('findById', req.params.userId)
       .then(user => {
@@ -49,6 +50,7 @@ module.exports = {
       })
       .catch(error => res.status(400).send(error));
   },
+
   update(req, res) {
     findWithDocuments('findById', req.params.userId)
       .then(user => {
@@ -57,12 +59,13 @@ module.exports = {
             message: 'User Not Found',
           });
         }
-        user.update({ userName: req.body.userName || user.userName, })
+        User.update({ userName: req.body.userName || user.userName, })
           .then(() => res.status(200).send(user))
           .catch((error) => res.status(400).send(error));
       })
       .catch((error) => res.status(400).send(error));
   },
+
   destroy(req, res) {
     findWithDocuments('findById', req.params.userId)
       .then(user => {
@@ -71,10 +74,10 @@ module.exports = {
             message: 'User Not Found',
           });
         }
-        user.destroy()
+        User.destroy()
           .then(() => res.status(204).send({ message: 'User Deleted Successfully' }))
           .catch((error) => res.status(400).send(error));
       })
       .catch(error => res.status(400).send(error));
-  },
+  }
 };
