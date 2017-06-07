@@ -49,7 +49,7 @@ module.exports = {
             message: 'User Not Found',
           });
         }
-        user.update({ content: req.body.userName || user.userName, })
+        user.update({ userName: req.body.userName || user.userName, })
           .then(() => res.status(200).send(user))
           .catch((error) => res.status(400).send(error));
       })
@@ -63,8 +63,7 @@ module.exports = {
             message: 'User Not Found',
           });
         }
-        return user
-          .destroy()
+        user.destroy()
           .then(() => res.status(204).send({ message: 'User Deleted Successfully' }))
           .catch((error) => res.status(400).send(error));
       })
