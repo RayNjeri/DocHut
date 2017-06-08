@@ -64,18 +64,22 @@ module.exports = {
             message: 'Invalid user',
           });
         }
-        if (bcrypt.compareSync(req.body.password, response.password)) {
-          const token = jwt.sign(secretKey, { expiresIn: '24h' });
-          res.status(200).send({
-            message: 'You were successfully logged in',
-            token,
-            expiresIn: '24h'
-          });
-        } else {
-          res.status(401).send({
-            message: 'Invalid login credentials',
-          });
-        }
+        console.log('user: ', user);
+        console.log('body: ', req.body);
+        bcrypt.compare(req.body.password, user.password)
+          .then(() => {
+            const token = jwt.sign({ data: user.id }, secretKey, { expiresIn: '24h' });
+            res.status(200).send({
+              message: 'You were successfully logged in',
+              token,
+              expiresIn: '24h'
+            });
+          })
+          .catch(() => {
+            res.status(401).send({
+              message: 'Invalid login credentials',
+            });
+          })
       })
       .catch(() => {
         res.status(401).send({
@@ -117,7 +121,7 @@ module.exports = {
             message: 'User Not Found',
           });
         }
-        User.update({ userName: req.body.userName || user.userName, })
+        user.update({ userName: req.body.userName || user.userName, })
           .then(() => res.status(200).send(user))
           .catch((error) => res.status(400).send(error));
       })
@@ -134,7 +138,7 @@ module.exports = {
             message: 'User Not Found',
           });
         }
-        User.destroy()
+        user.destroy()
           .then(() => res.status(204).send({ message: 'User Deleted Successfully' }))
           .catch((error) => res.status(400).send(error));
       })

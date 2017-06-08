@@ -6,6 +6,7 @@ module.exports = (app) => {
     }));
 
     app.post('/api/user', userController.create);
+    app.post('/api/user/login', userController.login);
     app.get('/api/user', userController.list);
     app.get('/api/user/:userId', userController.retrieve);
     app.put('/api/user/:userId', userController.update);
@@ -15,7 +16,6 @@ module.exports = (app) => {
     app.put('api/document/:documentId', documentController.update);
     app.delete('api/document/:documentId', documentController.destroy);
 
-    app.post('api/user/login', userController.login);
 
     app.all('api/user/:userId', (req, res) => res.status(405).send({
         message: 'Method Not Allowed',

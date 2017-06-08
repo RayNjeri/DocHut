@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start:dev": "nodemon ./bin/www",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -20,7 +20,10 @@
   "homepage": "https://github.com/RayNjeri/DocHut#readme",
   "dependencies": {
     "body-parser": "^1.17.2",
+    "dotenv": "^4.0.0",
+    "enzyme-to-json": "^1.5.1",
     "express": "^4.15.3",
+    "jest": "^20.0.4",
     "morgan": "^1.8.2",
     "pg": "^6.2.3",
     "pg-hstore": "^2.3.2",
@@ -28,6 +31,7 @@
   },
   "devDependencies": {
     "bcrypt": "^1.0.2",
+    "enzyme": "^2.8.2",
     "jsonwebtoken": "^7.4.1",
     "nodemon": "^1.11.0"
   }
