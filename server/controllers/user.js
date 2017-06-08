@@ -2,6 +2,8 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const secretKey = process.env.SECRET_TOKEN_KEY;
 
+const saltRounds = 10;
+
 const user = require('../models').User;
 const document = require('../models').Document;
 
