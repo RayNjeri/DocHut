@@ -16,13 +16,16 @@ const findWithDocuments = (method, params) => {
   };
 
   if (params) {
-    return User[method](params, includeDocuments);
+    return user[method](params, includeDocuments);
   }
 
-  return User[method](includeDocuments);
+  return user[method](includeDocuments);
 }
 
 module.exports = {
+
+  //create a new user
+
   create(req, res) {
     let firstName = req.body.firstName;
     let lastName = req.body.lastName;
@@ -47,6 +50,8 @@ module.exports = {
     }
   },
 
+  //login a user
+
   login(req, res) {
     user.findOne({
       where: {
@@ -59,12 +64,8 @@ module.exports = {
             message: 'Invalid user',
           });
         }
-        if (user && user.validatePassword(req.body.password)) {
-          const payload = {
-            userId: user.id,
-            userName: user.userName
-          };
-          const token = jwt.sign(payload, secret, { expiresIn: '24h' });
+        if (bcrypt.compareSync(req.body.password, response.password)) {
+          const token = jwt.sign(secretKey, { expiresIn: '24h' });
           res.status(200).send({
             message: 'You were successfully logged in',
             token,
@@ -83,11 +84,15 @@ module.exports = {
       });
   },
 
+  //Find matching instances of user
+
   list(req, res) {
     findWithDocuments('findAll')
       .then(user => res.status(200).send(user))
       .catch(error => res.status(400).send(error));
   },
+
+  //Find user
 
   retrieve(req, res) {
     findWithDocuments('findById', req.params.userId)
@@ -101,6 +106,8 @@ module.exports = {
       })
       .catch(error => res.status(400).send(error));
   },
+
+  //Update user attributes
 
   update(req, res) {
     findWithDocuments('findById', req.params.userId)
@@ -117,6 +124,8 @@ module.exports = {
       .catch((error) => res.status(400).send(error));
   },
 
+  //delete a user
+
   destroy(req, res) {
     findWithDocuments('findById', req.params.userId)
       .then(user => {
@@ -130,5 +139,25 @@ module.exports = {
           .catch((error) => res.status(400).send(error));
       })
       .catch(error => res.status(400).send(error));
+  },
+
+  // search existing user
+
+  searchUser(req, res) {
+    if (req.query.q) {
+      return user.findAll({
+        where: {
+          $or: [
+            { firstName: { $like: `%${req.query.q}%` } },
+            { lastName: { $like: `%${req.query.q}%` } },
+            { userName: { $like: `%${req.query.q}%` } },
+            { email: { $like: `%${req.query.q}%` } }
+          ]
+        }
+      })
+        .then(response => res.status(200).send(response))
+        .catch(error => res.status(400).send(error));
+    }
   }
+
 };
