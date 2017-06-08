@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start:dev": "nodemon ./bin/www",
-    "test": "jest"
+    "test": "mocha server/**/**/**.test.js"
   },
   "repository": {
     "type": "git",
@@ -24,6 +24,7 @@
     "enzyme-to-json": "^1.5.1",
     "express": "^4.15.3",
     "jest": "^20.0.4",
+    "mocha": "^3.4.2",
     "morgan": "^1.8.2",
     "pg": "^6.2.3",
     "pg-hstore": "^2.3.2",
@@ -31,8 +32,11 @@
   },
   "devDependencies": {
     "bcrypt": "^1.0.2",
+    "chai": "^3.2.0",
+    "chai-http": "^1.0.0",
     "enzyme": "^2.8.2",
     "jsonwebtoken": "^7.4.1",
-    "nodemon": "^1.11.0"
+    "nodemon": "^1.11.0",
+    "supertest": "^3.0.0"
   }
 }

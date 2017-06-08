@@ -3,9 +3,10 @@ const logger = require('morgan');
 const bodyParser = require('body-parser');
 const NODE_ENV = process.env.NODE_ENV;
 
-if (NODE_ENV === 'development') {
-    require('dotenv').config();
+if (NODE_ENV !== 'production') {
+    require('dotenv').load();
 }
+console.log('process.env', process.env);
 // Set up the express app
 const app = express();
 
