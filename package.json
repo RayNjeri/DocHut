@@ -27,6 +27,7 @@
     "sequelize": "^3.30.4"
   },
   "devDependencies": {
+    "bcrypt": "^1.0.2",
     "jsonwebtoken": "^7.4.1",
     "nodemon": "^1.11.0"
   }

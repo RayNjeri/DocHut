@@ -1,7 +1,9 @@
 const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 const secretKey = process.env.SECRET_TOKEN_KEY;
 
-const { Document, User } = require('../models')
+const user = require('../models').User;
+const document = require('../models').Document;
 
 const findWithDocuments = (method, params) => {
   const includeDocuments = {
@@ -24,23 +26,60 @@ module.exports = {
     let lastName = req.body.lastName;
     let userName = req.body.userName;
     let email = req.body.email;
-    let password = req.body.password;
+    let password = bcrypt.hashSync(req.body.password, saltRounds);
 
     if (!firstName || !lastName || !userName || !email || !password) {
       return res.status(400).json({ message: 'Enter All Required Fields' });
+    } else if (!(/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(req.body.email))) {
+      return res.status(401).json({ message: 'Please Enter A Valid Email Address' });
+    } else {
+      user.create({
+        firstName,
+        lastName,
+        userName,
+        email,
+        password,
+      })
+        .then(user => res.status(201).json(user))
+        .catch(error => res.status(400).send(error));
     }
-
-    User.create({
-      firstName,
-      lastName,
-      userName,
-      email,
-      password,
-    })
-      .then(user => res.status(201).json(user))
-      .catch(error => res.status(400).send(error));
   },
 
+  login(req, res) {
+    user.findOne({
+      where: {
+        email: req.body.email
+      }
+    })
+      .then((user) => {
+        if (!user) {
+          return res.status(403).send({
+            message: 'Invalid user',
+          });
+        }
+        if (user && user.validatePassword(req.body.password)) {
+          const payload = {
+            userId: user.id,
+            userName: user.userName
+          };
+          const token = jwt.sign(payload, secret, { expiresIn: '24h' });
+          res.status(200).send({
+            message: 'You were successfully logged in',
+            token,
+            expiresIn: '24h'
+          });
+        } else {
+          res.status(401).send({
+            message: 'Invalid login credentials',
+          });
+        }
+      })
+      .catch(() => {
+        res.status(401).send({
+          error: 'Invalid login credentials'
+        });
+      });
+  },
 
   list(req, res) {
     findWithDocuments('findAll')
