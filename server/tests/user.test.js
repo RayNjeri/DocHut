@@ -36,23 +36,23 @@ describe('User', function () {
 
   it('should not signup users if required fields are missing', (done) => {
     api.post('/api/user/', (error, response, body) => {
-      expect(respone.statusCode).to.equal(400);
-      expect(response.statusMessage).to.equal('Fill the required fields');
+      expect(error.statusCode).to.equal(400);
+      expect(error.statusMessage).to.equal('Fill the required fields');
     });
     done();
   });
 
   it('should not signup users with existing email address or userName', (done) => {
     api.post('/api/user/', (error, response, body) => {
-      expect(response.statusCode).to.equal(409);
-      expect(response.statusMessage).to.equal('A User With The Email Address Or Username Already Exists');
+      expect(error.statusCode).to.equal(409);
+      expect(error.statusMessage).to.equal('A User With The Email Address Or Username Already Exists');
     });
   });
 
   it('should not login an invalid user', (done) => {
     api.post('api/user/login', (error, respone, body) => {
-      expect(respone.statusCode).equal(400);
-      expect(response.statusMessage).to.equal('Invalid User')
+      expect(error.statusCode).equal(403);
+      expect(error.statusMessage).to.equal('Invalid User')
     });
   });
 
@@ -66,7 +66,7 @@ describe('User', function () {
   });
 
   it('should list a SINGLE user on /user/<id> GET', (done) => {
-    api.get('/api/user/', (error, response, body) => {
+    api.get('/api/user/:userId', (error, response, body) => {
       expect(response.statusCode).to.equal(200);
       expect(response.statusMessage).to.equal('OK');
     });
@@ -74,18 +74,24 @@ describe('User', function () {
   });
 
   it('should update a SINGLE user on /user/<id> PUT', (done) => {
-    api.put('api/user/2', (error, response, body) => {
+    api.put('/api/users/:userId', (error, response, body) => {
       expect(response.statusCode).to.equal(200);
-      expect(response.statusMessage).to.equal('User Credentials Succesfully Updated')
+      expect(response.statusMessage).to.equal('User Attributes Successfully Updated!');
+      expect(body).to.be.a('object');
+      expect(response.body.userName).to.not.equal(null);
     });
+    done();
   });
 
 
   it('should delete a SINGLE user on /user/<id> DELETE', (done) => {
-    api.delete('api/user/2', (error, response, body) => {
+    api.delete('/api/users/:userId', (error, response, body) => {
       expect(response.statusCode).to.equal(200);
-      expect(response.statusMessage).to.equal('User successfully Deleted')
+      expect(response.statusMessage).to.equal('User successfully Deleted!');
+      expect(body).to.be.a('object');
+      expect(response.body.userName).to.not.equal(null);
     });
+    done();
   });
 
 });
