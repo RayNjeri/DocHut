@@ -34,11 +34,18 @@ module.exports = {
       .catch(error => res.status(400).send(error));
   },
 
+  list(req, res) {
+    document.findAll({
+    })
+      .then(document => res.status(200).send(document))
+      .catch(error => res.status(400).send(error));
+  },
+
   destroy(req, res) {
     document.find({
       where: {
         id: req.params.documentId,
-        userId: req.params.documentId,
+        userId: req.params.userId,
       },
     })
       .then(document => {

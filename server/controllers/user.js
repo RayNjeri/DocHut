@@ -64,8 +64,6 @@ module.exports = {
             message: 'Invalid user',
           });
         }
-        console.log('user: ', user);
-        console.log('body: ', req.body);
         bcrypt.compare(req.body.password, user.password)
           .then(() => {
             const token = jwt.sign({ data: user.id }, secretKey, { expiresIn: '24h' });

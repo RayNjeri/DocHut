@@ -13,6 +13,7 @@ module.exports = (app) => {
     app.delete('/api/user/:userId', userController.destroy);
 
     app.post('/api/document', documentController.create);
+    app.get('/api/document', documentController.list);
     app.put('api/document/:documentId', documentController.update);
     app.delete('api/document/:documentId', documentController.destroy);
 
