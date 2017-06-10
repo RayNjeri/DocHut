@@ -4,21 +4,17 @@ module.exports = {
   create(req, res) {
     document.create({
       content: req.body.content,
-      userId: req.params.userId,
+      userId: req.body.userId,
+      access: req.body.access,
     })
       .then(document => res.status(201).send(document))
       .catch(error => res.status(400).send(error));
   },
 
   update(req, res) {
-    return document
-      .find({
-        where: {
-          id: req.params.documentId,
-          userId: req.params.userId,
-        },
-      })
-      .then(document => {
+    document.findById(req.params.id, {
+    })
+      .then((document) => {
         if (!document) {
           return res.status(404).send({
             message: 'Document Not Found',
@@ -28,7 +24,7 @@ module.exports = {
           content: req.body.content || document.content,
           access: req.body.access || document.access,
         })
-          .then(updateddocument => res.status(200).send(updateddocument))
+          .then(() => res.status(200).send(document))
           .catch(error => res.status(400).send(error));
       })
       .catch(error => res.status(400).send(error));
@@ -41,25 +37,34 @@ module.exports = {
       .catch(error => res.status(400).send(error));
   },
 
+  retrieve(req, res) {
+    document.findById(req.params.documentId)
+      .then((resp) => {
+        if (!resp) {
+          return res.status(404).send({
+            message: 'Document Not Found',
+
+          });
+        }
+        return res.status(200).send(resp);
+      })
+      .catch(error => res.status(400).send(error));
+  },
+
   destroy(req, res) {
-    document.find({
-      where: {
-        id: req.params.documentId,
-        userId: req.params.userId,
-      },
-    })
-      .then(document => {
-        if (!document) {
+    document.findById(req.params.documentId)
+      .then((resp) => {
+        if (!resp) {
           return res.status(404).send({
             message: 'Document Not Found',
           });
         }
-        document.destroy()
-          .then(() => res.status(204).send())
-          .catch(error => res.status(400).send(error))
+        resp.destroy()
+          .then(() => res.status(200).send({ message: 'Document Succesfully deleted' }))
+          .catch(error => res.status(400).send(error));
       })
       .catch(error => res.status(400).send(error));
-  }
+  },
 }
 
 

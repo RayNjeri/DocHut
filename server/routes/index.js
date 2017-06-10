@@ -14,6 +14,7 @@ module.exports = (app) => {
 
     app.post('/api/document', documentController.create);
     app.get('/api/document', documentController.list);
+    app.get('api/document/:documentId', documentController.retrieve);
     app.put('api/document/:documentId', documentController.update);
     app.delete('api/document/:documentId', documentController.destroy);
 
