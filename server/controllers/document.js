@@ -1,5 +1,7 @@
 const document = require('../models').Document;
 
+// create document
+
 module.exports = {
   create(req, res) {
     document.create({
@@ -10,6 +12,8 @@ module.exports = {
       .then(document => res.status(201).send(document))
       .catch(error => res.status(400).send(error));
   },
+
+  // update document by Id
 
   update(req, res) {
     document.findById(req.params.id, {
@@ -30,12 +34,16 @@ module.exports = {
       .catch(error => res.status(400).send(error));
   },
 
+  // list all documents
+
   list(req, res) {
     document.findAll({
     })
       .then(document => res.status(200).send(document))
       .catch(error => res.status(400).send(error));
   },
+
+  // get a document by id
 
   retrieve(req, res) {
     document.findById(req.params.documentId)
@@ -52,6 +60,7 @@ module.exports = {
       .catch(error => res.status(400).send(error));
   },
 
+  // delete a document
 
   destroy(req, res) {
     document.findById(req.params.documentId)
