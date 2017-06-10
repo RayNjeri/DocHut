@@ -39,8 +39,8 @@ module.exports = {
 
   retrieve(req, res) {
     document.findById(req.params.documentId)
-      .then((resp) => {
-        if (!resp) {
+      .then((document) => {
+        if (!document) {
           return res.status(404).send({
             message: 'Document Not Found',
 
@@ -51,15 +51,16 @@ module.exports = {
       .catch(error => res.status(400).send(error));
   },
 
+
   destroy(req, res) {
     document.findById(req.params.documentId)
-      .then((resp) => {
-        if (!resp) {
+      .then((document) => {
+        if (!document) {
           return res.status(404).send({
             message: 'Document Not Found',
           });
         }
-        resp.destroy()
+        document.destroy()
           .then(() => res.status(200).send({ message: 'Document Succesfully deleted' }))
           .catch(error => res.status(400).send(error));
       })
