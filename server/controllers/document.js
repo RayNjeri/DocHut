@@ -40,13 +40,14 @@ module.exports = {
   retrieve(req, res) {
     document.findById(req.params.documentId)
       .then((document) => {
+        console.log(document)
         if (!document) {
           return res.status(404).send({
             message: 'Document Not Found',
 
           });
         }
-        return res.status(200).send(resp);
+        return res.status(200).send(document);
       })
       .catch(error => res.status(400).send(error));
   },
