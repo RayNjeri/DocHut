@@ -132,16 +132,16 @@ module.exports = {
   //delete a user
 
   destroy(req, res) {
-    findWithDocuments('findById', req.params.userId)
-      .then(user => {
-        if (!user) {
-          return res.status(400).send({
+    user.findById(req.params.userId)
+      .then((resp) => {
+        if (!resp) {
+          return res.status(404).send({
             message: 'User Not Found',
           });
         }
-        user.destroy()
-          .then(() => res.status(204).send({ message: 'User Deleted Successfully' }))
-          .catch((error) => res.status(400).send(error));
+        resp.destroy()
+          .then(() => res.status(200).send({ message: 'user deleted' }))
+          .catch(error => res.status(400).send(error));
       })
       .catch(error => res.status(400).send(error));
   },
