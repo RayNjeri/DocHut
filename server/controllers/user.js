@@ -27,16 +27,16 @@ module.exports = {
   //create a new user
 
   create(req, res) {
-    let firstName = req.body.firstName;
-    let lastName = req.body.lastName;
-    let userName = req.body.userName;
-    let email = req.body.email;
-    let password = bcrypt.hashSync(req.body.password, saltRounds);
+    const firstName = req.body.firstName;
+    const lastName = req.body.lastName;
+    const userName = req.body.userName;
+    const email = req.body.email;
+    const password = bcrypt.hashSync(req.body.password, saltRounds);
 
     if (!firstName || !lastName || !userName || !email || !password) {
       return res.status(400).json({ message: 'Enter All Required Fields' });
     } else if (!(/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(req.body.email))) {
-      return res.status(401).json({ message: 'Please Enter A Valid Email Address' });
+      return res.status(400).json({ message: 'Please Enter A Valid Email Address' });
     } else {
       user.create({
         firstName,

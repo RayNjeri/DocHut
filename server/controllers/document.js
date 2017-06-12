@@ -48,7 +48,6 @@ module.exports = {
   retrieve(req, res) {
     document.findById(req.params.documentId)
       .then((document) => {
-        console.log(document)
         if (!document) {
           return res.status(404).send({
             message: 'Document Not Found',
