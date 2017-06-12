@@ -65,13 +65,16 @@ module.exports = {
           });
         }
         bcrypt.compare(req.body.password, user.password)
-          .then(() => {
-            const token = jwt.sign({ data: user.id }, secretKey, { expiresIn: '24h' });
-            res.status(200).send({
-              message: 'You were successfully logged in',
-              token,
-              expiresIn: '24h'
-            });
+          .then((matched) => {
+            if (matched) {
+              const token = jwt.sign({ data: user.id }, secretKey, { expiresIn: '24h' });
+              return res.status(200).send({
+                message: 'You were successfully logged in',
+                token,
+                expiresIn: '24h'
+              });
+            }
+            return res.send('Password/email does not match')
           })
           .catch(() => {
             res.status(401).send({
