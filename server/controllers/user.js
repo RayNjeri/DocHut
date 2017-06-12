@@ -163,6 +163,13 @@ module.exports = {
         .then(response => res.status(200).send(response))
         .catch(error => res.status(400).send(error));
     }
+  },
+
+  logout(req, res) {
+    res.status(200).send({
+      message: 'You were logged out successfully'
+    });
   }
 
-};
+}
+
