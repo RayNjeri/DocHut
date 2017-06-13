@@ -9,7 +9,7 @@ api = supertest('http://localhost:8000');
 
 describe('Document', () => {
     it('should create a document on /document/POST', (done) => {
-        api.get('/api/document/', (error, response, body) => {
+        api.post('/api/document/', (error, response, body) => {
             expect(response.statusCode).to.equal(200);
             expect(response.statusMessage).to.equal('Document Successfully Created');
             expect(body).to.equal(true);

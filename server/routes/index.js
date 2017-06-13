@@ -1,11 +1,12 @@
 const userController = require('../controllers').user;
 const documentController = require('../controllers').document;
+const Auth = require('../middlewares').Auth;
 module.exports = (app) => {
     app.get('/api', (req, res) => res.status(200).send({
         message: 'Welcome to the User API!',
     }));
 
-    app.post('/api/user', userController.create);
+    app.post('/api/user',Auth, userController.create);
     app.post('/api/user/login', userController.login);
     app.get('/api/user', userController.list);
     app.get('/api/user/:userId', userController.retrieve);

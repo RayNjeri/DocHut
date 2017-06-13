@@ -7,6 +7,8 @@ const saltRounds = 10;
 const user = require('../models').User;
 const document = require('../models').Document;
 
+// create an static method to handle inclutions
+
 const findWithDocuments = (method, params) => {
   const includeDocuments = {
     include: [{
@@ -33,7 +35,7 @@ module.exports = {
     const email = req.body.email;
     const password = bcrypt.hashSync(req.body.password, saltRounds);
 
-    if (!firstName || !lastName || !userName || !email || !password) {
+    if (!(!firstName || !lastName || !userName || !email || !password)) {
       return res.status(400).json({ message: 'Enter All Required Fields' });
     } else if (!(/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(req.body.email))) {
       return res.status(400).json({ message: 'Please Enter A Valid Email Address' });
@@ -67,7 +69,7 @@ module.exports = {
         bcrypt.compare(req.body.password, user.password)
           .then((matched) => {
             if (matched) {
-              const token = jwt.sign({ data: user.id }, secretKey, { expiresIn: '24h' });
+              const token = jwt.sign({ userId: user.id, roleId: user.roleId }, secretKey, { expiresIn: '24h' });
               return res.status(200).send({
                 message: 'You were successfully logged in',
                 token,
@@ -164,6 +166,8 @@ module.exports = {
         .catch(error => res.status(400).send(error));
     }
   },
+
+  // logout a user
 
   logout(req, res) {
     res.status(200).send({

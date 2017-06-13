@@ -50,7 +50,7 @@ describe('User', function () {
   });
 
   it('should not login an invalid user', (done) => {
-    api.post('api/user/login', (error, respone, body) => {
+    api.post('api/user/login', (error, response, body) => {
       expect(error.statusCode).equal(403);
       expect(error.statusMessage).to.equal('Invalid User')
     });
