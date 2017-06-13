@@ -35,7 +35,7 @@ module.exports = {
     const email = req.body.email;
     const password = bcrypt.hashSync(req.body.password, saltRounds);
 
-    if (!(!firstName || !lastName || !userName || !email || !password)) {
+    if (!firstName || !lastName || !userName || !email || !password) {
       return res.status(400).json({ message: 'Enter All Required Fields' });
     } else if (!(/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(req.body.email))) {
       return res.status(400).json({ message: 'Please Enter A Valid Email Address' });
