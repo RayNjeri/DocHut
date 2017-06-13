@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start:dev": "nodemon ./bin/www",
-    "test": "mocha server/**/**/**.test.js"
+    "test": "NODE_ENV=test && node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha ./server/tests/*.js --recursive && cat ./coverage/lcov.info | codecov"
   },
   "repository": {
     "type": "git",
@@ -20,9 +20,13 @@
   "homepage": "https://github.com/RayNjeri/DocHut#readme",
   "dependencies": {
     "body-parser": "^1.17.2",
+    "codacy-coverage": "^2.0.2",
+    "codeclimate-test-reporter": "^0.5.0",
+    "coveralls": "^2.13.1",
     "dotenv": "^4.0.0",
     "enzyme-to-json": "^1.5.1",
     "express": "^4.15.3",
+    "istanbul": "^0.4.5",
     "jest": "^20.0.4",
     "mocha": "^3.4.2",
     "morgan": "^1.8.2",
@@ -34,6 +38,7 @@
     "bcrypt": "^1.0.2",
     "chai": "^3.2.0",
     "chai-http": "^1.0.0",
+    "codecov": "^2.2.0",
     "enzyme": "^2.8.2",
     "jsonwebtoken": "^7.4.1",
     "nodemon": "^1.11.0",

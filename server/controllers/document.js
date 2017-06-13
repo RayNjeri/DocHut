@@ -16,7 +16,7 @@ module.exports = {
   // update document by Id
 
   update(req, res) {
-    document.findById(req.params.id, {
+    document.findById(req.params.documentId, {
     })
       .then((document) => {
         if (!document) {
