@@ -14,6 +14,10 @@ module.exports = {
     filename: 'bundle.js'
   },
   devServer: {
+    stats: {
+      chunks: false,
+      color: true
+    },
     contentBase: path.resolve(__dirname, 'client/src')
   },
   plugins: [
@@ -29,5 +33,6 @@ module.exports = {
       { test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=application/octet-stream' },
       { test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=image/svg+xml' }
     ]
-  }
+  },
+  resolve: ['.', '.js', '.jsx'],
 };
