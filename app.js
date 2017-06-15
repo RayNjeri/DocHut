@@ -30,14 +30,14 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // Setup a default catch-all route that sends back a welcome message in JSON format.
 require('./server/routes')(app);
 
-app.get('*', function (req, res) {
+app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, './client/src/index.html'));
 });
 // app.get('*', (req, res) => res.status(200).send({
 //     message: 'Welcome to DocHut.',
 // }));
 
-app.listen(port, function (err) {
+app.listen(port, (err) => {
   if (err) {
     console.log(err);
   } else {

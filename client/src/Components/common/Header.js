@@ -10,6 +10,6 @@ const Header = () => (
     {' | '}
     <Link to="/client/src/Components/document" activeClassName="active">Documents</Link>
   </nav>
-  );
+);
 export default Header;
 
