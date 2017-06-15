@@ -5,12 +5,12 @@ import { Provider } from 'react-redux';
 import { Router, browserHistory } from 'react-router';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import configureStore from './store/ConfigureStore';
-import {loadUsers} from './actions/userActions';
+// import { loadUsers } from './actions/userActions';
 import routes from './routes';
 
 const store = configureStore();
 
-store.dispatch(loadUsers());
+// store.dispatch(loadUsers());
 
 render(
   <Provider store={store}>
