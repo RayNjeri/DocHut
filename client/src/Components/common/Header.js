@@ -6,9 +6,9 @@ const Header = () => (
   <nav>
     <IndexLink to="/" activeClassName="active">Home</IndexLink>
     {' | '}
-    <Link to="/client/src/Components/about" activeClassName="active">About</Link>
+    <Link to="/about" activeClassName="active">About</Link>
     {' | '}
-    <Link to="/client/src/Components/document" activeClassName="active">Documents</Link>
+    <Link to="/document" activeClassName="active">Documents</Link>
   </nav>
 );
 export default Header;

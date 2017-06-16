@@ -7,46 +7,52 @@ const DOCUMENT_LIST = {
   searchFilter: '',
 };
 
-export const documentList = (state = DOCUMENT_LIST, action) => {
+export default function reducer(state = DOCUMENT_LIST, action) {
   switch (action.type) {
     case types.DOCUMENTS_REQUEST:
       return Object.assign({}, state, {
-        documents: [],
         error: null,
         loading: true,
       });
-    case actionTypes.DOCUMENT_SUCCESS:
+    case types.DOCUMENT_SUCCESS:
       return Object.assign({}, state, {
-        documents: action.document,
+        documents: action.documents,
         error: null,
         loading: false,
       });
-    case actionTypes.DOCUMENT_FAILURE:
+    case types.DOCUMENT_FAILURE:
       return Object.assign({}, state, {
-        documents: [],
         error: action.error,
         loading: false,
       });
-    case actionTypes.DOCUMENT_ADD_SUCCESS:
+    case types.DOCUMENT_ADD_SUCCESS:
       return Object.assign({}, state, {
-        documents: [action.document,
+        documents: [action.documents,
           ...state.documents],
       });
-    case actionTypes.DOCUMENTS_DELETE_SUCCESS:
+    case types.DOCUMENTS_DELETE_SUCCESS:
       return Object.assign({}, state, {
         documents: state.documents.filter(id => id !== action.documentId),
       });
-    case actionTypes.SET_DOCUMENTS_SEARCH_FILTER:
+    case types.SET_DOCUMENTS_SEARCH_FILTER:
       return Object.assign({}, state, {
-        searchFilter: searchFilter(state.searchFilter, action),
+        searchFilter: action.searchFilter,
       });
-    default:
-      return state;
-  }
-};
-
-export const addDocument = (state = { error: null, loading: false, document: null }, action) => {
-  switch (action.type) {
+    case types.DOCUMENTS_UPDATE_REQUEST:
+      return {
+        error: null,
+        loading: true,
+      };
+    case types.DOCUMENTS_UPDATE_SUCCESS:
+      return {
+        error: null,
+        loading: false,
+      };
+    case types.DOCUMENTS_UPDATE_FAILURE:
+      return {
+        error: action.error,
+        loading: false,
+      };
     case types.DOCUMENTS_ADD_REQUEST:
       return {
         error: null,
@@ -57,7 +63,7 @@ export const addDocument = (state = { error: null, loading: false, document: nul
       return {
         error: null,
         loading: false,
-        documents: action.document,
+        documents: action.documents,
       };
     case types.DOCUMENTS_ADD_FAILURE:
       return {
@@ -65,13 +71,6 @@ export const addDocument = (state = { error: null, loading: false, document: nul
         loading: false,
         documents: null,
       };
-    default:
-      return state;
-  }
-};
-
-export const documentPage = (state = { document: null, error: null, loading: false }, action) => {
-  switch (action.type) {
     case types.DOCUMENTS_GET_REQUEST:
       return {
         documents: null,
@@ -93,26 +92,4 @@ export const documentPage = (state = { document: null, error: null, loading: fal
     default:
       return state;
   }
-};
-
-export const editDocument = (state = { error: null, loading: false }, action) => {
-  switch (action.type) {
-    case types.DOCUMENTS_UPDATE_REQUEST:
-      return {
-        error: null,
-        loading: true,
-      };
-    case types.DOCUMENTS_UPDATE_SUCCESS:
-      return {
-        error: null,
-        loading: false,
-      };
-    case types.DOCUMENTS_UPDATE_FAILURE:
-      return {
-        error: action.error,
-        loading: false,
-      };
-    default:
-      return state;
-  }
-};
+}

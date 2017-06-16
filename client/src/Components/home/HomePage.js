@@ -7,7 +7,7 @@ export default class HomePage extends React.Component {
       <div>
         <h1> DocHut </h1>
         <p>React Redux</p>
-        <Link to="about"> Learn More </Link>
+        <Link to="/about"> Learn More </Link>
       </div>
 
     );

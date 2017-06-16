@@ -3,10 +3,10 @@ import authReducer from './authReducer';
 import documents from './documentReducer';
 
 
-const reducers = combineReducers({
+const rootReducer = combineReducers({
   documents
 
 
 });
 
-export default reducers;
+export default rootReducer;

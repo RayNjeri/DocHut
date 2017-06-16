@@ -10,7 +10,7 @@ export class Documents extends React.Component {
       document: { content: '' }
     };
 
-    this.onContentChange = this.OnContentChange.bind(this);
+    this.onContentChange = this.onContentChange.bind(this);
     this.onClickSave = this.onClickSave.bind(this);
   }
 
@@ -28,20 +28,22 @@ export class Documents extends React.Component {
   }
 
   render() {
+    console.log('Da documents', Array.isArray(this.props.documents))
     return (
       <div>
         <h1> Documents </h1>
         {this.props.documents.map(this.documentRow)}
         <h2> Create documents </h2>
-        <input type="text" Onchange={this.onContentChange} value={this.state.document.content} />
+        <input type="text" onChange={this.onContentChange} value={this.state.document.content} />
         <input type="submit" value="Save" onClick={this.onClickSave} />
       </div>
     );
   }
 }
 function mapStateToProps(state, ownProps) {
+  console.log('Da state', state)
   return {
-    documents: state.documents
+    documents: state.documents.documents
   };
 }
 
