@@ -1,4 +1,4 @@
-'use strict';
+
 
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
@@ -46,7 +46,7 @@ module.exports = (sequelize, DataTypes) => {
             as: 'documents',
           });
           User.hasMany(models.role, {
-            foreignKey: "userId",
+            foreignKey: 'userId',
             as: 'role',
           });
         },

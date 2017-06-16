@@ -1,5 +1,7 @@
 import request from 'superagent';
 import * as types from './actionTypes';
+import * as tokenUtils from '../utils/tokenUtils';
+import { postEndpoint, getEndpoint, deleteEndpoint } from '../API/api';
 
 export const closeDocument = () => ({
   type: types.CLOSE_DOCUMENT
@@ -87,7 +89,7 @@ export const listDocuments = () => (dispatch) => {
   dispatch(documentsRequest());
   return (
       request
-        .get('/api/documents')
+        .getEndpoint('/api/documents')
         .set('authorization', window.localStorage.getItem('token'))
         .then((response) => {
           dispatch(documentsSuccess(response.body));
@@ -102,7 +104,7 @@ export const createDocument = documentData => (dispatch) => {
   dispatch(documentsAddRequest(documentData));
   return (
       request
-      .post('/api/document')
+      .postEndpoint('/api/document')
       .set('authorization', window.localStorage.getItem('token'))
       .send(documentData)
       .then((response) => {
@@ -134,7 +136,7 @@ export const deleteDocument = documentId => (dispatch) => {
   dispatch(documentsDeleteRequest());
   return (
       request
-      .delete(`/api/document/${documentId}`)
+      .deleteEndpoint(`/api/document/${documentId}`)
       .set('authorization', window.localStorage.getItem('token'))
       .then((response) => {
         dispatch(documentsDeleteSuccess(response.body));

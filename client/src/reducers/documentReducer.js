@@ -16,32 +16,32 @@ export const documentList = (state = DOCUMENT_LIST, action) => {
         loading: true,
       });
     case actionTypes.DOCUMENT_SUCCESS:
-    return Object.assign({}, state,{
-      documents:action.document,
-      error:null,
-      loading:false,
-    });
+      return Object.assign({}, state, {
+        documents: action.document,
+        error: null,
+        loading: false,
+      });
     case actionTypes.DOCUMENT_FAILURE:
-    return Object.assign({}, state,{
-      documents:[],
-      error:action.error,
-      loading:false,
-    });
+      return Object.assign({}, state, {
+        documents: [],
+        error: action.error,
+        loading: false,
+      });
     case actionTypes.DOCUMENT_ADD_SUCCESS:
-    return Object.assign({}, state,{
-      documents:[action.document,
-      ...state.documents],
-    });
+      return Object.assign({}, state, {
+        documents: [action.document,
+          ...state.documents],
+      });
     case actionTypes.DOCUMENTS_DELETE_SUCCESS:
-    return Object.assign({}, state,{
-      documents:state.documents.filter(id => id! ==action.documentId),
-    });
+      return Object.assign({}, state, {
+        documents: state.documents.filter(id => id !== action.documentId),
+      });
     case actionTypes.SET_DOCUMENTS_SEARCH_FILTER:
-    return Object.assign({}, state,{
-      searchFilter:searchFilter(state.searchFilter,action),
-    });
+      return Object.assign({}, state, {
+        searchFilter: searchFilter(state.searchFilter, action),
+      });
     default:
-    return state
+      return state;
   }
 };
 
@@ -115,4 +115,4 @@ export const editDocument = (state = { error: null, loading: false }, action) =>
     default:
       return state;
   }
-}
+};

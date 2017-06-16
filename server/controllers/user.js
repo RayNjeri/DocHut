@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+
 const secretKey = process.env.SECRET_TOKEN_KEY;
 
 const saltRounds = 10;
@@ -22,11 +23,11 @@ const findWithDocuments = (method, params) => {
   }
 
   return user[method](includeDocuments);
-}
+};
 
 module.exports = {
 
-  //create a new user
+  // create a new user
 
   create(req, res) {
     const firstName = req.body.firstName;
@@ -39,20 +40,19 @@ module.exports = {
       return res.status(400).json({ message: 'Enter All Required Fields' });
     } else if (!(/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(req.body.email))) {
       return res.status(400).json({ message: 'Please Enter A Valid Email Address' });
-    } else {
-      user.create({
-        firstName,
-        lastName,
-        userName,
-        email,
-        password,
-      })
+    }
+    user.create({
+      firstName,
+      lastName,
+      userName,
+      email,
+      password,
+    })
         .then(user => res.status(201).json(user))
         .catch(error => res.status(400).send(error));
-    }
   },
 
-  //login a user
+  // login a user
 
   login(req, res) {
     user.findOne({
@@ -76,13 +76,13 @@ module.exports = {
                 expiresIn: '24h'
               });
             }
-            return res.send('Password/email does not match')
+            return res.send('Password/email does not match');
           })
           .catch(() => {
             res.status(401).send({
               message: 'Invalid login credentials',
             });
-          })
+          });
       })
       .catch(() => {
         res.status(401).send({
@@ -91,7 +91,7 @@ module.exports = {
       });
   },
 
-  //Find matching instances of user
+  // Find matching instances of user
 
   list(req, res) {
     findWithDocuments('findAll')
@@ -99,11 +99,11 @@ module.exports = {
       .catch(error => res.status(400).send(error));
   },
 
-  //Find user
+  // Find user
 
   retrieve(req, res) {
     findWithDocuments('findById', req.params.userId)
-      .then(user => {
+      .then((user) => {
         if (!user) {
           return res.status(404).send({
             message: 'user Not Found',
@@ -114,11 +114,11 @@ module.exports = {
       .catch(error => res.status(400).send(error));
   },
 
-  //Update user attributes
+  // Update user attributes
 
   update(req, res) {
     findWithDocuments('findById', req.params.userId)
-      .then(user => {
+      .then((user) => {
         if (!user) {
           return res.status(404).send({
             message: 'User Not Found',
@@ -126,12 +126,12 @@ module.exports = {
         }
         user.update({ userName: req.body.userName || user.userName, })
           .then(() => res.status(200).send(user))
-          .catch((error) => res.status(400).send(error));
+          .catch(error => res.status(400).send(error));
       })
-      .catch((error) => res.status(400).send(error));
+      .catch(error => res.status(400).send(error));
   },
 
-  //delete a user
+  // delete a user
 
   destroy(req, res) {
     user.findById(req.params.userId)
@@ -175,5 +175,5 @@ module.exports = {
     });
   }
 
-}
+};
 

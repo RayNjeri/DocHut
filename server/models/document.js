@@ -1,4 +1,4 @@
-'use strict';
+
 const User = require('./user');
 
 module.exports = (sequelize, DataTypes) => {
@@ -12,15 +12,15 @@ module.exports = (sequelize, DataTypes) => {
       // allowNull: false
     },
   }, {
-      tableName: 'documents',
-      classMethods: {
-        associate: (models) => {
-          Document.belongsTo(models.User, {
-            foreignKey: 'userId',
-            onDelete: 'CASCADE',
-          });
-        },
+    tableName: 'documents',
+    classMethods: {
+      associate: (models) => {
+        Document.belongsTo(models.User, {
+          foreignKey: 'userId',
+          onDelete: 'CASCADE',
+        });
       },
-    });
+    },
+  });
   return Document;
 };

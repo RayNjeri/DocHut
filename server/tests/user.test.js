@@ -8,12 +8,12 @@ chai.use(chaiHttp);
 
 api = supertest('http://localhost:8000');
 
-describe('User', function () {
+describe('User', () => {
   it('it should create a SINGLE user on /userPOST', (done) => {
     chai.request('http://localhost:8000')
       .post('api/user')
-      .send({ 'firstName': 'Rachael', 'lastName': 'Njeri', 'userName': 'Ray', 'email': 'rachael.njeri@andela.com', 'password': 'qwerty123' })
-      .end(function (err, res) {
+      .send({ firstName: 'Rachael', lastName: 'Njeri', userName: 'Ray', email: 'rachael.njeri@andela.com', password: 'qwerty123' })
+      .end((err, res) => {
         res.expect.have.status(200);
         res.expect.be.json;
         res.body.expect.be.a('object');
@@ -28,8 +28,7 @@ describe('User', function () {
         res.body.SUCCESS.lastName.should.equal('Njeri');
         res.body.SUCCESS.userName.should.equal('Ray');
         res.body.SUCCESS.email.should.equal('rachael.njeri@andela.com');
-        res.body.SUCCESS.password.should.equal('qwerty123')
-
+        res.body.SUCCESS.password.should.equal('qwerty123');
       });
     done();
   });
@@ -52,7 +51,7 @@ describe('User', function () {
   it('should not login an invalid user', (done) => {
     api.post('api/user/login', (error, response, body) => {
       expect(error.statusCode).equal(403);
-      expect(error.statusMessage).to.equal('Invalid User')
+      expect(error.statusMessage).to.equal('Invalid User');
     });
   });
 
@@ -93,7 +92,5 @@ describe('User', function () {
     });
     done();
   });
-
 });
-
 

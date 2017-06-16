@@ -1,5 +1,5 @@
-'use strict';
-const getColumns = (Sequelize) => ({
+
+const getColumns = Sequelize => ({
   firstName: {
     type: Sequelize.STRING,
     allowNull: false
@@ -21,7 +21,7 @@ const getColumns = (Sequelize) => ({
 
 
 module.exports = {
-  up: function (queryInterface, Sequelize) {
+  up(queryInterface, Sequelize) {
     const columns = getColumns(Sequelize);
     const colNames = Object.keys(columns);
     /*
@@ -39,7 +39,7 @@ module.exports = {
     return Promise.all(addPromises);
   },
 
-  down: function (queryInterface, Sequelize) {
+  down(queryInterface, Sequelize) {
     /*
       Add reverting commands here.
       Return a promise to correctly handle asynchronicity.

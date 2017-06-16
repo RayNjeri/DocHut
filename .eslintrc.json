@@ -30,8 +30,9 @@
       "error",
       "multi-line"
     ],
+    "no-unused-vars": 1,
     "no-shadow": [
-      "error",
+      0,
       {
         "allow": [
           "req",
