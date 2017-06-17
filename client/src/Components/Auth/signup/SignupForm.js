@@ -6,7 +6,7 @@ import { Card, CardText } from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import validateInput from '../../../utils/validate';
+import validateInput from '../../../utils/signupValidate';
 import { userSignupRequest } from '../../../actions/authActions';
 
 
@@ -38,12 +38,12 @@ class SignUpForm extends React.Component {
     if (this.isValid()) {
       this.setState({ errors: {}, isLoading: true });
       this.props.userSignupRequest(this.state)
-      .then(
+        .then(
         () => {
           this.context.router.push('/header');
         },
         err => this.setState({ errors: err.response.data, isLoading: false })
-      );
+        );
     }
   }
 
@@ -66,7 +66,7 @@ class SignUpForm extends React.Component {
             <form action="/" onSubmit={this.onSubmit}>
               <h2 className="card-heading">Sign Up</h2>
 
-              { errors.form && <div className="alert alert-danger">{errors.form}</div> }
+              {errors.form && <div className="alert alert-danger">{errors.form}</div>}
 
               <div className="field-line">
                 <TextField
