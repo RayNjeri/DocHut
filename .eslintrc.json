@@ -10,15 +10,6 @@
     "es6": true,
     "mocha": true
   },
-  "react/jsx-filename-extension": [
-    "error",
-    {
-      "extensions": [
-        ".js",
-        ".jsx"
-      ]
-    }
-  ],
   "rules": {
     "one-var": 0,
     "one-var-declaration-per-line": 0,
@@ -38,6 +29,15 @@
           "req",
           "res",
           "err"
+        ]
+      }
+    ],
+    "react/jsx-filename-extension": [
+      "error",
+      {
+        "extensions": [
+          ".js",
+          ".jsx"
         ]
       }
     ]

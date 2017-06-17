@@ -15,20 +15,22 @@ export class Documents extends React.Component {
   }
 
   onContentChange(event) {
-    const content = this.state.content;
-    document.content = event.target.value;
-    this.setState({ content });
+    this.setState({
+      document: {
+        content: event.target.value
+      }
+    });
   }
   onClickSave() {
     this.props.dispatch(documentsAction.craeteDocument(this.state.document));
   }
 
+  // eslint-disable-next-line class-methods-use-this
   documentRow(document, index) {
     return <div key={index}>{document.content}</div>;
   }
 
   render() {
-    console.log('Da documents', Array.isArray(this.props.documents))
     return (
       <div>
         <h1> Documents </h1>
@@ -41,10 +43,13 @@ export class Documents extends React.Component {
   }
 }
 function mapStateToProps(state, ownProps) {
-  console.log('Da state', state)
   return {
     documents: state.documents.documents
   };
 }
+
+Documents.propTypes = {
+  dispatch: PropTypes.func.isRequired, documents: PropTypes.func.isRequired
+};
 
 export default connect(mapStateToProps)(Documents);
