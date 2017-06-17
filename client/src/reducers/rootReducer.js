@@ -4,7 +4,8 @@ import documents from './documentReducer';
 
 
 const rootReducer = combineReducers({
-  documents
+  documents,
+  authReducer
 
 
 });

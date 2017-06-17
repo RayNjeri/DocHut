@@ -23,8 +23,8 @@
   "homepage": "https://github.com/RayNjeri/DocHut#readme",
   "dependencies": {
     "babel-polyfill": "^6.23.0",
-    "body-parser": "^1.17.2",
     "bcrypt": "^1.0.2",
+    "body-parser": "^1.17.2",
     "codacy-coverage": "^2.0.2",
     "codeclimate-test-reporter": "^0.5.0",
     "coveralls": "^2.13.1",
@@ -33,6 +33,7 @@
     "istanbul": "^0.4.5",
     "jest": "^20.0.4",
     "jsonwebtoken": "^7.4.1",
+    "lodash": "^4.17.4",
     "material-ui": "^0.18.3",
     "mocha": "^3.4.2",
     "morgan": "^1.8.2",
@@ -49,7 +50,8 @@
     "redux": "^3.6.0",
     "redux-thunk": "^2.2.0",
     "sequelize": "^3.30.4",
-    "superagent": "^3.5.2"
+    "superagent": "^3.5.2",
+    "validator": "^7.0.0"
   },
   "devDependencies": {
     "babel-loader": "^6.4.1",

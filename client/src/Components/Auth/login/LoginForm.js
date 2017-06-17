@@ -23,7 +23,7 @@ export class LoginForm extends React.component {
     if (this.isValid()) {
       this.setState({ errors: {}, isLoading: true });
       this.props.login(this.state).then(res => {
-        this.context.router.push('/dashboard')
+        this.context.router.push('/Header')
       })
         .catch(err => this.setState({ errors: err, isLoading: false }));
     }

@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import AppBar from 'material-ui/AppBar';
 
 export default class LoginPage extends React.Component {
@@ -8,7 +7,7 @@ export default class LoginPage extends React.Component {
       <div>
         <center>
           <AppBar
-            style={{ background: '#ac3b80' }}
+            style={{ background: '#3bac95' }}
             title="DocHut"
             showMenuIconButton={false}
           />
@@ -17,5 +16,3 @@ export default class LoginPage extends React.Component {
       </div>
     );
   }
-}
-
