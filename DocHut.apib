@@ -1,0 +1,111 @@
+FORMAT: 1A
+
+# DocHut
+
+DocHut is a document management API that allows for CRUD operations on the system.
+
+## User routes [api/user]
+
++ Request (application/json)
+
+        {
+            firstName: "lilian" ;
+            lastName: "muthoni";
+            userName: "lily",
+            email: lily@gmail.com
+            password: msoh
+        }
+
++ Response 201 (application/json)
+
++ Body
+
+        {
+            "id": 3,
+            "firstName": "lilian",
+            "lastName": "muthoni",
+            "userName": "lily",
+            "email": "lily@gmail.com",
+            "password": "$2a$10$ukeTFIdDlStpSL7b56rlfe2VRWIrnGXpaY04s.ylNn8z8Ur8BPGb2",
+            "updatedAt": "2017-06-18T08:03:37.534Z",
+            "createdAt": "2017-06-18T08:03:37.534Z"
+        }
+
+### Login [POST]
+
++ Request (application/json)
+
+        {
+            email: lily@gmail.com
+            password: msoh
+        }
+
++ Response 200 (application/json)
+
+    + Body
+
+        {
+            "message": "You were successfully logged in",
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjMsImlhdCI6MTQ5Nzc3MzQzOCwiZXhwIjoxNDk3ODU5ODM4fQ.bZ4EwD-sLPucvioPyJK-OWt63Fho9IywV65IwzPPvSQ",
+            "expiresIn": "24h"
+        }
+
+### Find One User[GET]
+
++ Request (application/json)
+
+        {
+            x-access-token : Token
+        }
+
++ Response 200 (application/json)
+
+    + Headers
+            x-access-token : Token
+    + Body
+
+        {
+            "id": 3,
+            "firstName": "lilian",
+            "lastName": "muthoni",
+            "userName": "lily",
+            "email": "lily@gmail.com",
+            "password": "$2a$10$ukeTFIdDlStpSL7b56rlfe2VRWIrnGXpaY04s.ylNn8z8Ur8BPGb2",
+            "createdAt": "2017-06-18T08:03:37.534Z",
+            "updatedAt": "2017-06-18T08:03:37.534Z",
+            "documents": []
+        }
+
+### List All Users[GET]
+
++ Response 200 (application/json)
+
+    + Headers
+
+            x-access-token : Token
+
+    + Body
+
+        {
+            "id": 1,
+            "firstName": "Mercy",
+            "lastName": "muchai",
+            "userName": "MuchaiM",
+            "email": "muchai@gmail.com",
+            "password": "$2a$10$wXsnb6l/7/CTwE/rKAZxFuM.Y/ZnKtFz2estRLIoLX8k2JS.9Wkzy",
+            "createdAt": "2017-06-13T09:10:17.021Z",
+            "updatedAt": "2017-06-13T09:10:17.021Z",
+            "documents": []
+        }
+
+        {
+            "id": 3,
+            "firstName": "lilian",
+            "lastName": "muthoni",
+            "userName": "lily",
+            "email": "lily@gmail.com",
+            "password": "$2a$10$ukeTFIdDlStpSL7b56rlfe2VRWIrnGXpaY04s.ylNn8z8Ur8BPGb2",
+            "createdAt": "2017-06-18T08:03:37.534Z",
+            "updatedAt": "2017-06-18T08:03:37.534Z",
+            "documents": []
+        }
