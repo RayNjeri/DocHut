@@ -8,28 +8,13 @@ chai.use(chaiHttp);
 
 api = supertest('http://localhost:8000');
 
-describe('User', () => {
-  it('it should create a SINGLE user on /userPOST', (done) => {
-    chai.request('http://localhost:8000')
-      .post('api/user')
-      .send({ firstName: 'Rachael', lastName: 'Njeri', userName: 'Ray', email: 'rachael.njeri@andela.com', password: 'qwerty123' })
-      .end((err, res) => {
-        res.expect.have.status(200);
-        res.expect.be.json;
-        res.body.expect.be.a('object');
-        res.body.expect.have.property('SUCCESS');
-        res.body.SUCCESS.should.be.a('object');
-        res.body.SUCCESS.should.have.property('firstName');
-        res.body.SUCCESS.should.have.property('lastName');
-        res.body.SUCCESS.should.have.property('userName');
-        res.body.SUCCESS.should.have.property('email');
-        res.body.SUCCESS.should.have.property('password');
-        res.body.SUCCESS.firstName.should.equal('Rachael');
-        res.body.SUCCESS.lastName.should.equal('Njeri');
-        res.body.SUCCESS.userName.should.equal('Ray');
-        res.body.SUCCESS.email.should.equal('rachael.njeri@andela.com');
-        res.body.SUCCESS.password.should.equal('qwerty123');
-      });
+describe('/POST user', () => {
+  it('it should create a users', (done) => {
+    api.post('/api/users/', (error, response, body) => {
+      expect(response.statusCode).to.equal(200);
+      expect(response.statusMessage).to.equal('OK');
+      expect(body).to.equal(true);
+    });
     done();
   });
 
