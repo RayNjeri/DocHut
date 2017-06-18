@@ -4,6 +4,7 @@ const path = require('path');
 const webpack = require('webpack');
 const bodyParser = require('body-parser');
 const config = require('./webpack.config.dev');
+
 const NODE_ENV = process.env.NODE_ENV;
 
 if (NODE_ENV !== 'production') {
