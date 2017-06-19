@@ -84,26 +84,27 @@ export const documentsSearchFilter = searchFilter => ({
   searchFilter
 });
 
+/* eslint no-undef: "off"*/
 
 export const listDocuments = () => (dispatch) => {
   dispatch(documentsRequest());
   return (
-      request
-        .getEndpoint('/api/documents')
-        .set('authorization', window.localStorage.getItem('token'))
-        .then((response) => {
-          dispatch(documentsSuccess(response.body));
-        })
-        .catch((error) => {
-          dispatch(documentsFailure(error));
-        })
+    request
+      .getEndpoint('/api/documents')
+      .set('authorization', window.localStorage.getItem('token'))
+      .then((response) => {
+        dispatch(documentsSuccess(response.body));
+      })
+      .catch((error) => {
+        dispatch(documentsFailure(error));
+      })
   );
 };
 
 export const createDocument = documentData => (dispatch) => {
   dispatch(documentsAddRequest(documentData));
   return (
-      request
+    request
       .postEndpoint('/api/document')
       .set('authorization', window.localStorage.getItem('token'))
       .send(documentData)
@@ -119,7 +120,7 @@ export const createDocument = documentData => (dispatch) => {
 export const updateDocument = documentData => (dispatch) => {
   dispatch(documentsUpdateRequest(documentData));
   return (
-      request
+    request
       .put(`/api/document/${documentData.id}`)
       .set('authorization', window.localStorage.getItem('token'))
       .send(documentData)
@@ -135,7 +136,7 @@ export const updateDocument = documentData => (dispatch) => {
 export const deleteDocument = documentId => (dispatch) => {
   dispatch(documentsDeleteRequest());
   return (
-      request
+    request
       .deleteEndpoint(`/api/document/${documentId}`)
       .set('authorization', window.localStorage.getItem('token'))
       .then((response) => {
@@ -150,7 +151,7 @@ export const deleteDocument = documentId => (dispatch) => {
 export const getDocument = documentId => (dispatch) => {
   dispatch(documentsGetRequest());
   return (
-      request
+    request
       .get(`/api/document/${documentId}`)
       .set('authorization', window.localStorage.getItem('token'))
       .then((response) => {

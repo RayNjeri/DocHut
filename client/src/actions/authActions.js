@@ -35,10 +35,12 @@ export const setCurrentUser = user => ({
 
 export const LoginUser = user => ({ type: types.LOGIN_USER, user });
 
+/* eslint no-undef: "off"*/
+
 export const userSignupRequest = userData => (dispatch) => {
   dispatch(signUpUser(userData));
   return (
-     request
+    request
       .post('/api/user')
       .send(userData)
       .then((response) => {
@@ -54,7 +56,7 @@ export const userSignupRequest = userData => (dispatch) => {
 export const login = userData => (dispatch) => {
   dispatch(LoginUser(userData));
   return (
-     request
+    request
       .post('/api/user/login')
       .send(userData)
       .then((response) => {

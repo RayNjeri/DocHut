@@ -1,6 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
+import { Card, CardText } from 'material-ui/Card';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import RaisedButton from 'material-ui/RaisedButton';
+import TextField from 'material-ui/TextField';
+import login from '../../../actions/authActions';
+
 
 export class LoginForm extends React.Component {
   constructor(props) {
@@ -12,7 +20,7 @@ export class LoginForm extends React.Component {
       isLoading: false
     };
     this.onSubmit = this.onSubmit.bind(this);
-    this.oChange = this.onChange.bind(this);
+    this.onChange = this.onChange.bind(this);
   }
   onChange(e) {
     this.setState({ [e.target.name]: e.target.value });
@@ -94,6 +102,7 @@ LoginForm.propTypes = {
 LoginForm.contextTypes = {
   router: React.PropTypes.object.isRequired
 };
+
 
 export default connect(null, { login })(LoginForm);
 
