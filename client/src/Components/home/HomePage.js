@@ -1,16 +1,17 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { Card, CardTitle } from 'material-ui/Card';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import Paper from 'material-ui/Paper';
+import AppBar from 'material-ui/AppBar';
+import LoginPage from '../Auth/login/loginPage';
 
-export default class HomePage extends React.Component {
-  render() {
-    return (
-      <div>
-        <h1> DocHut </h1>
-        <p>React Redux</p>
-        <Link to="/about"> Learn More </Link>
-      </div>
 
-    );
-  }
-}
-
+const HomePage = () => (
+  <div>
+    <center>
+      <p1>Safely keep and manage your Docs</p1>
+      <LoginPage />
+    </center>
+  </div>
+);
+export default HomePage;
