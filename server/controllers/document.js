@@ -37,8 +37,12 @@ module.exports = {
   // list all documents
 
   list(req, res) {
-    document.findAll({
-    })
+    if (req.query.limit || req.query.offset) {
+      return document.findAll({ offset: req.query.offset, limit: req.query.limit })
+        .then(response => res.status(200).send(response))
+        .catch(error => res.status(400).send(error));
+    }
+    document.all()
       .then(document => res.status(200).send(document))
       .catch(error => res.status(400).send(error));
   },

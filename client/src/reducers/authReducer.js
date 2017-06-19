@@ -2,6 +2,8 @@ import isEmpty from 'lodash/isEmpty';
 import * as types from '../actions/actionTypes';
 import * as tokenUtils from '../utils/tokenUtils';
 
+/* eslint-disable max-len */
+
 const authReducer = (state = { isFetching: false, isAuthenticated: !!tokenUtils.getAuthToken() }, action) => {
   switch (action.type) {
     case types.SET_CURRENT_USER:
