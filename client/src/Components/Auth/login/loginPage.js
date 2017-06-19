@@ -1,5 +1,6 @@
 import React from 'react';
 import AppBar from 'material-ui/AppBar';
+import LoginForm from './LoginForm';
 
 export default class LoginPage extends React.Component {
   render() {
@@ -16,3 +17,4 @@ export default class LoginPage extends React.Component {
       </div>
     );
   }
+}

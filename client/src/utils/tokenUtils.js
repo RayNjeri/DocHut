@@ -1,3 +1,5 @@
+/* eslint no-undef: "off"*/
+
 export const getAuthToken = () => window.localStorage.getItem('token');
 
 export const setAuthToken = token => window.localStorage.setItem('token', token);

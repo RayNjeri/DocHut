@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
-export class LoginForm extends React.component {
+export class LoginForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -22,12 +22,14 @@ export class LoginForm extends React.component {
     e.preventDefault();
     if (this.isValid()) {
       this.setState({ errors: {}, isLoading: true });
-      this.props.login(this.state).then(res => {
-        this.context.router.push('/Header')
+      this.props.login(this.state).then((res) => {
+        this.context.router.push('/Header');
       })
-        .catch(err => this.setState({ errors: err, isLoading: false }));
+                .catch(err => this.setState({ errors: err, isLoading: false }));
     }
   }
+
+    /* eslint no-undef: "off"*/
 
   isValid() {
     const { errors, isValid } = loginValidate(this.state);
@@ -40,7 +42,9 @@ export class LoginForm extends React.component {
   render() {
     const { errors, email, password, isLoading } = this.state;
 
+
     return (
+
       <MuiThemeProvider>
         <center>
           <Card className="container">
@@ -92,5 +96,4 @@ LoginForm.contextTypes = {
 };
 
 export default connect(null, { login })(LoginForm);
-}
 

@@ -22,7 +22,7 @@ export class Documents extends React.Component {
     });
   }
   onClickSave() {
-    this.props.dispatch(documentsAction.craeteDocument(this.state.document));
+    this.props.dispatch(documentsAction.createDocument(this.state.document));
   }
 
   // eslint-disable-next-line class-methods-use-this
