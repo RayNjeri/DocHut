@@ -105,7 +105,7 @@ export const listDocuments = () => (dispatch) => {
 
 export const createDocument = documentData => (dispatch) => {
   dispatch(documentsAddRequest(documentData));
-  console.log('token: ', window.localStorage.getItem('token'))
+  console.log('token: ', window.localStorage.getItem('token'));
   return (
     request
       .post('/api/document')
