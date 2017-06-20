@@ -48,7 +48,17 @@ module.exports = {
       email,
       password,
     })
-        .then(user => res.status(201).json(user))
+        .then(() => {
+          const token = jwt.sign({ userId: user.id}, secretKey, { expiresIn: '24h' });
+          let data = {
+            firstName: firstName,
+            lastName: lastName,
+            userName: userName,
+            email: email,
+            token: token
+          };
+          return res.status(201).json(data);
+        })
         .catch(error => res.status(400).send(error));
   },
 
