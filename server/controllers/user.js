@@ -35,6 +35,7 @@ module.exports = {
     const userName = req.body.userName;
     const email = req.body.email;
     const password = bcrypt.hashSync(req.body.password, saltRounds);
+    const roleId = 2;
 
     if (!firstName || !lastName || !userName || !email || !password) {
       return res.status(400).json({ message: 'Enter All Required Fields' });
@@ -47,9 +48,10 @@ module.exports = {
       userName,
       email,
       password,
+      roleId,
     })
-        .then(() => {
-          const token = jwt.sign({ userId: user.id}, secretKey, { expiresIn: '24h' });
+        .then((user) => {
+          const token = jwt.sign({ userId: user.id, roleId}, secretKey, { expiresIn: '24h' });
           let data = {
             firstName: firstName,
             lastName: lastName,

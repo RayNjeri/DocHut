@@ -35,7 +35,11 @@ module.exports = (sequelize, DataTypes) => {
     password: {
       type: DataTypes.STRING,
       allowNull: false
-    }
+    },
+    roleId: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
   },
     {
       tableName: 'users',
@@ -44,10 +48,6 @@ module.exports = (sequelize, DataTypes) => {
           User.hasMany(models.Document, {
             foreignKey: 'userId',
             as: 'documents',
-          });
-          User.hasMany(models.role, {
-            foreignKey: 'userId',
-            as: 'role',
           });
         },
       },

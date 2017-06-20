@@ -1,6 +1,7 @@
 const userController = require('../controllers').user;
 const documentController = require('../controllers').document;
-const Auth = require('../middlewares').Auth; // authorise middlwares
+const {Auth, isAdmin} = require('../middlewares'); // authorise middlwares
+
 
 module.exports = (app) => {
   app.get('/api', (req, res) => res.status(200).send({
@@ -9,14 +10,14 @@ module.exports = (app) => {
 
   app.post('/api/user', userController.create);
   app.post('/api/user/login', userController.login);
-  app.get('/api/user', Auth, userController.list);
+  app.get('/api/user', [Auth, isAdmin], userController.list);
   app.get('/api/user/:userId', userController.retrieve);
   app.get('/api/search/document', userController.searchUser);
   app.put('/api/user/:userId', userController.update);
   app.delete('/api/user/:userId', Auth, userController.destroy);
   app.post('/api/user/logout', userController.logout);
 
-  app.post('/api/document', documentController.create);
+  app.post('/api/document', Auth, documentController.create);
   app.get('/api/document', Auth, documentController.list);
   app.get('get/document/?limit={integer}&offset={integer}', documentController.list);
   app.get('/api/document/:documentId', Auth, documentController.retrieve);

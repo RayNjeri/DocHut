@@ -6,7 +6,7 @@ module.exports = {
   create(req, res) {
     document.create({
       content: req.body.content,
-      userId: req.body.userId,
+      userId: req.userId,
       access: req.body.access,
     })
       .then(document => res.status(201).send(document))

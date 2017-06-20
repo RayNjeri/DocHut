@@ -19,13 +19,15 @@ const Auth = (req, res, next) => {
         messsage: 'Invalid token provided'
       });
     }
+    console.log(decoded);
     req.roleId = decoded.roleId;
+    req.userId = decoded.userId;
     return next();
   });
 };
 
 const isAdmin = (req, res, next) => {
-  const admin = 2;
+  const admin = 1;
   if (req.roleId === admin) {
     return next();
   }
