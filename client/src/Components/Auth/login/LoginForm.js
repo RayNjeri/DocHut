@@ -8,6 +8,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import login from '../../../actions/authActions';
+import loginValidate from '../../../utils/loginValidation';
 
 
 export class LoginForm extends React.Component {
@@ -31,7 +32,7 @@ export class LoginForm extends React.Component {
     if (this.isValid()) {
       this.setState({ errors: {}, isLoading: true });
       this.props.login(this.state).then((res) => {
-        this.context.router.push('/Header');
+        this.context.router.push('/documents');
       })
                 .catch(err => this.setState({ errors: err, isLoading: false }));
     }
