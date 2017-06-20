@@ -1,19 +1,20 @@
 import Validator from 'validator';
 import isEmpty from 'lodash/isEmpty';
 
+
 const validateInput = (data) => {
   const errors = {};
 
   if (Validator.isEmpty(data.firstName)) {
-    errors.fName = 'This field is required';
+    errors.firstName = 'This field is required';
   }
 
   if (Validator.isEmpty(data.lastName)) {
-    errors.lName = 'This field is required';
+    errors.lastName = 'This field is required';
   }
 
   if (Validator.isEmpty(data.userName)) {
-    errors.username = 'This field is required';
+    errors.userName = 'This field is required';
   }
   if (Validator.isEmpty(data.email)) {
     errors.email = 'This field is required';
