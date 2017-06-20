@@ -1,55 +1,73 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import * as documentsAction from '../../actions/documentsAction';
+import React, { PropTypes } from 'react';
+import Chip from 'material-ui/Chip';
+import Gravatar from 'react-gravatar';
+import md5 from 'blueimp-md5';
+import IconMenu from 'material-ui/IconMenu';
+import MenuItem from 'material-ui/MenuItem';
+import { GridList, GridTile } from 'material-ui/GridList';
+import IconButton from 'material-ui/IconButton';
+import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import Subheader from 'material-ui/Subheader';
+import StarBorder from 'material-ui/svg-icons/toggle/star-border';
+import Header from '../common/Header';
+import { getUserFromToken } from '../../utils/tokenUtils';
+import JWTdecode from 'jwt-decode';
 
-export class Documents extends React.Component {
-  constructor(props, context) {
-    super(props, context);
-    this.state = {
-      document: { content: '' }
-    };
-
-    this.onContentChange = this.onContentChange.bind(this);
-    this.onClickSave = this.onClickSave.bind(this);
-  }
-
-  onContentChange(event) {
-    this.setState({
-      document: {
-        content: event.target.value
-      }
-    });
-  }
-  onClickSave() {
-    this.props.dispatch(documentsAction.createDocument(this.state.document));
-  }
-
-  // eslint-disable-next-line class-methods-use-this
-  documentRow(document, index) {
-    return <div key={index}>{document.content}</div>;
-  }
-
-  render() {
-    return (
-      <div>
-        <h1> Documents </h1>
-        {this.props.documents.map(this.documentRow)}
-        <h2> Create documents </h2>
-        <input type="text" onChange={this.onContentChange} value={this.state.document.content} />
-        <input type="submit" value="Save" onClick={this.onClickSave} />
-      </div>
-    );
-  }
-}
-function mapStateToProps(state, ownProps) {
-  return {
-    documents: state.documents.documents
-  };
-}
-
-Documents.propTypes = {
-  dispatch: PropTypes.func.isRequired, documents: PropTypes.func.isRequired
+const styles = {
+    titleStyle: {
+        color: '#ffffff'
+    }
 };
 
-export default connect(mapStateToProps)(Documents);
+/* eslint no-undef: "off"*/
+const owner = window.localStorage.getItem('userName');
+// const token = window.localStorage.getItem('token');
+// console.log((token));
+
+const DocumentView = props => (
+    <div>
+        <GridList
+            cellHeight={180}
+            cols={1}
+        >
+            {getUserFromToken().userId === props.document.userId ?
+                <IconMenu
+                    style={{ float: 'right' }}
+                    iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
+                    anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+                    targetOrigin={{ horizontal: 'right', vertical: 'top' }}
+                >
+                    <MenuItem
+                        primaryText="Edit Document"
+                        onTouchTap={() =>
+                            props.onUpdate(props.document)}
+                    />
+                    <MenuItem
+                        primaryText="Delete Document"
+                        onTouchTap={() => {
+                            props.deleteDocument(props.document.id)
+                                .then(() => {
+                                    props.listDocuments();
+                                });
+                        }
+                        }
+                    />
+                </IconMenu> : <span />
+            }
+            <GridTile
+                title={`Title: ${props.document.title}`}
+                titleStyle={styles.titleStyle}
+            >
+                <h5>{props.document.title}</h5>
+                {props.document.content}
+            </GridTile>
+        </GridList>
+    </div>
+);
+
+Document.propTypes = {
+    dispatch: PropTypes.func.isRequired,
+    documents: PropTypes.func.isRequired
+};
+
+export default DocumentView;

@@ -12,7 +12,7 @@ export default (
   <Route path="/" component={App}>
     <IndexRoute component={HomePage} />
     <Route path="about" component={AboutPage} />
-    <Route path="document" component={Documents} />
+    <Route path="documents" component={Documents} />
     <Route path="signup" component={SignUp} />
     <Route path="login" component={Login} />
   </Route>

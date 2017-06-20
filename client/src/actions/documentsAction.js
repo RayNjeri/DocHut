@@ -1,6 +1,8 @@
 import request from 'superagent';
+import jwtDecode from 'jwt-decode';
 import * as types from './actionTypes';
 import * as tokenUtils from '../utils/tokenUtils';
+
 import { postEndpoint, getEndpoint, deleteEndpoint } from '../API/api';
 
 export const closeDocument = () => ({
@@ -90,7 +92,7 @@ export const listDocuments = () => (dispatch) => {
   dispatch(documentsRequest());
   return (
     request
-      .getEndpoint('/api/documents')
+      .get('/api/documents')
       .set('authorization', window.localStorage.getItem('token'))
       .then((response) => {
         dispatch(documentsSuccess(response.body));
@@ -105,7 +107,7 @@ export const createDocument = documentData => (dispatch) => {
   dispatch(documentsAddRequest(documentData));
   return (
     request
-      .postEndpoint('/api/document')
+      .post('/api/document')
       .set('authorization', window.localStorage.getItem('token'))
       .send(documentData)
       .then((response) => {
@@ -137,7 +139,7 @@ export const deleteDocument = documentId => (dispatch) => {
   dispatch(documentsDeleteRequest());
   return (
     request
-      .deleteEndpoint(`/api/document/${documentId}`)
+      .delete(`/api/document/${documentId}`)
       .set('authorization', window.localStorage.getItem('token'))
       .then((response) => {
         dispatch(documentsDeleteSuccess(response.body));
