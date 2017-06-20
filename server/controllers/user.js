@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt-nodejs');
 
 const secretKey = process.env.SECRET_TOKEN_KEY;
 
-const saltRounds = 10;
+const saltRounds = bcrypt.genSaltSync(10);
 
 const user = require('../models').User;
 const document = require('../models').Document;
@@ -72,30 +72,25 @@ module.exports = {
         email: req.body.email
       }
     })
-      .then((user) => {
+    .then((user) => {
         if (!user) {
           return res.status(403).send({
             message: 'Invalid user',
           });
         }
-        bcrypt.compare(req.body.password, user.password)
-          .then((matched) => {
-            if (matched) {
-              const token = jwt.sign({ userId: user.id, roleId: user.roleId }, secretKey, { expiresIn: '24h' });
-              return res.status(200).send({
-                message: 'You were successfully logged in',
-                token,
-                expiresIn: '24h'
-              });
-            }
+
+        if(!bcrypt.compareSync(req.body.password, user.password)) {
             return res.send('Password/email does not match');
-          })
-          .catch(() => {
-            res.status(401).send({
-              message: 'Invalid login credentials',
-            });
-          });
-      })
+        }
+
+        const token = jwt.sign({ userId: user.id, roleId: user.roleId }, secretKey, { expiresIn: '24h' });
+        return res.status(200).send({
+            message: 'You were successfully logged in',
+            token,
+            expiresIn: '24h'
+        });
+
+    })
       .catch(() => {
         res.status(401).send({
           error: 'Invalid login credentials'

@@ -5,7 +5,7 @@ module.exports = {
       queryInterface.addColumn(
       'documents',
       'title',
-      Sequelize.INTEGER);
+      Sequelize.STRING);
   },
     /*
       Add altering commands here.

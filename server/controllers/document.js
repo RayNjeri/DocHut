@@ -4,7 +4,9 @@ const document = require('../models').Document;
 
 module.exports = {
   create(req, res) {
+    console.log(req)
     document.create({
+      title:req.body.title,
       content: req.body.content,
       userId: req.userId,
       access: req.body.access,
