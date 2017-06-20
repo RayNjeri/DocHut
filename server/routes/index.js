@@ -11,6 +11,7 @@ module.exports = (app) => {
   app.post('/api/user/login', userController.login);
   app.get('/api/user', Auth, userController.list);
   app.get('/api/user/:userId', userController.retrieve);
+  app.get('/api/search/document', userController.searchUser);
   app.put('/api/user/:userId', userController.update);
   app.delete('/api/user/:userId', Auth, userController.destroy);
   app.post('/api/user/logout', userController.logout);
@@ -20,6 +21,7 @@ module.exports = (app) => {
   app.get('get/document/?limit={integer}&offset={integer}', documentController.list);
   app.get('/api/document/:documentId', Auth, documentController.retrieve);
   app.put('/api/document/:documentId', documentController.update);
+  app.get('/api/search/document', documentController.findByContent);
   app.delete('/api/document/:documentId', Auth, documentController.destroy);
 
 

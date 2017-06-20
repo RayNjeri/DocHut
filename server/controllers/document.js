@@ -79,5 +79,19 @@ module.exports = {
       })
       .catch(error => res.status(400).send(error));
   },
+
+  //search document
+
+  findByContent(req, res) {
+    return Document
+      .findAll({
+        where: {
+          content: { $like: `%${req.query.q}%` }
+        }
+      })
+      .then(response => res.status( 302).send(response))
+      .catch(error => res.status(400).send(error));
+  },
+
 };
 
