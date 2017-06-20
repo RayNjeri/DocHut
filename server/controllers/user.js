@@ -135,7 +135,7 @@ module.exports = {
           });
         }
         user.update({ userName: req.body.userName || user.userName, })
-          .then(() => res.status(200).send(user))
+          .then(() => res.status(201).send(user))
           .catch(error => res.status(400).send(error));
       })
       .catch(error => res.status(400).send(error));

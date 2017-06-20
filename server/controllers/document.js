@@ -28,7 +28,7 @@ module.exports = {
           content: req.body.content || document.content,
           access: req.body.access || document.access,
         })
-          .then(() => res.status(200).send(document))
+          .then(() => res.status(201).send(document))
           .catch(error => res.status(400).send(error));
       })
       .catch(error => res.status(400).send(error));
