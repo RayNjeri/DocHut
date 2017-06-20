@@ -147,7 +147,7 @@ module.exports = {
     user.findById(req.params.userId)
       .then((resp) => {
         if (!resp) {
-          return res.status(404).send({
+          return res.status(204).send({
             message: 'User Not Found',
           });
         }
