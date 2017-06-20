@@ -14,18 +14,18 @@ export default function reducer(state = DOCUMENT_LIST, action) {
         error: null,
         loading: true,
       });
-    case types.DOCUMENT_SUCCESS:
+    case types.DOCUMENTS_SUCCESS:
       return Object.assign({}, state, {
         documents: action.documents,
         error: null,
         loading: false,
       });
-    case types.DOCUMENT_FAILURE:
+    case types.DOCUMENTS_FAILURE:
       return Object.assign({}, state, {
         error: action.error,
         loading: false,
       });
-    case types.DOCUMENT_ADD_SUCCESS:
+    case types.DOCUMENTS_ADD_SUCCESS:
       return Object.assign({}, state, {
         documents: [action.documents,
           ...state.documents],

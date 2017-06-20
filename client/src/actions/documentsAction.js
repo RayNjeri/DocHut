@@ -92,8 +92,8 @@ export const listDocuments = () => (dispatch) => {
   dispatch(documentsRequest());
   return (
     request
-      .get('/api/documents')
-      .set('authorization', window.localStorage.getItem('token'))
+      .get('/api/document')
+      .set('x-access-token', window.localStorage.getItem('token'))
       .then((response) => {
         dispatch(documentsSuccess(response.body));
       })
@@ -105,10 +105,11 @@ export const listDocuments = () => (dispatch) => {
 
 export const createDocument = documentData => (dispatch) => {
   dispatch(documentsAddRequest(documentData));
+  console.log('token: ', window.localStorage.getItem('token'))
   return (
     request
       .post('/api/document')
-      .set('authorization', window.localStorage.getItem('token'))
+      .set('x-access-token', window.localStorage.getItem('token'))
       .send(documentData)
       .then((response) => {
         dispatch(documentsAddSuccess(response.body));
@@ -124,7 +125,7 @@ export const updateDocument = documentData => (dispatch) => {
   return (
     request
       .put(`/api/document/${documentData.id}`)
-      .set('authorization', window.localStorage.getItem('token'))
+      .set('x-access-token', window.localStorage.getItem('token'))
       .send(documentData)
       .then((response) => {
         dispatch(documentsUpdateSuccess(response.body));
@@ -140,7 +141,7 @@ export const deleteDocument = documentId => (dispatch) => {
   return (
     request
       .delete(`/api/document/${documentId}`)
-      .set('authorization', window.localStorage.getItem('token'))
+      .set('x-access-token', window.localStorage.getItem('token'))
       .then((response) => {
         dispatch(documentsDeleteSuccess(response.body));
       })
@@ -155,7 +156,7 @@ export const getDocument = documentId => (dispatch) => {
   return (
     request
       .get(`/api/document/${documentId}`)
-      .set('authorization', window.localStorage.getItem('token'))
+      .set('x-access-token', window.localStorage.getItem('token'))
       .then((response) => {
         dispatch(documentsGetSuccess(response.body));
       })

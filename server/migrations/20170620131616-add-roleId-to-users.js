@@ -9,6 +9,6 @@ module.exports = {
   },
 
   down: function (queryInterface, Sequelize) {
-   queryInterface.removeColumn('users', 'roleId')
+   queryInterface.removeColumn('users', 'roleId');
   }
 };

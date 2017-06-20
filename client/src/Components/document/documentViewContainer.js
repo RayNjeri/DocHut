@@ -143,12 +143,8 @@ DocumentViewContainer.contextTypes = {
 
 function mapStateToProps(state) {
     return {
-        documentList: state.documentList
+        documentList: state.documents
     };
 }
-function mapDispatchToProps(dispatch) {
-    return {
-        actions: bindActionCreators(listDocuments, createDocument, deleteDocument, dispatch)
-    };
-}
+
 export default connect(mapStateToProps, { listDocuments, createDocument, deleteDocument })(DocumentViewContainer);

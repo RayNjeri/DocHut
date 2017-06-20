@@ -7,8 +7,6 @@ import { documentList, addDocument, documentPage, editDocument } from './documen
 const rootReducer = combineReducers({
   documents,
   authReducer
-
-
 });
 
 export default rootReducer;
