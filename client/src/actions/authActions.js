@@ -53,13 +53,16 @@ export const userSignupRequest = userData => (dispatch) => {
     );
 };
 
-export const login = userData => (dispatch) => {
+export const login = (userData) => (dispatch) => {
+    console.log("login");
     dispatch(LoginUser(userData));
     return (
         request
             .post('/api/user/login')
             .send(userData)
             .then((response) => {
+                console.log("response", response);
+
                 window.localStorage.setItem('token', response.body.token);
                 dispatch(loginSuccessful(response.body));
             })

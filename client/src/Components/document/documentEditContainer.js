@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import FlatButton from 'material-ui/FlatButton';
 import Dialog from 'material-ui/Dialog';
+import documentActions from '../../actions/documentsAction';
 import { updateDocument, deleteDocument, listDocuments } from '../../actions/documentsAction';
 import EditDocument from './documentForm';
 
@@ -103,7 +104,7 @@ const mapStateToProps = (state, ownProps) => ({
 
 function mapDispatchToProps(dispatch) {
     return {
-        actions: bindActionCreators(courseActions, dispatch)
+        actions: bindActionCreators(documentActions, dispatch)
     };
 }
 

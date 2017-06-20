@@ -2,12 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
+import { bindActionCreators } from 'redux';
 import { Card, CardText } from 'material-ui/Card';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
-import login from '../../../actions/authActions';
+// import login from '../../../actions/authActions';
+import * as authActions from '../../../actions/authActions';
 import loginValidate from '../../../utils/loginValidation';
 
 
@@ -31,7 +33,7 @@ export class LoginForm extends React.Component {
     e.preventDefault();
     if (this.isValid()) {
       this.setState({ errors: {}, isLoading: true });
-      this.props.login(this.state).then((res) => {
+      this.props.authActions.login(this.state).then((res) => {
         this.context.router.push('/documents');
       })
                 .catch(err => this.setState({ errors: err, isLoading: false }));
@@ -97,13 +99,19 @@ export class LoginForm extends React.Component {
 }
 
 LoginForm.propTypes = {
-  login: React.PropTypes.func.isRequired
+  authActions: React.PropTypes.object.isRequired
 };
+
+function mapDispatchToProps(dispatch) {
+    return {
+        authActions: bindActionCreators(authActions, dispatch)
+    };
+}
 
 LoginForm.contextTypes = {
   router: React.PropTypes.object.isRequired
 };
 
 
-export default connect(null, { login })(LoginForm);
+export default connect(null, mapDispatchToProps)(LoginForm);
 

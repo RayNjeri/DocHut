@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react';
 import Chip from 'material-ui/Chip';
 import Gravatar from 'react-gravatar';
-import md5 from 'blueimp-md5';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import { GridList, GridTile } from 'material-ui/GridList';
