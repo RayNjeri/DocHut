@@ -7,7 +7,7 @@
     "start:dev": "nodemon ./bin/www",
     "start": "npm-run-all --parallel open:src",
     "open:src": "babel-node app.js",
-    "test": "NODE_ENV=test && node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha ./server/tests/*.js --recursive && cat ./coverage/lcov.info | codecov",
+    "test": "nyc --reporter=html --reporter=text mocha server/tests/**/*.js",
     "test:watch": "npm run test -- --watch"
   },
   "repository": {
@@ -75,6 +75,7 @@
     "jwt-decode": "^2.2.0",
     "nodemon": "^1.11.0",
     "npm-run-all": "^4.0.2",
+    "nyc": "^11.0.2",
     "open": "0.0.5",
     "redux-devtools-extension": "^2.13.2",
     "supertest": "^3.0.0",

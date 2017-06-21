@@ -1,12 +1,10 @@
 import React, { PropTypes } from 'react';
 import Chip from 'material-ui/Chip';
-import Gravatar from 'react-gravatar';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import { GridList, GridTile } from 'material-ui/GridList';
 import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
-import Subheader from 'material-ui/Subheader';
 import JWTdecode from 'jwt-decode';
 import StarBorder from 'material-ui/svg-icons/toggle/star-border';
 import Header from '../common/Header';
@@ -15,8 +13,10 @@ import { getUserFromToken } from '../../utils/tokenUtils';
 
 const styles = {
     titleStyle: {
-        color: '#ffffff'
+        color: '#ffffff',
+        font:'cursive'
     }
+
 };
 
 /* eslint no-undef: "off"*/
@@ -55,14 +55,14 @@ const DocumentView = props => (
                 </IconMenu> : <span />
             }
             <GridTile
-                title={`Title: ${props.document.title}`}
-                titleStyle={styles.titleStyle}
-            >
-                <h5>{props.document.title}</h5>
-                {props.document.content}
-            </GridTile>
-        </GridList>
-    </div>
+          title={`Title: ${props.document.title}`}
+          titleStyle={styles.titleStyle}
+        >
+          <Chip backgroundColor="#123c69" labelColor="#ffffff"> {props.document.access} </Chip> <br />
+          {props.document.content}
+        </GridTile>
+    </GridList>
+  </div>
 );
 
 Document.propTypes = {
