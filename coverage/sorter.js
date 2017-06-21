@@ -1,6 +1,6 @@
-let addSorting = (function () {
+var addSorting = (function () {
     "use strict";
-    let cols,
+    var cols,
         currentSort = {
             index: 0,
             desc: false
@@ -17,7 +17,7 @@ let addSorting = (function () {
 
     // loads all columns
     function loadColumns() {
-        let colNodes = getTableHeader().querySelectorAll('th'),
+        var colNodes = getTableHeader().querySelectorAll('th'),
             colNode,
             cols = [],
             col,
@@ -41,7 +41,7 @@ let addSorting = (function () {
     // attaches a data attribute to every tr element with an object
     // of data values keyed by column name
     function loadRowData(tableRow) {
-        let tableCols = tableRow.querySelectorAll('td'),
+        var tableCols = tableRow.querySelectorAll('td'),
             colNode,
             col,
             data = {},
@@ -60,7 +60,7 @@ let addSorting = (function () {
     }
     // loads all row data
     function loadData() {
-        let rows = getTableBody().querySelectorAll('tr'),
+        var rows = getTableBody().querySelectorAll('tr'),
             i;
 
         for (i = 0; i < rows.length; i += 1) {
@@ -69,7 +69,7 @@ let addSorting = (function () {
     }
     // sorts the table using the data for the ith column
     function sortByIndex(index, desc) {
-        let key = cols[index].key,
+        var key = cols[index].key,
             sorter = function (a, b) {
                 a = a.data[key];
                 b = b.data[key];
@@ -100,7 +100,7 @@ let addSorting = (function () {
     }
     // removes sort indicators for current column being sorted
     function removeSortIndicators() {
-        let col = getNthColumn(currentSort.index),
+        var col = getNthColumn(currentSort.index),
             cls = col.className;
 
         cls = cls.replace(/ sorted$/, '').replace(/ sorted-desc$/, '');
@@ -112,13 +112,13 @@ let addSorting = (function () {
     }
     // adds event listeners for all sorter widgets
     function enableUI() {
-        let i,
+        var i,
             el,
             ithSorter = function ithSorter(i) {
-                let col = cols[i];
+                var col = cols[i];
 
                 return function () {
-                    let desc = col.defaultDescSort;
+                    var desc = col.defaultDescSort;
 
                     if (currentSort.index === i) {
                         desc = !currentSort.desc;

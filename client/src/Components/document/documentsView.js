@@ -27,7 +27,7 @@ const owner = window.localStorage.getItem('userName');
 const DocumentView = props => (
     <div>
         <GridList
-            cellHeight={180}
+            cellHeight= "auto"
             cols={1}
         >
             {getUserFromToken().userId === props.document.userId ?
@@ -54,12 +54,10 @@ const DocumentView = props => (
                     />
                 </IconMenu> : <span />
             }
-            <GridTile
-          title={`Title: ${props.document.title}`}
-          titleStyle={styles.titleStyle}
-        >
-          <Chip backgroundColor="#123c69" labelColor="#ffffff"> {props.document.access} </Chip> <br />
+            <GridTile>
+          <h2>{props.document.title}</h2>
           {props.document.content}
+          <Chip backgroundColor="#123c69" labelColor="#ffffff"> {props.document.access} </Chip> <br />
         </GridTile>
     </GridList>
   </div>
