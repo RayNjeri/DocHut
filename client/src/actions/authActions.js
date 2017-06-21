@@ -44,7 +44,7 @@ export const userSignupRequest = userData => (dispatch) => {
             .post('/api/user')
             .send(userData)
             .then((response) => {
-                window.localStorage.setItem('token', response.body.token);
+                localStorage.setItem('token', response.body.token);
                 dispatch(loginSuccessful(response.body));
             })
             .catch((error) => {
@@ -61,9 +61,9 @@ export const login = (userData) => (dispatch) => {
             .post('/api/user/login')
             .send(userData)
             .then((response) => {
-                console.log("response", response);
+                console.log("response", response.body);
 
-                window.localStorage.setItem('token', response.body.token);
+                localStorage.setItem('token', response.body.token);
                 dispatch(loginSuccessful(response.body));
             })
             .catch((error) => {

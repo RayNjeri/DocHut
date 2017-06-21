@@ -95,6 +95,7 @@ export const listDocuments = () => (dispatch) => {
       .get('/api/document')
       .set('x-access-token', window.localStorage.getItem('token'))
       .then((response) => {
+        console.log('Theeee documents', response.body)
         dispatch(documentsSuccess(response.body));
       })
       .catch((error) => {

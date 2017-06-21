@@ -9,6 +9,7 @@ import JWTdecode from 'jwt-decode';
 import StarBorder from 'material-ui/svg-icons/toggle/star-border';
 import Header from '../common/Header';
 import { getUserFromToken } from '../../utils/tokenUtils';
+import { getUser } from '../../utils/tokenUtils';
 
 
 const styles = {
