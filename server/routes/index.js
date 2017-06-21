@@ -17,7 +17,7 @@ module.exports = (app) => {
   app.delete('/api/user/:userId', Auth, userController.destroy);
   app.post('/api/user/logout', userController.logout);
 
-  app.post('/api/document', Auth, documentController.create);
+  app.post('/api/document', documentController.create);
   app.get('/api/document', Auth, documentController.list);
   app.get('get/document/?limit={integer}&offset={integer}', documentController.list);
   app.get('/api/document/:documentId', Auth, documentController.retrieve);

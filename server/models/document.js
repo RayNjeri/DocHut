@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     access: {
-      type: DataTypes.BOOLEAN,
+      type: DataTypes.STRING,
       // allowNull: false
     },
   }, {

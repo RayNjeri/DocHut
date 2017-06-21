@@ -115,6 +115,7 @@ export const createDocument = documentData => (dispatch) => {
         dispatch(documentsAddSuccess(response.body));
       })
       .catch((error) => {
+        console.log(error);
         dispatch(documentsAddFailure(error.response));
       })
   );

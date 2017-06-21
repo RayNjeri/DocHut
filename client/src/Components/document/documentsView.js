@@ -7,10 +7,11 @@ import { GridList, GridTile } from 'material-ui/GridList';
 import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import Subheader from 'material-ui/Subheader';
+import JWTdecode from 'jwt-decode';
 import StarBorder from 'material-ui/svg-icons/toggle/star-border';
 import Header from '../common/Header';
 import { getUserFromToken } from '../../utils/tokenUtils';
-import JWTdecode from 'jwt-decode';
+
 
 const styles = {
     titleStyle: {

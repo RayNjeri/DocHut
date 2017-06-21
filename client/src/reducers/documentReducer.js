@@ -25,11 +25,6 @@ export default function reducer(state = DOCUMENT_LIST, action) {
         error: action.error,
         loading: false,
       });
-    case types.DOCUMENTS_ADD_SUCCESS:
-      return Object.assign({}, state, {
-        documents: [action.documents,
-          ...state.documents],
-      });
     case types.DOCUMENTS_DELETE_SUCCESS:
       return Object.assign({}, state, {
         documents: state.documents.filter(id => id !== action.documentId),
@@ -54,23 +49,22 @@ export default function reducer(state = DOCUMENT_LIST, action) {
         loading: false,
       };
     case types.DOCUMENTS_ADD_REQUEST:
-      return {
+      return Object.assign({}, state, {
         error: null,
         loading: true,
-        documents: null,
-      };
+      });
     case types.DOCUMENTS_ADD_SUCCESS:
-      return {
-        error: null,
+      return Object.assign({}, state, {
+        documents: [action.documents,
+          ...state.documents],
         loading: false,
-        documents: action.documents,
-      };
+      });
     case types.DOCUMENTS_ADD_FAILURE:
-      return {
+      return Object.assign({}, state, {
         error: action.error,
         loading: false,
-        documents: null,
-      };
+      });
+
     case types.DOCUMENTS_GET_REQUEST:
       return {
         documents: null,

@@ -7,11 +7,11 @@ import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
-import { listDocuments, createDocument, documentsUpdateRequest, updateDocument, deleteDocument } from '../../actions/documentsAction';
+import * as documentActions from '../../actions/documentsAction';
 import DocumentView from './documentsView';
 import DocumentList from './documentList';
-import DocumentEditor from './documentForm';
-// import JWTDecode from 'jwt-decode';
+import CreateDocument from './documentCreateForm';
+
 
 const style = {
     position: 'fixed',
@@ -41,7 +41,7 @@ class DocumentViewContainer extends React.Component {
         this.onContentChange = this.onContentChange.bind(this);
     }
     componentWillMount() {
-        this.props.listDocuments();
+        this.props.documentActions.listDocuments();
     }
     onSetAccess(e, index, value) {
         const Document = this.state.document;
@@ -84,12 +84,13 @@ class DocumentViewContainer extends React.Component {
                 keyboardFocused
                 onTouchTap={(e) => {
                     e.preventDefault();
-                    this.props.createDocument(this.state.document);
-                    this.props.listDocuments();
+                    this.props.documentActions.createDocument(this.state.document);
+                    {/*console.log("documents", this.props.listDocuments());*/}
                     this.handleClose();
                 }}
             />,
         ];
+        // console.log("props", this.props.documentActions.listDocuments());
         return (
             <div className="container">
                 <div>
@@ -97,9 +98,9 @@ class DocumentViewContainer extends React.Component {
                         (<DocumentView
                             key={document.id}
                             document={document}
-                            onUpdate={this.updateDoc}
-                            deleteDocument={this.props.deleteDocument}
-                            listDocuments={this.props.listDocuments}
+                            onUpdate={this.props.documentActions.updateDocument}
+                            deleteDocument={this.props.documentActions.deleteDocument}
+                            listDocuments={this.props.documentActions.listDocuments}
                         />)
                     )}
                     <div>
@@ -116,10 +117,10 @@ class DocumentViewContainer extends React.Component {
                     open={this.state.open}
                     onRequestClose={this.handleClose}
                 >
-                    <DocumentEditor
+                    <CreateDocument
                         style={style}
                         onSetAccess={this.onSetAccess}
-                        doc={this.state.document}
+                        document={this.state.document}
                         onTitleChange={this.onTitleChange}
                         onContentChange={this.onContentChange}
                     />
@@ -129,13 +130,13 @@ class DocumentViewContainer extends React.Component {
         );
     }
 }
-DocumentViewContainer.PropTypes = {
-    documentList: PropTypes.object.isRequired,
-    deleteDocument: PropTypes.func.isRequired,
-    listDocuments: PropTypes.func.isRequired,
-    actions: PropTypes.object.isRequired,
-    router: PropTypes.object.isRequired
-};
+// DocumentViewContainer.PropTypes = {
+//     documentList: PropTypes.object.isRequired,
+//     deleteDocument: PropTypes.func.isRequired,
+//     listDocuments: PropTypes.func.isRequired,
+//     actions: PropTypes.object.isRequired,
+//     router: PropTypes.object.isRequired
+// };
 
 DocumentViewContainer.contextTypes = {
     router: PropTypes.object.isRequired
@@ -147,4 +148,10 @@ function mapStateToProps(state) {
     };
 }
 
-export default connect(mapStateToProps, { listDocuments, createDocument, deleteDocument })(DocumentViewContainer);
+function mapDispatchToProps(dispatch) {
+    return {
+        documentActions: bindActionCreators(documentActions, dispatch)
+    };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(DocumentViewContainer);
