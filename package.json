@@ -7,7 +7,9 @@
     "start:dev": "nodemon ./bin/www",
     "start": "npm-run-all --parallel open:src",
     "open:src": "babel-node app.js",
-    "test": "nyc --reporter=html --reporter=text mocha server/tests/**/*.js",
+    "test": "npm run test:fend; npm run test:bend",
+    "test:bend": "nyc --reporter=html --reporter=text mocha server/tests/**/*.js",
+    "test:fend": "./node_modules/.bin/jest",
     "coverage": "nyc reporter--reporter=text-lcov | coveralls",
     "test:watch": "npm run test -- --watch"
   },

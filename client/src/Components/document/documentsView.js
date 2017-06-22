@@ -10,20 +10,14 @@ import StarBorder from 'material-ui/svg-icons/toggle/star-border';
 import Header from '../common/Header';
 import { getUserFromToken } from '../../utils/tokenUtils';
 
-
-
 const styles = {
     titleStyle: {
         color: '#ffffff',
         font:'cursive'
     }
-
 };
 
-/* eslint no-undef: "off"*/
 const owner = window.localStorage.getItem('userName');
-// const token = window.localStorage.getItem('token');
-// console.log((token));
 
 const DocumentView = props => (
     <div>
@@ -39,9 +33,8 @@ const DocumentView = props => (
                     targetOrigin={{ horizontal: 'right', vertical: 'top' }}
                 >
                     <MenuItem
-                        primaryText="Edit Document"
-                        onTouchTap={() =>
-                            props.onUpdate(props.document)}
+                      primaryText="Edit Document"
+                      onTouchTap={props.onUpdate}
                     />
                     <MenuItem
                         primaryText="Delete Document"
@@ -65,8 +58,9 @@ const DocumentView = props => (
 );
 
 Document.propTypes = {
-    dispatch: PropTypes.func.isRequired,
-    documents: PropTypes.func.isRequired
+  dispatch: PropTypes.func.isRequired,
+  documents: PropTypes.func.isRequired,
+  onUpdate: PropTypes.func.isRequired,
 };
 
 export default DocumentView;

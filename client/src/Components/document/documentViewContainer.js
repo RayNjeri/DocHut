@@ -11,7 +11,7 @@ import * as documentActions from '../../actions/documentsAction';
 import DocumentView from './documentsView';
 import DocumentList from './documentList';
 import CreateDocument from './documentCreateForm';
-
+import DocumentEditForm from './documentEditForm';
 
 const style = {
     position: 'fixed',
@@ -39,6 +39,8 @@ class DocumentViewContainer extends React.Component {
         this.onSetAccess = this.onSetAccess.bind(this);
         this.onTitleChange = this.onTitleChange.bind(this);
         this.onContentChange = this.onContentChange.bind(this);
+        this.handleChange = this.handleChange.bind(this)
+        this.handleSubmit = this.handleSubmit.bind(this)
     }
     componentWillMount() {
         this.props.documentActions.listDocuments();
@@ -58,17 +60,42 @@ class DocumentViewContainer extends React.Component {
         Document.content = e.target.value;
         this.setState({ document: Document });
     }
+
     handleOpen() {
-        this.setState({ open: true });
+        this.setState({ open: true, document: {} });
     }
 
     handleClose() {
-        this.setState({ open: false });
+        this.setState({ open: false, edit: false });
+    }
+
+    handleChange(e) {
+      const { name, value } = e.target;
+      this.setState({
+        document: Object.assign({}, this.state.document, {
+          [name]: value
+        })
+      });
     }
 
     updateDocument(document) {
-        documentsUpdateRequest(document);
-        browserHistory.push('/edit');
+      return e => {
+        this.setState({
+          document,
+          edit: true,
+          open: true,
+        });
+      };
+    }
+
+    handleSubmit(e) {
+      e.preventDefault();
+      this.state.edit
+        ? this.props.documentActions.updateDocument(this.state.document)
+        : this.props.documentActions.createDocument(this.state.document);
+
+      {/*console.log("documents", this.props.listDocuments());*/}
+      this.handleClose();
     }
 
     render() {
@@ -82,12 +109,7 @@ class DocumentViewContainer extends React.Component {
                 label="Submit"
                 primary
                 keyboardFocused
-                onTouchTap={(e) => {
-                    e.preventDefault();
-                    this.props.documentActions.createDocument(this.state.document);
-                    {/*console.log("documents", this.props.listDocuments());*/}
-                    this.handleClose();
-                }}
+                onTouchTap={this.handleSubmit}
             />,
         ];
         // console.log("props", this.props.documentActions.listDocuments());
@@ -98,7 +120,7 @@ class DocumentViewContainer extends React.Component {
                         (<DocumentView
                             key={document.id}
                             document={document}
-                            onUpdate={this.props.documentActions.updateDocument}
+                            onUpdate={this.updateDocument(document)}
                             deleteDocument={this.props.documentActions.deleteDocument}
                             listDocuments={this.props.documentActions.listDocuments}
                         />)
@@ -117,6 +139,12 @@ class DocumentViewContainer extends React.Component {
                     open={this.state.open}
                     onRequestClose={this.handleClose}
                 >
+                  {this.state.edit ? (
+                    <DocumentEditForm
+                      document={this.state.document}
+                      onChange={this.handleChange}
+                    />
+                  ) : (
                     <CreateDocument
                         style={style}
                         onSetAccess={this.onSetAccess}
@@ -124,7 +152,7 @@ class DocumentViewContainer extends React.Component {
                         onTitleChange={this.onTitleChange}
                         onContentChange={this.onContentChange}
                     />
-
+                  )}
                 </Dialog>
             </div>
         );

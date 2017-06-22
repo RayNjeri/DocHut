@@ -20,7 +20,7 @@ const CreateDocument = props => (
       className="content"
       name="content"
       type="text"
-      placeholder = "Content"
+      placeholder="Content"
       onChange={props.onContentChange}
       defaultValue={props.document.content}
       fullWidth

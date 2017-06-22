@@ -1,27 +1,36 @@
-import * as actions from '../../src/actions/authActions';
-import * as types from '../../src/actions/actionTypes';
+import * as actions from '../../client/src/actions/authActions';
+import * as types from '../../client/src/actions/actionTypes';
 
 describe ('actions', () => {
   it ('should create an action to signup a user', () => {
-    const text = "signUpUser";
+    const user = {
+      firstName:"firstName",
+      lastName:"lastName",
+      userName:"userName",
+      email:"email",
+      password:"password"
+    };
     const expectedAction={
       type: types.SIGNUP_USER,
-      text
+      user
     };
-    expect(actions.signUpUser(text)).toEqual(expectedAction);
+    expect(actions.signUpUser(user)).toEqual(expectedAction);
   });
 
   it('should create an action to Login a user',() => {
-    const text ='LoginUser';
+    // const text ={
+    //   email:'email',
+    //   password:'password'
+    // };
     const expectedAction={
       type:types.LOGIN_USER,
-      text
+      // text
     };
-    expect(actions.LoginUser(text)).toEqual(expectedAction);
+    expect(actions.LoginUser()).toEqual(expectedAction);
   });
 
   it('should create an action to log a user succesfully', () =>{
-    const text ='loginSuccessful';
+    // const text ='loginSuccessful';
     const expectedAction={
       type:types.LOGIN_SUCCESS,
       text
@@ -47,7 +56,7 @@ describe ('actions', () => {
     expect(actions.setCurrentUser(text)).toEqual(expectedAction);
   });
 
-  it('should craete an action on user log out', () => {
+  it('should create an action on user log out', () => {
     const text='logoutUser';
     const expectedAction={
       type:types.LOGOUT_USER,

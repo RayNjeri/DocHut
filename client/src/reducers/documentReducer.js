@@ -9,7 +9,7 @@ const DOCUMENT_LIST = {
 
 export default function reducer(state = DOCUMENT_LIST, action) {
   switch (action.type) {
-    case types.DOCUMENTS_REQUEST:
+    case types.DOCUMENTS_GET_SUCCESS:
       return Object.assign({}, state, {
         error: null,
         loading: true,
@@ -34,15 +34,16 @@ export default function reducer(state = DOCUMENT_LIST, action) {
         searchFilter: action.searchFilter,
       });
     case types.DOCUMENTS_UPDATE_REQUEST:
-      return {
+      return Object.assign({}, state, {
         error: null,
         loading: true,
-      };
+      });
     case types.DOCUMENTS_UPDATE_SUCCESS:
-      return {
+      return Object.assign({}, state, {
+        documents: state.documents.map(doc => doc.id === action.document.id ? action.document : doc),
         error: null,
-        loading: false,
-      };
+        loading: true,
+      });
     case types.DOCUMENTS_UPDATE_FAILURE:
       return {
         error: action.error,
@@ -59,6 +60,8 @@ export default function reducer(state = DOCUMENT_LIST, action) {
           ...state.documents],
         loading: false,
       });
+
+    case types.DOCUMENTS_GET_FAILURE:
     case types.DOCUMENTS_ADD_FAILURE:
       return Object.assign({}, state, {
         error: action.error,
@@ -70,18 +73,6 @@ export default function reducer(state = DOCUMENT_LIST, action) {
         documents: null,
         error: null,
         loading: true,
-      };
-    case types.DOCUMENTS_GET_SUCCESS:
-      return {
-        documents: action.response.result,
-        error: null,
-        loading: false,
-      };
-    case types.DOCUMENTS_GET_FAILURE:
-      return {
-        documents: null,
-        error: action.error,
-        loading: false,
       };
     default:
       return state;

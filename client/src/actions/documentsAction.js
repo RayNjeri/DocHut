@@ -57,9 +57,9 @@ export const documentsUpdateRequest = documents => ({
   documents
 });
 
-export const documentsUpdateSuccess = documents => ({
+export const documentsUpdateSuccess = document => ({
   type: types.DOCUMENTS_UPDATE_SUCCESS,
-  documents
+  document
 });
 
 export const documentsUpdateFailure = documents => ({
