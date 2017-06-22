@@ -5,7 +5,7 @@ const should = require('chai').should;
 expect = require('chai').expect;
 chai.use(chaiHttp);
 
-api = supertest('http://localhost:8000');
+let api = supertest('http://localhost:8000');
 
 describe('Document', () => {
   it('should create a document on /document/POST', (done) => {

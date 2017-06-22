@@ -6,7 +6,7 @@ expect = require('chai').expect;
 chai.use(chaiHttp);
 
 
-api = supertest('http://localhost:8000');
+let api = supertest('http://localhost:8000');
 
 describe('/POST user', () => {
   it('it should create a users', (done) => {

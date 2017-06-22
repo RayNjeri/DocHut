@@ -95,7 +95,6 @@ export const listDocuments = () => (dispatch) => {
       .get('/api/document')
       .set('x-access-token', window.localStorage.getItem('token'))
       .then((response) => {
-        console.log('Theeee documents', response.body)
         dispatch(documentsSuccess(response.body));
       })
       .catch((error) => {
@@ -106,7 +105,6 @@ export const listDocuments = () => (dispatch) => {
 
 export const createDocument = documentData => (dispatch) => {
   dispatch(documentsAddRequest(documentData));
-  console.log('token: ', window.localStorage.getItem('token'));
   return (
     request
       .post('/api/document')
@@ -116,7 +114,6 @@ export const createDocument = documentData => (dispatch) => {
         dispatch(documentsAddSuccess(response.body));
       })
       .catch((error) => {
-        console.log(error);
         dispatch(documentsAddFailure(error.response));
       })
   );

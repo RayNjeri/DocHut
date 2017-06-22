@@ -8,12 +8,6 @@ const Header = () => (
     {' | '}
     <Link to="/about" activeClassName="active">About</Link>
     {' | '}
-    {/*<Link to="/documents" activeClassName="active">Documents</Link>
-    {' | '}*/}
-    {/*<Link to="/login" activeClassName="active">LogIn</Link>
-    {' | '}
-    <Link to="/signup" activeClassName="active">Sign Up</Link>
-    {' | '}*/}
   </nav>
 );
 export default Header;

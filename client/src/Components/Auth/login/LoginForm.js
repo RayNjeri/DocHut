@@ -8,7 +8,6 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
-// import login from '../../../actions/authActions';
 import * as authActions from '../../../actions/authActions';
 import loginValidate from '../../../utils/loginValidation';
 

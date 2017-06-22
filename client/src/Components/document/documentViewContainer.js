@@ -31,16 +31,13 @@ class DocumentViewContainer extends React.Component {
                 access: ''
             }
         };
-        // const token = window.localStorage.getItem('token');
-        // const userId = JWTDecode.decode(token)["userId"];
-        // console.log(userId);
         this.handleOpen = this.handleOpen.bind(this);
         this.handleClose = this.handleClose.bind(this);
         this.onSetAccess = this.onSetAccess.bind(this);
         this.onTitleChange = this.onTitleChange.bind(this);
         this.onContentChange = this.onContentChange.bind(this);
-        this.handleChange = this.handleChange.bind(this)
-        this.handleSubmit = this.handleSubmit.bind(this)
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
     componentWillMount() {
         this.props.documentActions.listDocuments();
@@ -94,7 +91,6 @@ class DocumentViewContainer extends React.Component {
         ? this.props.documentActions.updateDocument(this.state.document)
         : this.props.documentActions.createDocument(this.state.document);
 
-      {/*console.log("documents", this.props.listDocuments());*/}
       this.handleClose();
     }
 
@@ -112,7 +108,6 @@ class DocumentViewContainer extends React.Component {
                 onTouchTap={this.handleSubmit}
             />,
         ];
-        // console.log("props", this.props.documentActions.listDocuments());
         return (
             <div className="container">
                 <div>
@@ -158,13 +153,13 @@ class DocumentViewContainer extends React.Component {
         );
     }
 }
-// DocumentViewContainer.PropTypes = {
-//     documentList: PropTypes.object.isRequired,
-//     deleteDocument: PropTypes.func.isRequired,
-//     listDocuments: PropTypes.func.isRequired,
-//     actions: PropTypes.object.isRequired,
-//     router: PropTypes.object.isRequired
-// };
+DocumentViewContainer.propTypes = {
+    documentList: PropTypes.object.isRequired,
+    deleteDocument: PropTypes.func.isRequired,
+    listDocuments: PropTypes.func.isRequired,
+    documentActions: PropTypes.object.isRequired,
+    router: PropTypes.object.isRequired
+};
 
 DocumentViewContainer.contextTypes = {
     router: PropTypes.object.isRequired
