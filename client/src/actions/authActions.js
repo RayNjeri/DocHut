@@ -47,22 +47,18 @@ export const userSignupRequest = userData => (dispatch) => {
                 dispatch(loginSuccessful(response.body));
             })
             .catch((error) => {
-                console.log(error)
                 dispatch(loginFailed(error.response));
             })
     );
 };
 
 export const login = (userData) => (dispatch) => {
-    console.log("login");
     dispatch(LoginUser(userData));
     return (
         request
             .post('/api/user/login')
             .send(userData)
             .then((response) => {
-                console.log("response", response.body);
-
                 setAuthToken(response.body.token);
                 dispatch(loginSuccessful(response.body));
             })

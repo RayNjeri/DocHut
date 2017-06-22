@@ -113,7 +113,7 @@ describe('async actions', () => {
 
     nock(/^.*$/)
       .post('/api/user')
-      .reply(200, response.body);
+      .reply(201, response.body);
 
     const expectedActions= [{
       type: types.SIGNUP_USER,
