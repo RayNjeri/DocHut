@@ -18,68 +18,67 @@ describe ('actions', () => {
   });
 
   it('should create an action to Login a user',() => {
-    // const text ={
-    //   email:'email',
-    //   password:'password'
-    // };
+    const user ={
+      email:'email',
+      password:'password'
+    };
     const expectedAction={
       type:types.LOGIN_USER,
-      // text
+      user
     };
-    expect(actions.LoginUser()).toEqual(expectedAction);
+    expect(actions.LoginUser(user)).toEqual(expectedAction);
   });
 
   it('should create an action to log a user succesfully', () =>{
-    // const text ='loginSuccessful';
+    const user ={
+      email:'email',
+      password:'password'
+    };
     const expectedAction={
       type:types.LOGIN_SUCCESS,
-      text
+      user
     };
-    expect(actions.loginSuccessful(text)).toEqual(expectedAction);
+    expect(actions.loginSuccessful(user)).toEqual(expectedAction);
   });
 
   it('should craete an action on log in failure',() => {
-    const text='loginFailed';
+    const message='login Failed';
     const expectedAction={
       type:types.LOGIN_FAILURE,
-      text
+      message
     };
-    expect(actions.loginFailed(text)).toEqual(expectedAction);
+    expect(actions.loginFailed(message)).toEqual(expectedAction);
   });
 
   it('should create an action to set the current user',() => {
-    const text='setCurrentUser';
+    const user='setCurrentUser';
     const expectedAction={
       type:types.SET_CURRENT_USER,
-      text
+      user
     };
-    expect(actions.setCurrentUser(text)).toEqual(expectedAction);
+    expect(actions.setCurrentUser(user)).toEqual(expectedAction);
   });
 
   it('should create an action on user log out', () => {
-    const text='logoutUser';
     const expectedAction={
       type:types.LOGOUT_USER,
-      text
     };
-    expect(actions.logoutUser(text)).toEqual(expectedAction);
+    expect(actions.logoutUser()).toEqual(expectedAction);
   });
 
   it('should create an action on user successful log out',() => {
-    const text='logoutSuccess';
     const expectedAction={
       type: types.LOGOUT_SUCCESS,
-      text
     };
-    expect(actions.logoutSuccess(text)).toEqual(expectedAction);
+    expect(actions.logoutSuccess()).toEqual(expectedAction);
   });
 
   it('should create an action on log out failure',() => {
-    const text ='logoutFailure';
+    const message ='logoutFailure';
     const expectedAction={
       type: types.LOGOUT_FAILURE,
-      text
+      message
     };
-    expectedAction(actions.logoutFailure(text)).toEqual(expectedAction);
+    expectedAction(actions.logoutFailure(message)).toEqual(expectedAction);
   });
 });
