@@ -10,6 +10,7 @@ const CreateDocument = props => (
     <TextField
       name="title"
       type="text"
+      placeholder = "Title"
       onChange={props.onTitleChange}
       defaultValue={props.document.title}
       fullWidth
@@ -19,6 +20,7 @@ const CreateDocument = props => (
       className="content"
       name="content"
       type="text"
+      placeholder = "Content"
       onChange={props.onContentChange}
       defaultValue={props.document.content}
       fullWidth

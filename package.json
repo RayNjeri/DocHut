@@ -33,7 +33,6 @@
     "dotenv": "^4.0.0",
     "express": "^4.15.3",
     "istanbul": "^0.4.5",
-    "jest": "^20.0.4",
     "jsonwebtoken": "^7.4.1",
     "lodash": "^4.17.4",
     "material-ui": "^0.18.3",
@@ -59,6 +58,7 @@
     "webpack-hot-middleware": "^2.18.0"
   },
   "devDependencies": {
+    "babel-jest": "^20.0.3",
     "babel-loader": "^6.4.1",
     "babel-preset-env": "^1.5.2",
     "babel-preset-react": "^6.24.1",
@@ -73,6 +73,7 @@
     "eslint-plugin-jsx-a11y": "^5.0.3",
     "eslint-plugin-react": "^7.1.0",
     "isparta": "^4.0.0",
+    "jest": "^20.0.4",
     "jwt-decode": "^2.2.0",
     "nodemon": "^1.11.0",
     "npm-run-all": "^4.0.2",
