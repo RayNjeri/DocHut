@@ -77,11 +77,13 @@
     "isparta": "^4.0.0",
     "jest": "^20.0.4",
     "jwt-decode": "^2.2.0",
+    "nock": "^9.0.13",
     "nodemon": "^1.11.0",
     "npm-run-all": "^4.0.2",
     "nyc": "^11.0.2",
     "open": "0.0.5",
     "redux-devtools-extension": "^2.13.2",
+    "redux-mock-store": "^1.2.3",
     "supertest": "^3.0.0",
     "webpack-dev-middleware": "^1.10.2"
   }

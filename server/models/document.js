@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     access: {
       type: DataTypes.STRING,
-      // allowNull: false
+      allowNull: false
     },
   }, {
     tableName: 'documents',
