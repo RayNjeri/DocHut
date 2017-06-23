@@ -160,7 +160,6 @@ export class DocumentViewContainer extends React.Component {
 DocumentViewContainer.propTypes = {
     documentList: PropTypes.object.isRequired,
     deleteDocument: PropTypes.func.isRequired,
-    listDocuments: PropTypes.func.isRequired,
     documentActions: PropTypes.object.isRequired,
     router: PropTypes.object.isRequired
 };

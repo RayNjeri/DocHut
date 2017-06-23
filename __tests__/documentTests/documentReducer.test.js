@@ -11,22 +11,39 @@ describe('documentReducer',() => {
     });
   });
 
-  it('should handle create document',() => {
-    expect(
-      reducer([],{
-        type:types.DOCUMENTS_ADD_REQUEST,
-        document:{
-          title:'title',
-          content:'content',
-          access:'access',
-        }
-      }).toEqual({
-        document:{
-          title:'title',
-          content:'content',
-          access:'access',
-        }
-      })
-    );
+  it('should handle create document request',() => {
+    const action = {
+      type: types.DOCUMENTS_ADD_REQUEST
+    };
+    const expected = {
+      error: null,
+      loading: true
+    };
+    expect(reducer({}, action)).toEqual(expected);
+  });
+
+  it('should handle create document success',() => {
+    const state = {
+      documents: []
+    };
+
+    const document = {
+      title:'title',
+      content:'content',
+      access:'access',
+    };
+
+    const action = {
+      type: types.DOCUMENTS_ADD_SUCCESS,
+      documents: document
+    };
+
+    const expected = {
+      documents: [document],
+      loading: false,
+    };
+
+    const newState = reducer(state, action);
+    expect(newState).toEqual(expected);
   });
 });

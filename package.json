@@ -95,7 +95,8 @@
       "tokenUtils": "<rootDir>/__tests__/__mocks__/tokenUtils.mock.js"
     },
     "testPathIgnorePatterns": [
-      "<rootDir>/.*/__mocks__/"
+      "<rootDir>/.*/__mocks__/",
+      "test-utils.js"
     ]
   }
 }
