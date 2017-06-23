@@ -99,21 +99,21 @@ export const listUsers = () => (dispatch) => {
   );
 };
 
-export const createUser = userData => (dispatch) => {
-  dispatch(usersAddRequest(userData));
-  return (
-    request
-      .post('/api/user')
-      .set('x-access-token', window.localStorage.getItem('token'))
-      .send(userData)
-      .then((response) => {
-        dispatch(usersAddSuccess(response.body));
-      })
-      .catch((error) => {
-        dispatch(usersAddFailure(error.response));
-      })
-  );
-};
+// export const createUser = userData => (dispatch) => {
+//   dispatch(usersAddRequest(userData));
+//   return (
+//     request
+//       .post('/api/user')
+//       .set('x-access-token', window.localStorage.getItem('token'))
+//       .send(userData)
+//       .then((response) => {
+//         dispatch(usersAddSuccess(response.body));
+//       })
+//       .catch((error) => {
+//         dispatch(usersAddFailure(error.response));
+//       })
+//   );
+// };
 
 export const updateUser = userData => (dispatch) => {
   dispatch(usersUpdateRequest(userData));

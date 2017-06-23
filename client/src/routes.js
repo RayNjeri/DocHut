@@ -7,6 +7,24 @@ import DocumentViewContainer from './Components/document/documentViewContainer';
 import SignUp from './Components/Auth/signup/SignupPage';
 import Login from './Components/Auth/login/loginPage';
 
+function isAdmin() {
+  // Get the token from local storage
+  // Decode the token - use your existing fucntions
+  // That means we'll need user role in the token
+  // Check whther role id is admin id
+  // return true or false
+}
+
+
+function requireAuth(nextState, replace) {
+  if (!isAdmin()) {
+    replace({
+      //  Redirect to path of choice
+      pathname: '/login'
+    });
+  }
+}
+
 
 export default (
   <Route path="/" component={App}>
@@ -15,5 +33,6 @@ export default (
     <Route path="documents" component={DocumentViewContainer} />
     <Route path="signup" component={SignUp} />
     <Route path="login" component={Login} />
+    {/*<Route path="users" onEnter={requireAuth} component={users} />*/}
   </Route>
 );

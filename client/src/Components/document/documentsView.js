@@ -17,7 +17,7 @@ const styles = {
     }
 };
 
-const owner = localStorage.getItem('userName');
+// const owner = localStorage.getItem('userName');
 
 const DocumentView = props => (
     <div>

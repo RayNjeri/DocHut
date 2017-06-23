@@ -13,6 +13,10 @@ import DocumentList from './documentList';
 import CreateDocument from './documentCreateForm';
 import DocumentEditForm from './documentEditForm';
 
+import * as tokenUtils from '../../utils/tokenUtils';
+
+console.log('tokenUtil:', tokenUtils.getUserFromToken + '');
+
 const style = {
     position: 'fixed',
     bottom: 20,
@@ -20,7 +24,7 @@ const style = {
     marginRight: 20,
 };
 
-class DocumentViewContainer extends React.Component {
+export class DocumentViewContainer extends React.Component {
     constructor(props, context) {
         super(props, context);
         this.state = {

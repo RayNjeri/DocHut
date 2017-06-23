@@ -36,6 +36,7 @@
     "express": "^4.15.3",
     "istanbul": "^0.4.5",
     "jsonwebtoken": "^7.4.1",
+    "local-storage": "^1.4.2",
     "lodash": "^4.17.4",
     "material-ui": "^0.18.3",
     "mocha": "^3.4.2",
@@ -82,10 +83,19 @@
     "nyc": "^11.0.2",
     "open": "0.0.5",
     "react-dom": "^15.6.1",
+    "react-js-pagination": "^2.1.0",
     "react-test-renderer": "^15.6.1",
     "redux-devtools-extension": "^2.13.2",
     "redux-mock-store": "^1.2.3",
     "supertest": "^3.0.0",
     "webpack-dev-middleware": "^1.10.2"
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "tokenUtils": "<rootDir>/__tests__/__mocks__/tokenUtils.mock.js"
+    },
+    "testPathIgnorePatterns": [
+      "<rootDir>/.*/__mocks__/"
+    ]
   }
 }
