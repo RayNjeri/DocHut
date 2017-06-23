@@ -16,7 +16,7 @@ const DocumentList = ({ documents, handleOpen, style }) => (
     </div>
   </div>
 );
-DocumentList.PropTypes = {
+DocumentList.propTypes = {
   documents: PropTypes.array.isRequired,
   handleOpen: PropTypes.func.isRequired,
   style: PropTypes.func.isRequired
