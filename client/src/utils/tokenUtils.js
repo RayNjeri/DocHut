@@ -8,7 +8,7 @@ export const setAuthToken = token => {
   } catch (error) {
     // Noop.
   }
-}
+};
 
 export const removeAuthToken = () => localStorage.removeItem('token');
 

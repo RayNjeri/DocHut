@@ -8,7 +8,7 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import JWTdecode from 'jwt-decode';
 import StarBorder from 'material-ui/svg-icons/toggle/star-border';
 import Header from '../common/Header';
-import { getUserFromToken } from '../../utils/tokenUtils';
+import { getUserFromToken} from '../../utils/tokenUtils';
 
 const styles = {
     titleStyle: {
@@ -17,7 +17,7 @@ const styles = {
     }
 };
 
-const owner = window.localStorage.getItem('userName');
+const owner = localStorage.getItem('userName');
 
 const DocumentView = props => (
     <div>
