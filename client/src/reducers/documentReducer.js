@@ -11,8 +11,9 @@ export default function reducer(state = DOCUMENT_LIST, action) {
   switch (action.type) {
     case types.DOCUMENTS_GET_SUCCESS:
       return Object.assign({}, state, {
+        documents: [...state.documents, action.documents],
         error: null,
-        loading: true,
+        loading: false,
       });
     case types.DOCUMENTS_SUCCESS:
       return Object.assign({}, state, {

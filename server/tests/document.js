@@ -37,12 +37,12 @@ describe('Document', () => {
   });
 
   it('it should DELETE a document by Id', (done) => {
-      api.delete('/api/document/:id', (error, response, body) => {
-        expect(response.statusCode).to.equal(200);
-        expect(response.statusMessage).to.equal('OK');
-        expect(body).to.be.a('object');
-        expect(response.body.name).to.not.equal(null);
-      });
-      done();
+    api.delete('/api/document/:id', (error, response, body) => {
+      expect(response.statusCode).to.equal(200);
+      expect(response.statusMessage).to.equal('OK');
+      expect(body).to.be.a('object');
+      expect(response.body.name).to.not.equal(null);
     });
+    done();
+  });
 });
