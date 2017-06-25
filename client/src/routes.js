@@ -6,6 +6,7 @@ import AboutPage from './Components/about/AboutPage';
 import DocumentViewContainer from './Components/document/documentViewContainer';
 import SignUp from './Components/Auth/signup/SignupPage';
 import Login from './Components/Auth/login/loginPage';
+import content from './Components/common/content';
 
 function isAdmin() {
   // Get the token from local storage
@@ -34,5 +35,6 @@ export default (
     <Route path="signup" component={SignUp} />
     <Route path="login" component={Login} />
     {/*<Route path="users" onEnter={requireAuth} component={users} />*/}
+    <Route path="content" component={content} />
   </Route>
 );

@@ -2,7 +2,7 @@ const chaiHttp = require('chai-http');
 const chai = require('chai');
 const supertest = require('supertest');
 const should = require('chai').should;
-expect = require('chai').expect;
+const expect = require('chai').expect;
 chai.use(chaiHttp);
 
 let api = supertest('http://localhost:8000');
