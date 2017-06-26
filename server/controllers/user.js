@@ -159,29 +159,29 @@ module.exports = {
   // search existing user
 
   searchUser(req, res) {
-    if (req.query.q) {
-      return User.findAll({
-        where: {
-          $or: [
-            { firstName: { $like: `%${req.query.q}%` } },
-            { lastName: { $like: `%${req.query.q}%` } },
-            { userName: { $like: `%${req.query.q}%` } },
-            { email: { $like: `%${req.query.q}%` } }
-          ]
-        }
-      })
-        .then(response => res.status(200).send(response))
-        .catch(error => res.status(400).send(error));
+    if (!req.query.q) {
+      return res.status(400).send({ message: 'please provide query' });
     }
+    return User.findAll({
+      where: {
+        $or: [
+          { firstName: { $like: `%${req.query.q}%` } },
+          { lastName: { $like: `%${req.query.q}%` } },
+          { userName: { $like: `%${req.query.q}%` } },
+          { email: { $like: `%${req.query.q}%` } }
+        ]
+      }
+    })
+      .then(response => res.status(200).send(response))
+      .catch(error => res.status(400).send(error));
+
   },
 
   // logout a user
-
   logout(req, res) {
     res.status(200).send({
       message: 'You were logged out successfully'
     });
   }
-
 };
 

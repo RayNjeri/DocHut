@@ -138,7 +138,8 @@ describe('/POST user', () => {
         password: 'wrongpassword'
       })
       .expect(401)
-      .end(function (err, res) {
+      .end((err, res) => {
+        if (err) throw err;
         assert(res.body.message, 'Password/email does not match');
         findOneStub.restore();
         done();
@@ -159,7 +160,8 @@ describe('/POST user', () => {
         password: 'aStrongPassword'
       })
       .expect(200)
-      .end(function (err, res) {
+      .end((err, res) => {
+        if (err) throw err;
         assert(res.body.message, 'You were successfully logged in');
         assert.property(res.body, 'token');
         token = res.body.token;
@@ -174,7 +176,8 @@ describe('/POST user', () => {
       .get('/api/user')
       .set('x-access-token', token)
       .expect(400)
-      .end(function (err, res) {
+      .end((err, res) => {
+        if (err) throw err;
         findAllStub.restore();
         done();
       });
@@ -187,7 +190,8 @@ describe('/POST user', () => {
       .get('/api/user')
       .set('x-access-token', token)
       .expect(200)
-      .end(function (err, res) {
+      .end((err, res) => {
+        if (err) throw err;
         assert.deepEqual(res.body, [{}, {}]);
         findAllStub.restore();
         done();
@@ -200,7 +204,8 @@ describe('/POST user', () => {
       .get('/api/user/1')
       .set('x-access-token', token)
       .expect(404)
-      .end(function (err, res) {
+      .end((err, res) => {
+        if (err) throw err;
         findByIdStub.restore();
         done();
       });
@@ -212,7 +217,8 @@ describe('/POST user', () => {
       .get('/api/user/1')
       .set('x-access-token', token)
       .expect(400)
-      .end(function (err, res) {
+      .end((err, res) => {
+        if (err) throw err;
         findByIdStub.restore();
         done();
       });
@@ -225,7 +231,8 @@ describe('/POST user', () => {
       .get('/api/user/1')
       .set('x-access-token', token)
       .expect(200)
-      .end(function (err, res) {
+      .end((err, res) => {
+        if (err) throw err;
         assert.deepEqual(res.body, { id: 1 });
         findByIdStub.restore();
         done();
@@ -238,7 +245,8 @@ describe('/POST user', () => {
       .put('/api/user/1')
       .set('x-access-token', token)
       .expect(404)
-      .end(function (err, res) {
+      .end((err, res) => {
+        if (err) throw err;
         findByIdStub.restore();
         done();
       });
@@ -251,34 +259,24 @@ describe('/POST user', () => {
       .put('/api/user/1')
       .set('x-access-token', token)
       .expect(201)
-      .end(function (err, res) {
+      .end((err, res) => {
+        if (err) throw err;
         findByIdStub.restore();
         updateStub.restore();
         done();
       });
   });
 
-  it('should update fields sucessfully', (done) => {
+  it('should  fail when update fails', (done) => {
     let findByIdStub = sinon.stub(user, 'findById').resolves({});
     let updateStub = sinon.stub(user, 'update').rejects({});
     request(app)
       .put('/api/user/1')
       .set('x-access-token', token)
       .expect(400)
-      .end(function (err, res) {
+      .end((err, res) => {
+        if (err) throw err;
         findByIdStub.restore();
-        updateStub.restore();
-        done();
-      });
-  });
-
-  it('should fail update', (done) => {
-    let updateStub = sinon.stub(user, 'update').resolves({});
-    request(app)
-      .put('/api/user/1')
-      .set('x-access-token', token)
-      .expect(400)
-      .end(function (err, res) {
         updateStub.restore();
         done();
       });
@@ -290,7 +288,8 @@ describe('/POST user', () => {
       .delete('/api/user/1')
       .set('x-access-token', token)
       .expect(404)
-      .end(function (err, res) {
+      .end((err, res) => {
+        if (err) throw err;
         findByIdStub.restore();
         done();
       });
@@ -307,7 +306,8 @@ describe('/POST user', () => {
       .delete('/api/user/1')
       .set('x-access-token', token)
       .expect(204)
-      .end(function (err, res) {
+      .end((err, res) => {
+        if (err) throw err;
         findByIdStub.restore();
         destroyStub.restore();
         done();
@@ -325,7 +325,8 @@ describe('/POST user', () => {
       .delete('/api/user/1')
       .set('x-access-token', token)
       .expect(400)
-      .end(function (err, res) {
+      .end((err, res) => {
+        if (err) throw err;
         findByIdStub.restore();
         destroyStub.restore();
         done();
@@ -338,8 +339,21 @@ describe('/POST user', () => {
       .delete('/api/user/1')
       .set('x-access-token', token)
       .expect(400)
-      .end(function (err, res) {
+      .end((err, res) => {
+        if (err) throw err;
         findByIdStub.restore();
+        done();
+      });
+  });
+
+  it('should fail when no quey is passed', (done) => {
+    request(app)
+      .get('/api/search/user')
+
+      .set('x-access-token', token)
+      .expect(400)
+      .end((err, res) => {
+        if (err) throw err;
         done();
       });
   });
@@ -348,13 +362,39 @@ describe('/POST user', () => {
     let findAllStub = sinon.stub(user, 'findAll').rejects();
     request(app)
       .get('/api/search/user')
+      .query({ q: 'something' })
       .set('x-access-token', token)
       .expect(400)
-      .end(function (err, res) {
+      .end((err, res) => {
+        if (err) throw err;
         findAllStub.restore();
         done();
       });
   });
 
+  it('should find a user', (done) => {
+    let findAllStub = sinon.stub(user, 'findAll').resolves();
+    request(app)
+      .get('/api/search/user')
+      .query({ q: 'something' })
+      .set('x-access-token', token)
+      .expect(200)
+      .end((err, res) => {
+        if (err) throw err;
+        findAllStub.restore();
+        done();
+      });
+  });
+
+  it('should logout a user', (done) => {
+    request(app)
+      .post('/api/user/logout')
+      .expect(200)
+      .end((err, res) => {
+        if (err) throw err;
+        assert.equal(res.body.message, 'You were logged out successfully');
+        done();
+      });
+  });
 });
 
