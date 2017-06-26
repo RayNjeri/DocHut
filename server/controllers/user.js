@@ -5,7 +5,7 @@ const secretKey = process.env.SECRET_TOKEN_KEY;
 
 const saltRounds = bcrypt.genSaltSync(10);
 
-const user = require('../models').User;
+const User = require('../models').User;
 const document = require('../models').Document;
 
 // create an static method to handle inclutions
@@ -19,10 +19,10 @@ const findWithDocuments = (method, params) => {
   };
 
   if (params) {
-    return user[method](params, includeDocuments);
+    return User[method](params, includeDocuments);
   }
 
-  return user[method](includeDocuments);
+  return User[method](includeDocuments);
 };
 
 module.exports = {
@@ -42,7 +42,7 @@ module.exports = {
     } else if (!(/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(req.body.email))) {
       return res.status(400).json({ message: 'Please Enter A Valid Email Address' });
     }
-    user.create({
+    User.create({
       firstName,
       lastName,
       userName,
@@ -50,50 +50,52 @@ module.exports = {
       password,
       roleId,
     })
-        .then((user) => {
-          const token = jwt.sign({ userId: user.id, roleId}, secretKey, { expiresIn: '24h' });
-          let data = {
-            firstName: firstName,
-            lastName: lastName,
-            userName: userName,
-            email: email,
-            token: token
-          };
-          return res.status(201).json(data);
-        })
-        .catch(error => res.status(400).send(error));
+      .then((user) => {
+        const token = jwt.sign({ userId: user.id, roleId }, secretKey, { expiresIn: '24h' });
+        let data = {
+          firstName: firstName,
+          lastName: lastName,
+          userName: userName,
+          email: email,
+          token: token
+        };
+        return res.status(201).json(data);
+      })
+      .catch(error => res.status(400).send(error));
   },
 
   // login a user
 
   login(req, res) {
-    user.findOne({
+    User.findOne({
       where: {
         email: req.body.email
       }
     })
-    .then((user) => {
+      .then((user) => {
         if (!user) {
-          return res.status(403).send({
+          return res.status(401).send({
             message: 'Invalid user',
           });
         }
 
-        if(!bcrypt.compareSync(req.body.password, user.password)) {
-            return res.send('Password/email does not match');
+        if (!bcrypt.compareSync(req.body.password, user.password)) {
+          return res.status(401).send({
+            message: 'Password/email does not match'
+          });
         }
 
         const token = jwt.sign({ userId: user.id, roleId: user.roleId }, secretKey, { expiresIn: '24h' });
         return res.status(200).send({
-            message: 'You were successfully logged in',
-            token,
-            expiresIn: '24h'
+          message: 'You were successfully logged in',
+          token,
+          expiresIn: '24h'
         });
 
-    })
+      })
       .catch(() => {
         res.status(401).send({
-          error: 'Invalid login credentials'
+          message: 'Invalid login credentials'
         });
       });
   },
@@ -122,7 +124,6 @@ module.exports = {
   },
 
   // Update user attributes
-
   update(req, res) {
     findWithDocuments('findById', req.params.userId)
       .then((user) => {
@@ -131,8 +132,8 @@ module.exports = {
             message: 'User Not Found',
           });
         }
-        user.update({ userName: req.body.userName || user.userName, })
-          .then(() => res.status(201).send(user))
+        User.update({ userName: req.body.userName || user.userName, })
+          .then((updatedUser) => res.status(201).send(updatedUser))
           .catch(error => res.status(400).send(error));
       })
       .catch(error => res.status(400).send(error));
@@ -141,15 +142,15 @@ module.exports = {
   // delete a user
 
   destroy(req, res) {
-    user.findById(req.params.userId)
+    User.findById(req.params.userId)
       .then((resp) => {
         if (!resp) {
-          return res.status(204).send({
+          return res.status(404).send({
             message: 'User Not Found',
           });
         }
         resp.destroy()
-          .then(() => res.status(200).send({ message: 'user deleted' }))
+          .then(() => res.status(204).send({ message: 'user deleted' }))
           .catch(error => res.status(400).send(error));
       })
       .catch(error => res.status(400).send(error));
@@ -158,29 +159,29 @@ module.exports = {
   // search existing user
 
   searchUser(req, res) {
-    if (req.query.q) {
-      return user.findAll({
-        where: {
-          $or: [
-            { firstName: { $like: `%${req.query.q}%` } },
-            { lastName: { $like: `%${req.query.q}%` } },
-            { userName: { $like: `%${req.query.q}%` } },
-            { email: { $like: `%${req.query.q}%` } }
-          ]
-        }
-      })
-        .then(response => res.status(200).send(response))
-        .catch(error => res.status(400).send(error));
+    if (!req.query.q) {
+      return res.status(400).send({ message: 'please provide query' });
     }
+    return User.findAll({
+      where: {
+        $or: [
+          { firstName: { $like: `%${req.query.q}%` } },
+          { lastName: { $like: `%${req.query.q}%` } },
+          { userName: { $like: `%${req.query.q}%` } },
+          { email: { $like: `%${req.query.q}%` } }
+        ]
+      }
+    })
+      .then(response => res.status(200).send(response))
+      .catch(error => res.status(400).send(error));
+
   },
 
   // logout a user
-
   logout(req, res) {
     res.status(200).send({
       message: 'You were logged out successfully'
     });
   }
-
 };
 

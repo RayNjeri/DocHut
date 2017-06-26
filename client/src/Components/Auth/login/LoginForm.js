@@ -10,6 +10,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import * as authActions from '../../../actions/authActions';
 import loginValidate from '../../../utils/loginValidation';
+import content from '../../common/content';
 
 
 export class LoginForm extends React.Component {
@@ -33,7 +34,7 @@ export class LoginForm extends React.Component {
     if (this.isValid()) {
       this.setState({ errors: {}, isLoading: true });
       this.props.authActions.login(this.state).then((res) => {
-        this.context.router.push('/documents');
+        this.context.router.push('/content');
       })
                 .catch(err => this.setState({ errors: err, isLoading: false }));
     }

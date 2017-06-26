@@ -8,7 +8,7 @@
     "start": "npm-run-all --parallel open:src",
     "open:src": "babel-node app.js",
     "test": "npm run test:fend; npm run test:bend",
-    "test:bend": "nyc --reporter=html --reporter=text mocha server/tests/**/*.js",
+    "test:bend": "NODE_ENV=test nyc --reporter=html --reporter=text mocha --recursive -t 10000",
     "test:fend": "./node_modules/.bin/jest",
     "coverage": "nyc reporter--reporter=text-lcov | coveralls",
     "test:watch": "npm run test -- --watch"
@@ -54,6 +54,7 @@
     "redux": "^3.7.0",
     "redux-thunk": "^2.2.0",
     "sequelize": "^3.30.4",
+    "sinon-as-promised": "^4.0.3",
     "superagent": "^3.5.2",
     "validator": "^7.0.0",
     "webpack": "^1.15.0",
@@ -87,6 +88,7 @@
     "react-test-renderer": "^15.6.1",
     "redux-devtools-extension": "^2.13.2",
     "redux-mock-store": "^1.2.3",
+    "sinon": "^1.17.5",
     "supertest": "^3.0.0",
     "webpack-dev-middleware": "^1.10.2"
   },
