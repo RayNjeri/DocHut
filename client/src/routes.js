@@ -12,7 +12,7 @@ function isAdmin() {
   // Get the token from local storage
   // Decode the token - use your existing fucntions
   // That means we'll need user role in the token
-  // Check whther role id is admin id
+  // Check whether role id is admin id
   // return true or false
 }
 

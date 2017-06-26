@@ -7,7 +7,7 @@ const config = require('./webpack.config.dev');
 
 const NODE_ENV = process.env.NODE_ENV;
 
-if (NODE_ENV !== 'production') {
+if (NODE_ENV !== 'production' && NODE_ENV != 'testing') {
   require('dotenv').load();
 }
 
@@ -15,11 +15,14 @@ const port = 3000;
 // Set up the express app
 const app = express();
 const compiler = webpack(config);
-app.use(require('webpack-dev-middleware')(compiler, {
-  publicPath: config.output.publicPath
-}));
 
-app.use(require('webpack-hot-middleware')(compiler));
+if (NODE_ENV != 'test') {
+  app.use(require('webpack-dev-middleware')(compiler, {
+    publicPath: config.output.publicPath
+  }));
+
+  app.use(require('webpack-hot-middleware')(compiler));
+}
 
 // Log requests to the console.
 app.use(logger('dev'));
