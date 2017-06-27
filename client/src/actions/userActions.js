@@ -29,7 +29,7 @@ export const usersAddSuccess = users => ({
   users
 });
 
-export const usersAddFailure =users => ({
+export const usersAddFailure = users => ({
   type: types.USERS_ADD_FAILURE,
   users
 });
@@ -147,17 +147,17 @@ export const deleteUser = userId => (dispatch) => {
 };
 
 export const getUser = userId => (dispatch) => {
-  dispatch(usersGetRequest());
+  // dispatch(usersGetRequest());
   return (
     request
       .get(`/api/user/${userId}`)
       .set('x-access-token', window.localStorage.getItem('token'))
-      .then((response) => {
-        dispatch(usersGetSuccess(response.body));
-      })
-      .catch((error) => {
-        dispatch(usersGetFailure(error.response));
-      })
+    // .then((response) => {
+    //   dispatch(usersGetSuccess(response.body));
+    // })
+    // .catch((error) => {
+    //   dispatch(usersGetFailure(error.response));
+    // })
   );
 };
 

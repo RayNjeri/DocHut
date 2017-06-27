@@ -21,8 +21,7 @@ class UserContainer extends React.Component {
         this.handleLogOut = this.handleLogOut.bind(this);
     }
     componentDidMount() {
-        this.props.userActions.listUsers().then(() => {
-        });
+        this.props.userActions.listUsers();
     }
 
     handleLogOut() {
@@ -37,9 +36,7 @@ class UserContainer extends React.Component {
     }
 
     handleSelect(user) {
-        this.props.userActions(user).then(() => {
-            this.context.router.push(`/profile/${user.id}`);
-        });
+        this.context.router.push(`/profile/${user.id}`);
     }
 
     handleOpen() {

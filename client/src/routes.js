@@ -7,6 +7,7 @@ import DocumentViewContainer from './Components/document/documentViewContainer';
 import ProfilePageContainer from './Components/user/userProfile';
 import SignUp from './Components/Auth/signup/SignupPage';
 import Login from './Components/Auth/login/loginPage';
+import ProfilePage from './Components/user/userProfilePage';
 import content from './Components/common/content';
 import { getUserFromToken } from './utils/tokenUtils';
 
@@ -46,6 +47,7 @@ export default (
         <Route path="signup" component={SignUp} />
         <Route path="login" component={Login} />
         <Route path="users" component={ProfilePageContainer} />
+        <Route path="profile/:id" component={ProfilePageContainer} />
         <Route path="content" component={content} />
     </Route>
 );
