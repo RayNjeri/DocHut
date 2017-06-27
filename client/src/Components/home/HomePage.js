@@ -9,7 +9,6 @@ import LoginPage from '../Auth/login/loginPage';
 const HomePage = () => (
   <div>
     <center>
-      <p1>Safely keep and manage your Docs</p1>
       <LoginPage />
     </center>
   </div>

@@ -7,7 +7,7 @@ import { Router, browserHistory } from 'react-router';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import configureStore from './store/ConfigureStore';
 import { postDocuments , allDocuments } from './actions/documentsAction.js';
-// import { loadUsers } from './actions/userActions';
+import { loadUsers } from './actions/userActions';
 import routes from './routes';
 
 injectTapEventPlugin();

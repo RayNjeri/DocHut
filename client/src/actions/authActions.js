@@ -1,7 +1,7 @@
 import request from 'superagent';
 import * as tokenUtils from '../utils/tokenUtils';
 import * as types from './actionTypes';
-import { setAuthToken } from '../utils/tokenUtils'
+import { setAuthToken } from '../utils/tokenUtils';
 export const signUpUser = user => ({ type: types.SIGNUP_USER, user });
 
 export const logoutUser = () => ({ type: types.LOGOUT_USER });

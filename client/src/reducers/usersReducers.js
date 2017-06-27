@@ -57,7 +57,7 @@ export default function reducer(state = USER_LIST, action) {
     case types.USERS_ADD_SUCCESS:
       return Object.assign({}, state, {
         users: [action.users,
-          ...state.users],
+        ...state.users],
         loading: false,
       });
 
