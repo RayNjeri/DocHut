@@ -33,7 +33,7 @@ function requireAuth(nextState, replace) {
     if (!isAdmin()) {
         replace({
             //  Redirect to path of choice
-            pathname: '/'
+            pathname: '/documents'
         });
     }
 }
@@ -46,7 +46,7 @@ export default (
         <Route path="documents" component={DocumentViewContainer} />
         <Route path="signup" component={SignUp} />
         <Route path="login" component={Login} />
-        <Route path="users" component={ProfilePageContainer} />
+        <Route path="users" onEnter={requireAuth} component={ProfilePageContainer} />
         <Route path="profile/:id" component={ProfilePageContainer} />
         <Route path="content" component={content} />
     </Route>

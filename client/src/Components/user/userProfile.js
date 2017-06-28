@@ -67,7 +67,7 @@ class ProfilePageContainer extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.userActions.editUser(this.state.user);
+    this.props.userActions.updateUser(this.state.user);
   }
 
   handleChange(e) {
@@ -143,6 +143,8 @@ ProfilePageContainer.contextTypes = {
 function mapStateToProps(state, ownProps) {
   const { id } = ownProps.params;
   const user = state.users.users.find(user => user.id === Number(id));
+  console.log(state, '>>>>>>>>')
+  console.log(user, 'userrrr');
   return {
     user,
     authReducer: state.authReducer

@@ -38,14 +38,52 @@ module.exports = {
   // list all documents
 
   list(req, res) {
-    if (req.query.limit || req.query.offset) {
-      return Document.findAll({ offset: req.query.offset, limit: req.query.limit })
+    const querySearch = (offset, limit, isPublic) => {
+      let query = {};
+      if (offset) {
+        query.offset = offset;
+      }
+      if (limit) {
+        query.limit = limit;
+      }
+      if (isPublic) {
+        query.where = {
+          access: 'public'
+        };
+      }
+      return Document.findAll(query)
         .then(response => res.status(200).send(response))
         .catch(error => res.status(400).send(error));
+    };
+    const allSearch = (isPublic) => {
+      let query = {};
+      if (isPublic) {
+        console.log('IS PUBLIC RAN');
+        query.where = {
+          access: 'public'
+        };
+      }
+      return Document.findAll(query)
+        .then(document => res.status(200).send(document))
+        .catch(error => res.status(400).send(error));
+    };
+    if (req.roleId == 1) {
+      console.log('IS AN ADMIN');
+      if (req.query.limit || req.query.offset) {
+        querySearch(req.query.offset, req.query.limit);
+      } else {
+        allSearch();
+      }
+    } else {
+      console.log('NOT AN ADMIN!!');
+      if (req.query.limit || req.query.offset) {
+        console.log('QUERY');
+        querySearch(req.query.offset, req.query.limit, true);
+      } else {
+        console.log('NO QUERY');
+        allSearch(true);
+      }
     }
-    Document.all()
-      .then(document => res.status(200).send(document))
-      .catch(error => res.status(400).send(error));
   },
 
   // get a document by id

@@ -76,10 +76,10 @@ const ProfilePage = (props) => {
                         </Card>
                     }
                 </div>
-                {/*<div className="col-md-8 col-sm-8" >
-                    <DocumentList selectedDocuments={props.documents} />
-                    <DocumentViewContainer />
-                </div>*/}
+                <div className="col-md-8 col-sm-8" >
+                    <DocumentList documents={props.user.documents} />
+
+                </div>
             </div>
         </div>
     );
