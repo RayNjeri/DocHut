@@ -21,7 +21,7 @@ const ProfilePage = (props) => {
         <div className="col-md-4 col-sm-4" >
           {!props.isEditing ?
             <Card style={{ maxWidth: 350, marginTop: 30 }}>
-              <CardMedia overlay={<CardTitle title={props.user.username} />} />
+              <CardMedia overlay={<CardTitle title={props.user.userName} />} />
               <CardText>
                 {props.user.email}
               </CardText>
@@ -32,15 +32,15 @@ const ProfilePage = (props) => {
                 </CardActions> : <span />}
             </Card> :
             <Card style={{ maxWidth: 350, marginTop: 30 }}>
-              <CardMedia overlay={<CardTitle title={props.user.username} />} />
+              <CardMedia overlay={<CardTitle title={props.user.userName} />} />
               <CardText>
                 <TextField
                   hintText="Username"
                   floatingLabelText="Username"
-                  name="username"
+                  name="userName"
                   onChange={props.onChange}
                   onBlur={props.onBlur}
-                  defaultValue={props.user.username}
+                  defaultValue={props.user.userName}
                   errorText={props.errors.username}
                 /><br />
                 <TextField

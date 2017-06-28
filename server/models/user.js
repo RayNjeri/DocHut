@@ -1,4 +1,4 @@
-
+const bcrypt = require('bcrypt-nodejs');
 
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
@@ -51,6 +51,13 @@ module.exports = (sequelize, DataTypes) => {
           });
         },
       },
+      hooks: {
+        afterValidate(instance) {
+          if (instance.changed('password')) {
+            instance.set('password', bcrypt.hashSync(instance.get('password')));
+          }
+        }
+      }
     });
 
   return User;

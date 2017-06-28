@@ -45,10 +45,10 @@ export default function reducer(state = USER_LIST, action) {
       loading: true,
     });
   case types.USERS_UPDATE_FAILURE:
-    return {
+    return Object.assign({}, state, {
       error: action.error,
       loading: false,
-    };
+    });
   case types.USERS_ADD_REQUEST:
     return Object.assign({}, state, {
       error: null,
@@ -56,8 +56,7 @@ export default function reducer(state = USER_LIST, action) {
     });
   case types.USERS_ADD_SUCCESS:
     return Object.assign({}, state, {
-      users: [action.users,
-        ...state.users],
+      users: [action.users, ...state.users],
       loading: false,
     });
 
@@ -69,11 +68,10 @@ export default function reducer(state = USER_LIST, action) {
     });
 
   case types.USERS_GET_REQUEST:
-    return {
-      users: null,
+    return Object.assign({}, state, {
       error: null,
       loading: true,
-    };
+    });
   default:
     return state;
   }

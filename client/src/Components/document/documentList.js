@@ -9,16 +9,16 @@ const DocumentList = ({ documents, handleOpen, style }) => (
     {documents.map(document =>
       <DocumentView key={document.id} document={document} />
     )}
-    <div>
+    {handleOpen && (
       <FloatingActionButton onClick={handleOpen} style={style}>
         <ContentAdd />
       </FloatingActionButton>
-    </div>
+    )}
   </div>
 );
 DocumentList.propTypes = {
   documents: PropTypes.array.isRequired,
-  handleOpen: PropTypes.func.isRequired,
+  handleOpen: PropTypes.func,
   style: PropTypes.func.isRequired
 };
 

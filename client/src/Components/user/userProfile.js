@@ -67,7 +67,13 @@ class ProfilePageContainer extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    this.props.userActions.updateUser(this.state.user);
+    const hasErrors = Object.keys(this.state.errors).some(key => !!this.state.errors[key]);
+    if (hasErrors) {
+      return;
+    }
+    const updatedUser = Object.assign({}, this.state.user);
+    delete updatedUser.documents;
+    this.props.userActions.updateUser(updatedUser);
   }
 
   handleChange(e) {
@@ -82,13 +88,33 @@ class ProfilePageContainer extends React.Component {
 
   handleValidate() {
     const user = this.state.user;
-
     if (!Validator.isEmail(user.email)) {
-      this.setState({ errors: { email: 'Email is invalid' } });
+      this.setState((prevState) => ({
+        errors: Object.assign({}, prevState.errors, {
+          email: 'Email is invalid'
+        })
+      }));
+    } else if (this.state.errors.email) {
+      this.setState((prevState) => ({
+        errors: Object.assign({}, prevState.errors, {
+          email: null
+        })
+      }));
     }
 
     if (user.password && user.confirmPassword !== user.password) {
-      this.setState({ errors: { confirmPassword: 'Doesn\'t match password' } });
+      this.setState((prevState) => ({
+        errors: Object.assign({}, prevState.errors, {
+          confirmPassword: 'Doesn\'t match password'
+        })
+      }));
+
+    } else if (this.state.errors.confirmPassword) {
+      this.setState((prevState) => ({
+        errors: Object.assign({}, prevState.errors, {
+          confirmPassword: null
+        })
+      }));
     }
   }
 
@@ -98,7 +124,7 @@ class ProfilePageContainer extends React.Component {
       <div>
         <UsersView
           documents={this.state.documents}
-          userStateInfo={this.props.users}
+          users={this.props.users}
           onClose={this.handleClose}
           errors={this.state}
           onBlur={this.handleValidate}
