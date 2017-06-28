@@ -7,35 +7,35 @@ import {
 
 import { DocumentViewContainer } from '../../client/src/Components/document/documentViewContainer';
 
-const constructProps = ({ documents = []} = {}) => ({
-  deleteDocument() {},
+const constructProps = ({ documents = [] } = {}) => ({
+  deleteDocument() { },
   router: {},
   documentActions: {
-    listDocuments() {}
+    listDocuments() { }
   },
   documentList: {
     documents
   },
 });
 
-const constructWrapper = props => shallow(<DocumentViewContainer {...props}/>);
+const constructWrapper = props => shallow(<DocumentViewContainer {...props} />);
 
-describe('DocumentViewContainer component',() => {
-  it('renders correctly', () =>{
+describe('DocumentViewContainer component', () => {
+  it('renders correctly', () => {
     const wrapper = constructWrapper(constructProps());
     expect(
       wrapper.props().className
     ).toBe('container');
   });
 
-  it('should have a dialog container', () =>  {
+  it('should have a dialog container', () => {
     const wrapper = constructWrapper(constructProps());
     expect(
       wrapper.find('Dialog').length
     ).toEqual(1);
   });
 
-  it('should have matching snapshot', () =>{
+  it('should have matching snapshot', () => {
     const wrapper = constructWrapper(constructProps());
     const tree = shallowToJSON(wrapper);
     expect(tree).toMatchSnapshot();
@@ -57,10 +57,10 @@ describe('DocumentViewContainer component',() => {
     expect(wrapper.find('Dialog').props().open).toBe(true);
   });
 
-  it.skip('handleClose', () => {
-    beforeEach( (done) => {
-      setTimeout( () => {
-          done();
+  it('handleClose', () => {
+    beforeEach((done) => {
+      setTimeout(() => {
+        done();
       }, 500);
     });
   });

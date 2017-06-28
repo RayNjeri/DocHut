@@ -1,19 +1,19 @@
-import reducer from '../../client/src/reducers/documentReducer';
+import reducer from '../../client/src/reducers/usersReducers';
 import * as types from '../../client/src/actions/actionTypes';
 
-describe('documentReducer', () => {
+describe('reducer', () => {
   it('should return the initial state', () => {
     expect(reducer(undefined, {})).toEqual({
-      documents: [],
+      users: [],
       error: null,
       loading: false,
       searchFilter: '',
     });
   });
 
-  it('should handle create document request', () => {
+  it('should handle create user request', () => {
     const action = {
-      type: types.DOCUMENTS_ADD_REQUEST
+      type: types.USERS_ADD_REQUEST
     };
     const expected = {
       error: null,
@@ -22,24 +22,26 @@ describe('documentReducer', () => {
     expect(reducer({}, action)).toEqual(expected);
   });
 
-  it('should handle create document success', () => {
+  it('should handle create user success', () => {
     const state = {
-      documents: []
+      users: []
     };
 
-    const document = {
-      title: 'title',
-      content: 'content',
-      access: 'access',
+    const user = {
+      firstName: 'firstName',
+      lastName: 'lastName',
+      userName: 'userName',
+      email: 'email',
+      password: 'password'
     };
 
     const action = {
-      type: types.DOCUMENTS_ADD_SUCCESS,
-      documents: document
+      type: types.USERS_ADD_SUCCESS,
+      users: user
     };
 
     const expected = {
-      documents: [document],
+      users: [user],
       loading: false,
     };
 
@@ -47,39 +49,41 @@ describe('documentReducer', () => {
     expect(newState).toEqual(expected);
   });
 
-  it('should handle get document request', () => {
+  it('should handle get user request', () => {
     const action = {
-      type: types.DOCUMENTS_GET_REQUEST
+      type: types.USERS_GET_REQUEST
     };
     const expected = {
-      documents: null,
+      users: null,
       error: null,
       loading: true
     };
     expect(reducer({}, action)).toEqual(expected);
   });
 
-  it('should handle get documents success', () => {
+  it('should handle get users success', () => {
     const state = {
-      documents: [],
+      users: [],
       error: null,
       loading: false,
       searchFilter: '',
     };
 
-    const document = {
-      title: 'title',
-      content: 'content',
-      access: 'access',
+    const user = {
+      firstName: 'firstName',
+      lastName: 'lastName',
+      userName: 'userName',
+      email: 'email',
+      password: 'password'
     };
 
     const action = {
-      type: types.DOCUMENTS_GET_SUCCESS,
-      documents: document
+      type: types.USERS_GET_SUCCESS,
+      users: user
     };
 
     const expected = Object.assign({}, state, {
-      documents: [document]
+      users: [user]
     });
 
     const newState = reducer(state, action);
