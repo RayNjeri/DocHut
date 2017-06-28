@@ -103,9 +103,9 @@ LoginForm.propTypes = {
 };
 
 function mapDispatchToProps(dispatch) {
-    return {
-        authActions: bindActionCreators(authActions, dispatch)
-    };
+  return {
+    authActions: bindActionCreators(authActions, dispatch)
+  };
 }
 
 LoginForm.contextTypes = {

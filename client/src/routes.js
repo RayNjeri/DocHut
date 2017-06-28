@@ -12,14 +12,14 @@ import content from './Components/common/content';
 import { getUserFromToken } from './utils/tokenUtils';
 
 function isAdmin() {
-    console.log('Admin check function');
-    let user = getUserFromToken();
-    let role = user.roleId;
-    console.log(user, role);
-    if (role === 1) {
-        return true;
-    }
-    return false;
+  console.log('Admin check function');
+  let user = getUserFromToken();
+  let role = user.roleId;
+  console.log(user, role);
+  if (role === 1) {
+    return true;
+  }
+  return false;
     // Get the token from local storage
     // Decode the token - use your existing fucntions
     // That means we'll need user role in the token
@@ -29,13 +29,13 @@ function isAdmin() {
 
 
 function requireAuth(nextState, replace) {
-    console.log('Admin check', isAdmin());
-    if (!isAdmin()) {
-        replace({
+  console.log('Admin check', isAdmin());
+  if (!isAdmin()) {
+    replace({
             //  Redirect to path of choice
-            pathname: '/documents'
-        });
-    }
+      pathname: '/documents'
+    });
+  }
 }
 
 

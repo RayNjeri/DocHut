@@ -31,7 +31,7 @@ class ProfilePageContainer extends React.Component {
     if (nextProps.user !== this.props.user) {
       this.setState({
         user: nextProps.user
-      })
+      });
     }
   }
   loadUserData(userId) {
@@ -87,7 +87,7 @@ class ProfilePageContainer extends React.Component {
       this.setState({ errors: { email: 'Email is invalid' } });
     }
 
-    if (user.confirmPassword !== user.password) {
+    if (user.password && user.confirmPassword !== user.password) {
       this.setState({ errors: { confirmPassword: 'Doesn\'t match password' } });
     }
   }
@@ -143,7 +143,8 @@ ProfilePageContainer.contextTypes = {
 function mapStateToProps(state, ownProps) {
   const { id } = ownProps.params;
   const user = state.users.users.find(user => user.id === Number(id));
-  console.log(state, '>>>>>>>>')
+
+  console.log(state, '>>>>>>>>');
   console.log(user, 'userrrr');
   return {
     user,

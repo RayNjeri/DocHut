@@ -11,55 +11,55 @@ import { userSignupRequest } from '../../../actions/authActions';
 
 
 class SignUpForm extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            firstName: '',
-            lastName: '',
-            userName: '',
-            email: '',
-            password: '',
-            confirmPassword: '',
-            errors: {},
-            isLoading: false,
-            invalid: false
-        };
-        this.onChange = this.onChange.bind(this);
-        this.onSubmit = this.onSubmit.bind(this);
-    }
+  constructor(props) {
+    super(props);
+    this.state = {
+      firstName: '',
+      lastName: '',
+      userName: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
+      errors: {},
+      isLoading: false,
+      invalid: false
+    };
+    this.onChange = this.onChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+  }
 
-    onChange(e) {
-        this.setState({ [e.target.name]: e.target.value });
-    }
+  onChange(e) {
+    this.setState({ [e.target.name]: e.target.value });
+  }
 
-    onSubmit(e) {
-        e.preventDefault();
+  onSubmit(e) {
+    e.preventDefault();
 
-        if (this.isValid()) {
-            this.setState({ errors: {}, isLoading: true });
-            this.props.userSignupRequest(this.state)
+    if (this.isValid()) {
+      this.setState({ errors: {}, isLoading: true });
+      this.props.userSignupRequest(this.state)
                 .then(
                 () => {
-                    browserHistory.push('/documents');
+                  browserHistory.push('/documents');
                 },
                 err => this.setState({ errors: err.response.data, isLoading: false })
                 );
-        }
+    }
+  }
+
+  isValid() {
+    const { errors, isValid } = validateInput(this.state);
+
+    if (!isValid) {
+      this.setState({ errors });
     }
 
-    isValid() {
-        const { errors, isValid } = validateInput(this.state);
+    return isValid;
+  }
 
-        if (!isValid) {
-            this.setState({ errors });
-        }
-
-        return isValid;
-    }
-
-    render() {
-        const { errors } = this.state;
-        return (
+  render() {
+    const { errors } = this.state;
+    return (
             <MuiThemeProvider>
                 <center>
                     <Card className="container">
@@ -139,16 +139,16 @@ class SignUpForm extends React.Component {
                     </Card>
                 </center>
             </MuiThemeProvider>
-        );
-    }
+    );
+  }
 }
 
 SignUpForm.propTypes = {
-    userSignupRequest: React.PropTypes.func.isRequired
+  userSignupRequest: React.PropTypes.func.isRequired
 };
 
 SignUpForm.contextTypes = {
-    router: React.PropTypes.object.isRequired
+  router: React.PropTypes.object.isRequired
 };
 
 

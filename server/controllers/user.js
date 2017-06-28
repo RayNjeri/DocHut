@@ -132,11 +132,13 @@ module.exports = {
             message: 'User Not Found',
           });
         }
-        User.update({ userName: req.body.userName || user.userName, })
-          .then((updatedUser) => res.status(201).send(updatedUser))
-          .catch(error => res.status(400).send(error));
+        user.update(req.body, { fields: Object.keys(req.body) })
+          .then((updatedUser) => {
+            res.status(201).send(updatedUser);
+          })
+          .catch(error => { console.log('update catch', error); res.status(400).send(error); });
       })
-      .catch(error => res.status(400).send(error));
+      .catch(error => { console.log('Final catch', error); res.status(400).send(error); });
   },
 
   // delete a user
