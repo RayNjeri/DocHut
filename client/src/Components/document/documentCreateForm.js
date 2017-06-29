@@ -10,7 +10,7 @@ const CreateDocument = props => (
     <TextField
       name="title"
       type="text"
-      placeholder = "Title"
+      placeholder="Title"
       onChange={props.onTitleChange}
       defaultValue={props.document.title}
       fullWidth
@@ -36,6 +36,8 @@ const CreateDocument = props => (
     >
       <MenuItem value={'public'} primaryText="Public" />
       <MenuItem value={'private'} primaryText="Private" />
+      <MenuItem value={'role'} primaryText="Role" />
+
 
     </SelectField>
   </div>

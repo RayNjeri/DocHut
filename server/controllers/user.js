@@ -34,7 +34,7 @@ module.exports = {
     const lastName = req.body.lastName;
     const userName = req.body.userName;
     const email = req.body.email;
-    const password = bcrypt.hashSync(req.body.password, saltRounds);
+    const password = req.body.password;
     const roleId = 2;
 
     if (!firstName || !lastName || !userName || !email || !password) {
@@ -84,10 +84,10 @@ module.exports = {
             message: 'Password/email does not match'
           });
         }
-
         const token = jwt.sign({ userId: user.id, roleId: user.roleId }, secretKey, { expiresIn: '24h' });
         return res.status(200).send({
           message: 'You were successfully logged in',
+          user,
           token,
           expiresIn: '24h'
         });

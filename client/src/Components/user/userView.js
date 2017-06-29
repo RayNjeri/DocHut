@@ -73,7 +73,6 @@ UserContainer.contextTypes = {
 };
 
 function mapStateToProps(state) {
-  console.log('This is the store', state);
   return {
     users: state.users.users,
     authReducer: state.authReducer

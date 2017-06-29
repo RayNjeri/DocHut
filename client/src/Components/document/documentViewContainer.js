@@ -132,7 +132,7 @@ export class DocumentViewContainer extends React.Component {
               listDocuments={this.props.documentActions.listDocuments}
             />)
           )}
-          <div className="paganitaion" >
+          <div className="paginitaion" >
             <Pagination
               activePage={this.state.activePage}
               itemsCountPerPage={this.state.limit}

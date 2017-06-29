@@ -6,7 +6,7 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 import { Router, browserHistory } from 'react-router';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import configureStore from './store/ConfigureStore';
-import { postDocuments , allDocuments } from './actions/documentsAction.js';
+import { postDocuments, allDocuments } from './actions/documentsAction.js';
 import { loadUsers } from './actions/userActions';
 import routes from './routes';
 
@@ -18,9 +18,9 @@ const store = configureStore();
 
 render(
   <Provider store={store}>
-  <MuiThemeProvider>
-    <Router history={browserHistory} routes={routes} />
-  </MuiThemeProvider>
+    <MuiThemeProvider>
+      <Router history={browserHistory} routes={routes} />
+    </MuiThemeProvider>
   </Provider>,
   document.getElementById('app')
 );

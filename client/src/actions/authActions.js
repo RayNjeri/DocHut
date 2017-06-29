@@ -32,39 +32,39 @@ export const setCurrentUser = user => ({
   user
 });
 
-export const LoginUser = user => ({ type: types.LOGIN_USER, user });
+export const loginUser = user => ({ type: types.LOGIN_USER, user });
 
 /* eslint no-undef: "off"*/
 
 export const userSignupRequest = userData => (dispatch) => {
   dispatch(signUpUser(userData));
   return (
-        request
-            .post('/api/user')
-            .send(userData)
-            .then((response) => {
-              setAuthToken(response.body.token);
-              dispatch(loginSuccessful(response.body));
-            })
-            .catch((error) => {
-              dispatch(loginFailed(error.response));
-            })
+    request
+      .post('/api/user')
+      .send(userData)
+      .then((response) => {
+        setAuthToken(response.body.token);
+        dispatch(loginSuccessful(response.body));
+      })
+      .catch((error) => {
+        dispatch(loginFailed(error.response));
+      })
   );
 };
 
 export const login = (userData) => (dispatch) => {
-  dispatch(LoginUser(userData));
+  dispatch(loginUser(userData));
   return (
-        request
-            .post('/api/user/login')
-            .send(userData)
-            .then((response) => {
-              setAuthToken(response.body.token);
-              dispatch(loginSuccessful(response.body));
-            })
-            .catch((error) => {
-              dispatch(loginFailed(error.response));
-            })
+    request
+      .post('/api/user/login')
+      .send(userData)
+      .then((response) => {
+        setAuthToken(response.body.token);
+        dispatch(loginSuccessful(response.body));
+      })
+      .catch((error) => {
+        dispatch(loginFailed(error.response));
+      })
   );
 };
 
