@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start:dev": "nodemon ./bin/www",
-    "start": "npm-run-all --parallel open:src",
+    "start": "node ./bin/www",
     "open:src": "babel-node app.js",
     "test": "npm run test:fend; npm run test:bend",
     "test:bend": "NODE_ENV=test nyc --reporter=html --reporter=text mocha --recursive -t 10000",
