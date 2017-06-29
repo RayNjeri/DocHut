@@ -12,49 +12,69 @@ import MenuItem from 'material-ui/MenuItem';
 import * as userActions from '../../actions/userActions';
 import * as authActions from '../../actions/authActions';
 import { getUserFromToken } from '../../utils/tokenUtils';
+import DocumentList from '../document/documentList';
+import { bindActionCreators } from 'redux';
 
 
 export class OwnProfile extends React.Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.state = {
-            errors: {},
-            isEditing: false,
-            user: {}
-        };
+    this.state = {
+      errors: {},
+      isEditing: false,
+      user: {},
+      editedUser: {}
+    };
+    this.editUserToggle = this.editUserToggle.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+  componentWillMount() {
+    let user = getUserFromToken();
+    this.setState({ user: user });
+  }
 
-        this.handleShowEdit = this.handleShowEdit.bind(this);
+  editUserToggle() {
+    this.setState({ isEditing: !this.state.isEditing });
+  }
+  handleSubmit(e) {
+    e.preventDefault();
+    const hasErrors = Object.keys(this.state.errors).some(key => !!this.state.errors[key]);
+    if (hasErrors) {
+      return;
     }
-    componentWillMount() {
-        let user = getUserFromToken();
-        this.setState({ user: user });
-    }
+    const updatedUser = Object.assign({}, this.state.updatedUser);
+    this.props.updateUser(updatedUser);
+  }
+  handleChange(e) {
+    e.preventDefault();
+    console.log('HandleChange', e.target.name, e.target.value);
+    let editedUser = this.state.editedUser;
+    this.setState({
+      editedUser: Object.assign({}, editedUser, {
+        [e.target.name]: e.target.value
+      })
+    });
+  }
 
-    handleShowEdit(user) {
-        const loggedUser = this.props.authReducer(['user', 'user']);
-        return (
-            loggedUser && loggedUser.role.id === '1' || loggedUser._id === user._id
-        );
-    }
-
-    canEdit(user) {
-        return false;
-    }
-    render() {
-        console.log('props: ', this.props);
-        let user = this.props.user;
-        if (!user) {
-            return (
+  canEdit(user) {
+    return true;
+  }
+  render() {
+    console.log('props: ', this.prop);
+    let user = this.props.user;
+    if (!user) {
+      return (
                 <CircularProgress />
-            );
-        } else {
-            user = Object.assign({}, this.props.user, this.state.user);
-        }
-        return (
+      );
+    } else {
+      user = Object.assign({}, this.props.user, this.state.user);
+    }
+    return (
             <div className="row col-md-10 col-md-offset-1 col-sm-12" style={{ padding: 20 }}>
                 <div className="col-md-4 col-sm-4" >
-                    {!this.props.isEditing ?
+                    {!this.state.isEditing ?
                         <Card style={{ maxWidth: 350, marginTop: 30 }}>
                             <CardMedia overlay={<CardTitle title={user.userName} />} />
                             <CardText>
@@ -62,7 +82,7 @@ export class OwnProfile extends React.Component {
                             </CardText>
                             {this.canEdit(user) ?
                                 <CardActions>
-                                    <FlatButton label="Edit Profile" onClick={this.props.editUserToggle}
+                                    <FlatButton label="Edit Profile" onClick={this.editUserToggle}
                                         icon={<CreateIcon />} primary />
                                 </CardActions> : <span />}
                         </Card> :
@@ -73,51 +93,57 @@ export class OwnProfile extends React.Component {
                                     hintText="Username"
                                     floatingLabelText="Username"
                                     name="userName"
-                                    onChange={this.props.onChange}
-                                    onBlur={this.props.onBlur}
+                                    onChange={this.handleChange}
                                     defaultValue={user.userName}
-                                    errorText={this.props.errors.username}
+
                                 /><br />
                                 <TextField
                                     hintText="Email"
                                     floatingLabelText="Email"
                                     name="email"
-                                    onChange={this.props.onChange}
-                                    onBlur={this.props.onBlur}
+                                    onChange={this.handleChange}
                                     defaultValue={user.email}
-                                    errorText={this.props.errors.email}
+
                                 /><br />
                                 <TextField
                                     hintText="Password"
                                     floatingLabelText="Password"
+                                    onChange={this.handleChange}
                                     name="password"
                                     type="password"
-                                    onChange={this.props.onChange}
                                 /><br />
                                 <TextField
                                     hintText="Confirm Password"
                                     floatingLabelText="Confirm Password"
+                                    onChange={this.handleChange}
                                     name="confirmPassword"
                                     type="password"
-                                    onChange={this.props.onChange}
-                                    onBlur={this.props.onBlur}
-                                    errorText={this.props.errors.confirmPassword}
+
+
                                 /><br />
                             </CardText>
                             <CardActions>
-                                <FlatButton label="Submit" onClick={this.props.onSubmit} primary />
-                                <FlatButton label="Cancel" onClick={this.props.editUserToggle} primary />
+                                <FlatButton label="Submit" onClick={this.handleSubmit} primary />
+                                <FlatButton label="Cancel" onClick={this.editUserToggle} primary />
                             </CardActions>
                         </Card>
                     }
                 </div>
+                <div className="col-md-8 col-sm-8" >
+                    <DocumentList documents={user.documents} />
+
+                </div>
             </div>
-        );
-    }
+    );
+  }
 }
 
 const mapStateToProps = state => ({
-    user: state.authReducer.user
+  user: state.authReducer.user
 });
 
-export default connect(mapStateToProps)(OwnProfile);
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators(userActions, dispatch);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(OwnProfile);

@@ -17,9 +17,9 @@ const DocumentList = ({ documents, handleOpen, style }) => (
     </div>
 );
 DocumentList.propTypes = {
-    documents: PropTypes.array.isRequired,
-    handleOpen: PropTypes.func,
-    style: PropTypes.func
+  documents: PropTypes.array.isRequired,
+  handleOpen: PropTypes.func,
+  style: PropTypes.func
 };
 
 export default DocumentList;

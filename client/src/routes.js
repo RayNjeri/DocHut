@@ -3,7 +3,7 @@ import { Route, IndexRoute } from 'react-router';
 import App from './Components/layout';
 import HomePage from './Components/home/HomePage';
 import AboutPage from './Components/about/AboutPage';
-import ownProfile from './Components/user/ownProfile';
+import OwnProfile from './Components/user/ownProfile';
 import DocumentViewContainer from './Components/document/documentViewContainer';
 import ProfilePageContainer from './Components/user/userProfile';
 import SignUp from './Components/Auth/signup/SignupPage';
@@ -48,7 +48,7 @@ export default (
     <Route path="documents" component={DocumentViewContainer} />
     <Route path="signup" component={SignUp} />
     <Route path="login" component={Login} />
-    <Route path="profile" component={ownProfile} />
+    <Route path="profile" component={OwnProfile} />
     <Route path="users" onEnter={requireAuth} component={ProfilePageContainer} />
     <Route path="profile/:id" component={ProfilePageContainer} />
     <Route path="content" component={content} />
