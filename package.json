@@ -58,9 +58,7 @@
     "superagent": "^3.5.2",
     "validator": "^7.0.0",
     "webpack": "^1.15.0",
-    "webpack-hot-middleware": "^2.18.0"
-  },
-  "devDependencies": {
+    "webpack-hot-middleware": "^2.18.0",
     "babel-jest": "^20.0.3",
     "babel-loader": "^6.4.1",
     "babel-preset-env": "^1.5.2",
