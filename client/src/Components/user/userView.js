@@ -47,23 +47,23 @@ class UserContainer extends React.Component {
 
   render() {
     return (
-            this.props.users.loading ?
-                <CircularProgress size={60} thickness={5} /> :
-                <NavBar
-                    openDrawer={this.handleOpen}
-                    users={this.props.users}
-                    isOpen={this.state}
-                    onClose={this.handleClose}
-                    onLogOut={this.handleLogOut}
-                    onSelectUser={this.handleSelect}
-                />
+      this.props.users.loading ?
+        <CircularProgress size={60} thickness={5} /> :
+        <NavBar
+          openDrawer={this.handleOpen}
+          users={this.props.users}
+          isOpen={this.state}
+          onClose={this.handleClose}
+          onLogOut={this.handleLogOut}
+          onSelectUser={this.handleSelect}
+        />
     );
   }
 }
 
 UserContainer.propTypes = {
   userActions: PropTypes.object.isRequired,
-  users: PropTypes.object,
+  users: PropTypes.array,
   authReducer: PropTypes.object,
   authActions: PropTypes.object,
 };

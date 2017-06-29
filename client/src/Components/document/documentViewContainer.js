@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { browserHistory } from 'react-router';
+import Pagination from 'react-js-pagination';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
@@ -30,7 +31,9 @@ export class DocumentViewContainer extends React.Component {
       document: {
         title: '',
         content: '',
-        access: ''
+        access: '',
+        activePage: 1,
+        limit: 5
       }
     };
     this.handleOpen = this.handleOpen.bind(this);
@@ -40,6 +43,7 @@ export class DocumentViewContainer extends React.Component {
     this.onContentChange = this.onContentChange.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handlePageChange = this.handlePageChange.bind(this);
   }
   componentWillMount() {
     this.props.documentActions.listDocuments();
@@ -96,6 +100,11 @@ export class DocumentViewContainer extends React.Component {
     this.handleClose();
   }
 
+  handlePageChange(pageNumber) {
+    this.setState({ activePage: pageNumber });
+    this.props.documentActions.listDocuments(this.state.limit, (this.state.limit * (pageNumber - 1)));
+  }
+
   render() {
     const viewActions = [
       <FlatButton
@@ -112,7 +121,8 @@ export class DocumentViewContainer extends React.Component {
     ];
     return (
       <div className="container">
-        <div>
+        <div className="documents">
+          <h1>Documents</h1>
           {this.props.documentList.documents.map(document =>
             (<DocumentView
               key={document.id}
@@ -122,6 +132,15 @@ export class DocumentViewContainer extends React.Component {
               listDocuments={this.props.documentActions.listDocuments}
             />)
           )}
+          <div className="paganitaion" >
+            <Pagination
+              activePage={this.state.activePage}
+              itemsCountPerPage={this.state.limit}
+              totalItemsCount={50}
+              pageRangeDisplayed={5}
+              onChange={this.handlePageChange}
+            />
+          </div>
           <div>
             <FloatingActionButton onClick={this.handleOpen} backgroundColor="#123c69" style={style}>
               <ContentAdd />

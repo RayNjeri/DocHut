@@ -5,21 +5,21 @@ import ContentAdd from 'material-ui/svg-icons/content/add';
 import DocumentView from './documentsView';
 
 const DocumentList = ({ documents, handleOpen, style }) => (
-  <div>
-    {documents.map(document =>
-      <DocumentView key={document.id} document={document} />
-    )}
-    {handleOpen && (
-      <FloatingActionButton onClick={handleOpen} style={style}>
-        <ContentAdd />
-      </FloatingActionButton>
-    )}
-  </div>
+    <div>
+        {documents.map(document =>
+            <DocumentView key={document.id} document={document} />
+        )}
+        {handleOpen && (
+            <FloatingActionButton onClick={handleOpen} style={style}>
+                <ContentAdd />
+            </FloatingActionButton>
+        )}
+    </div>
 );
 DocumentList.propTypes = {
-  documents: PropTypes.array.isRequired,
-  handleOpen: PropTypes.func,
-  style: PropTypes.func.isRequired
+    documents: PropTypes.array.isRequired,
+    handleOpen: PropTypes.func,
+    style: PropTypes.func
 };
 
 export default DocumentList;
