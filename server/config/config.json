@@ -1,11 +1,17 @@
 {
   "development": {
-    "username": "RayNjeri",
-    "password": null,
-    "database": "dochut-dev",
-    "host": "127.0.0.1",
+    "username": "ukemrnqffgzbdg",
+    "password": "d82f73e8973388cceabd9e1bdbf06786e7323fb25aeda18be17f47afe03a4115",
+    "database": "deo409qj15k7ta",
+    "host": "ec2-23-21-158-253.compute-1.amazonaws.com",
     "port": 5432,
-    "dialect": "postgres"
+    "dialect": "postgres",
+    "ssl": true,
+    "dialectOptions": {
+      "ssl": {
+        "require": true
+      }
+    }
   },
   "test": {
     "username": "RayNjeri",
@@ -21,6 +27,12 @@
     "database": "deo409qj15k7ta",
     "host": "ec2-23-21-158-253.compute-1.amazonaws.com",
     "port": 5432,
-    "dialect": "postgres"
+    "dialect": "postgres",
+    "ssl": true,
+    "dialectOptions": {
+      "ssl": {
+        "require": true
+      }
+    }
   }
 }
