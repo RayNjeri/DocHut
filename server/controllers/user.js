@@ -61,7 +61,10 @@ module.exports = {
         };
         return res.status(201).json(data);
       })
-      .catch(error => res.status(400).send(error));
+      .catch(error => {
+        console.log('Error registering user: ', error);
+        return res.status(400).send(error)
+      });
   },
 
   // login a user

@@ -176,14 +176,12 @@ export class DocumentViewContainer extends React.Component {
 }
 DocumentViewContainer.propTypes = {
   documentList: PropTypes.object.isRequired,
-  deleteDocument: PropTypes.func.isRequired,
-  documentActions: PropTypes.object.isRequired,
-  router: PropTypes.object.isRequired
+  documentActions: PropTypes.object.isRequired
 };
 
-DocumentViewContainer.contextTypes = {
-  router: PropTypes.object.isRequired
-};
+// DocumentViewContainer.contextTypes = {
+//   router: PropTypes.object.isRequired
+// };
 
 function mapStateToProps(state) {
   return {

@@ -54,7 +54,7 @@ describe('reducer', () => {
       type: types.USERS_GET_REQUEST
     };
     const expected = {
-      users: null,
+      // users: null,
       error: null,
       loading: true
     };
@@ -65,7 +65,7 @@ describe('reducer', () => {
     const state = {
       users: [],
       error: null,
-      loading: false,
+      loading: true,
       searchFilter: '',
     };
 
