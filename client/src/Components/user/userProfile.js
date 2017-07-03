@@ -18,9 +18,9 @@ class ProfilePageContainer extends React.Component {
     };
 
     this.handleEditToggle = this.handleEditToggle.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.handleClose = this.handleClose.bind(this);
+    // this.handleSubmit = this.handleSubmit.bind(this);
+    // this.handleChange = this.handleChange.bind(this);
+    // this.handleClose = this.handleClose.bind(this);
     this.handleShowEdit = this.handleShowEdit.bind(this);
     this.handleLogOut = this.handleLogOut.bind(this);
     this.loadUserData = this.loadUserData.bind(this);
@@ -49,10 +49,10 @@ class ProfilePageContainer extends React.Component {
   }
 
   handleShowEdit(user) {
-        // In here, ensure the logged in user is either:
-        // - owner of the profile
-        // - an admin.
-        // const loggedUser = this.props.authReducer(['user', 'user']);
+    // In here, ensure the logged in user is either:
+    // - owner of the profile
+    // - an admin.
+    // const loggedUser = this.props.authReducer(['user', 'user']);
     return true;
   }
 
@@ -62,30 +62,30 @@ class ProfilePageContainer extends React.Component {
     this.context.router.push('/login');
   }
 
-  handleClose() {
-    this.props.userActions.closeUserToggle();
-  }
+  // handleClose() {
+  //   this.props.userActions.closeUserToggle();
+  // }
 
-  handleSubmit(e) {
-    e.preventDefault();
-    const hasErrors = Object.keys(this.state.errors).some(key => !!this.state.errors[key]);
-    if (hasErrors) {
-      return;
-    }
-    const updatedUser = Object.assign({}, this.state.user);
-    delete updatedUser.documents;
-    this.props.userActions.updateUser(updatedUser);
-  }
+  // handleSubmit(e) {
+  //   e.preventDefault();
+  //   const hasErrors = Object.keys(this.state.errors).some(key => !!this.state.errors[key]);
+  //   if (hasErrors) {
+  //     return;
+  //   }
+  //   const updatedUser = Object.assign({}, this.state.user);
+  //   delete updatedUser.documents;
+  //   this.props.userActions.updateUser(updatedUser);
+  // }
 
-  handleChange(e) {
-    e.preventDefault();
-    let editedUser = Object.assign({}, this.props.user, (this.state.user || {}));
-    this.setState({
-      user: Object.assign({}, editedUser, {
-        [e.target.name]: e.target.value
-      })
-    });
-  }
+  // handleChange(e) {
+  //   e.preventDefault();
+  //   let editedUser = Object.assign({}, this.props.user, (this.state.user || {}));
+  //   this.setState({
+  //     user: Object.assign({}, editedUser, {
+  //       [e.target.name]: e.target.value
+  //     })
+  //   });
+  // }
 
   handleValidate() {
     const user = this.state.user;
@@ -121,34 +121,36 @@ class ProfilePageContainer extends React.Component {
 
   render() {
     return (
-            <div>
-                <UsersView
-                    documents={this.state.documents}
-                    users={this.props.users}
-                    onClose={this.handleClose}
-                    errors={this.state}
-                    onBlur={this.handleValidate}
-                    onChange={this.handleChange}
-                    onLogOut={this.handleLogOut}
-                    onSubmit={this.handleSubmit}
-                    canEdit={this.handleShowEdit}
-                    onTitleTouchTap={this.handleTitleTouch}
-                    editUserToggle={this.handleEditToggle}
-                />
+      <div>
+        <UsersView
+          documents={this.state.documents}
+          users={this.props.users}
+          onClose={this.handleClose}
+          errors={this.state}
+          onBlur={this.handleValidate}
+          onChange={this.handleChange}
+          onLogOut={this.handleLogOut}
+          onSubmit={this.handleSubmit}
+          canEdit={this.handleShowEdit}
+          onTitleTouchTap={this.handleTitleTouch}
+          editUserToggle={this.handleEditToggle}
+        />
 
-                {this.state.user && <ProfilePage
-                    documents={this.state.documents}
-                    errors={this.state.errors}
-                    onBlur={this.handleValidate}
-                    onChange={this.handleChange}
-                    onSubmit={this.handleSubmit}
-                    canEdit={this.handleShowEdit}
-                    onTitleTouchTap={this.handleTitleTouch}
-                    editUserToggle={this.handleEditToggle}
-                    user={this.state.user}
-                    isEditing={this.state.isEditing}
-                />}
-            </div>
+        {this.state.user && <ProfilePage
+          documents={this.state.documents}
+          errors={this.state.errors}
+          onBlur={this.handleValidate}
+          onChange={this.handleChange}
+          onSubmit={this.handleSubmit}
+          canEdit={this.handleShowEdit}
+          onTitleTouchTap={this.handleTitleTouch}
+          editUserToggle={this.handleEditToggle}
+          user={this.state.user}
+          isEditing={this.state.isEditing}
+          userActions={this.props.userActions}
+
+        />}
+      </div>
     );
   }
 }

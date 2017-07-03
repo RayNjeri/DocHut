@@ -79,7 +79,7 @@ describe('reducer', () => {
 
     const action = {
       type: types.USERS_GET_SUCCESS,
-      users: user
+      users: [user]
     };
 
     const expected = Object.assign({}, state, {

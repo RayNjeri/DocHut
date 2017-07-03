@@ -11,77 +11,133 @@ import userContainer from './userView';
 import DocumentViewContainer from '../document/documentViewContainer';
 
 
-const ProfilePage = (props) => {
-  console.log('props: ', props);
-  return (
-    <div>
-      <div className="row col-md-10 col-md-offset-1 col-sm-12" style={{ padding: 20 }}>
-        <div className="col-md-4 col-sm-4" >
-          {!props.isEditing ?
-            <Card style={{ maxWidth: 350, marginTop: 30 }}>
-              <CardMedia overlay={<CardTitle title={props.user.userName} />} />
-              <CardText>
-                {props.user.email}
-              </CardText>
-              {props.canEdit(props.user) ?
-                <CardActions>
-                  <FlatButton label="Edit Profile" onClick={props.editUserToggle}
-                    icon={<CreateIcon />} primary />
-                </CardActions> : <span />}
-            </Card> :
-            <Card style={{ maxWidth: 350, marginTop: 30 }}>
-              <CardMedia overlay={<CardTitle title={props.user.userName} />} />
-              <CardText>
-                <TextField
-                  hintText="Username"
-                  floatingLabelText="Username"
-                  name="userName"
-                  onChange={props.onChange}
-                  onBlur={props.onBlur}
-                  defaultValue={props.user.userName}
-                  errorText={props.errors.username}
-                /><br />
-                <TextField
-                  hintText="Email"
-                  floatingLabelText="Email"
-                  name="email"
-                  onChange={props.onChange}
-                  onBlur={props.onBlur}
-                  defaultValue={props.user.email}
-                  errorText={props.errors.email}
-                /><br />
-                <TextField
-                  hintText="Password"
-                  floatingLabelText="Password"
-                  name="password"
-                  type="password"
-                  onChange={props.onChange}
-                /><br />
-                <TextField
-                  hintText="Confirm Password"
-                  floatingLabelText="Confirm Password"
-                  name="confirmPassword"
-                  type="password"
-                  onChange={props.onChange}
-                  onBlur={props.onBlur}
-                  errorText={props.errors.confirmPassword}
-                /><br />
-              </CardText>
-              <CardActions>
-                <FlatButton label="Submit" onClick={props.onSubmit} primary />
-                <FlatButton label="Cancel" onClick={props.editUserToggle} primary />
-              </CardActions>
-            </Card>
-          }
-        </div>
-        <div className="col-md-8 col-sm-8" >
-          <DocumentList documents={props.user.documents} />
+class ProfilePage extends React.Component {
+  constructor(props) {
+    super(props);
 
+    this.state = {
+      errors: {},
+      isEditing: false,
+      user: this.props.user,
+    };
+
+    this.handleEditToggle = this.handleEditToggle.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    // this.handleClose = this.handleClose.bind(this);
+    this.handleShowEdit = this.handleShowEdit.bind(this);
+  }
+
+  // handleClose() {
+  //   this.props.userActions.closeUserToggle();
+  // }
+  handleShowEdit(user) {
+    // In here, ensure the logged in user is either:
+    // - owner of the profile
+    // - an admin.
+    // const loggedUser = this.props.authReducer(['user', 'user']);
+    return true;
+  }
+
+  handleEditToggle() {
+    this.setState({
+      isEditing: !this.state.isEditing
+    });
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+    const hasErrors = Object.keys(this.state.errors).some(key => !!this.state.errors[key]);
+    if (hasErrors) {
+      console.log('hase');
+      return;
+    }
+    const updatedUser = Object.assign({}, this.state.user);
+    delete updatedUser.documents;
+    this.props.userActions.updateUser(updatedUser);
+  }
+
+  handleChange(e) {
+    e.preventDefault();
+    let editedUser = Object.assign({}, this.props.user, this.state.user);
+    this.setState({
+      user: Object.assign({}, editedUser, {
+        [e.target.name]: e.target.value
+      })
+    });
+  }
+
+  render() {
+    return (
+      <div>
+        <div className="row col-md-10 col-md-offset-1 col-sm-12" style={{ padding: 20 }}>
+          <div className="col-md-4 col-sm-4" >
+            {!this.state.isEditing ?
+              <Card style={{ maxWidth: 350, marginTop: 30 }}>
+                <CardMedia overlay={<CardTitle title={this.state.user.userName} />} />
+                <CardText>
+                  {this.state.user.email}
+                </CardText>
+                {this.handleShowEdit(this.state.user) ?
+                  <CardActions>
+                    <FlatButton label="Edit Profile" onClick={this.handleEditToggle}
+                      icon={<CreateIcon />} primary />
+                  </CardActions> : <span />}
+              </Card> :
+              <Card style={{ maxWidth: 350, marginTop: 30 }}>
+                <CardMedia overlay={<CardTitle title={this.state.user.userName} />} />
+                <CardText>
+                  <TextField
+                    hintText="Username"
+                    floatingLabelText="Username"
+                    name="userName"
+                    onChange={this.handleChange}
+                    onBlur={this.props.onBlur}
+                    defaultValue={this.state.user.userName}
+
+                  /><br />
+                  <TextField
+                    hintText="Email"
+                    floatingLabelText="Email"
+                    name="email"
+                    onChange={this.handleChange}
+                    onBlur={this.props.onBlur}
+                    defaultValue={this.state.user.email}
+
+                  /><br />
+                  <TextField
+                    hintText="Password"
+                    floatingLabelText="Password"
+                    name="password"
+                    type="password"
+                    onChange={this.handleChange}
+                  /><br />
+                  <TextField
+                    hintText="Confirm Password"
+                    floatingLabelText="Confirm Password"
+                    name="confirmPassword"
+                    type="password"
+                    onChange={this.handleChange}
+                    onBlur={this.props.onBlur}
+
+                  /><br />
+                </CardText>
+                <CardActions>
+                  <FlatButton label="Submit" onClick={this.handleSubmit} primary />
+                  <FlatButton label="Cancel" onClick={this.handleEditToggle} primary />
+                </CardActions>
+              </Card>
+            }
+          </div>
+          <div className="col-md-8 col-sm-8" >
+            <DocumentList documents={this.state.user.documents} />
+
+          </div>
         </div>
       </div>
-    </div>
-  );
-};
+    );
+  }
+}
 
 ProfilePage.propTypes = {
   documents: PropTypes.array,

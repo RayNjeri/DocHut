@@ -93,7 +93,7 @@ export const listDocuments = () => (dispatch) => {
   return (
     request
       .get('/api/document')
-      .set('x-access-token', window.localStorage.getItem('token'))
+      .set('x-access-token', tokenUtils.getAuthToken())
       .then((response) => {
         dispatch(documentsSuccess(response.body));
       })
@@ -108,7 +108,7 @@ export const createDocument = documentData => (dispatch) => {
   return (
     request
       .post('/api/document')
-      .set('x-access-token', window.localStorage.getItem('token'))
+      .set('x-access-token', tokenUtils.getAuthToken())
       .send(documentData)
       .then((response) => {
         dispatch(documentsAddSuccess(response.body));
@@ -124,7 +124,7 @@ export const updateDocument = documentData => (dispatch) => {
   return (
     request
       .put(`/api/document/${documentData.id}`)
-      .set('x-access-token', window.localStorage.getItem('token'))
+      .set('x-access-token', tokenUtils.getAuthToken())
       .send(documentData)
       .then((response) => {
         dispatch(documentsUpdateSuccess(response.body));
@@ -140,7 +140,7 @@ export const deleteDocument = documentId => (dispatch) => {
   return (
     request
       .delete(`/api/document/${documentId}`)
-      .set('x-access-token', window.localStorage.getItem('token'))
+      .set('x-access-token', tokenUtils.getAuthToken())
       .then((response) => {
         dispatch(documentsDeleteSuccess(response.body));
       })
@@ -155,7 +155,7 @@ export const getDocument = documentId => (dispatch) => {
   return (
     request
       .get(`/api/document/${documentId}`)
-      .set('x-access-token', window.localStorage.getItem('token'))
+      .set('x-access-token', tokenUtils.getAuthToken())
       .then((response) => {
         dispatch(documentsGetSuccess(response.body));
       })

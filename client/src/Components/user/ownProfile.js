@@ -44,7 +44,9 @@ export class OwnProfile extends React.Component {
     if (hasErrors) {
       return;
     }
-    const updatedUser = Object.assign({}, this.state.updatedUser);
+    const updatedUser = Object.assign({}, this.state.editedUser, {
+      id: this.props.user.id
+    });
     this.props.updateUser(updatedUser);
   }
   handleChange(e) {
@@ -66,74 +68,74 @@ export class OwnProfile extends React.Component {
     let user = this.props.user;
     if (!user) {
       return (
-                <CircularProgress />
+        <CircularProgress />
       );
     } else {
       user = Object.assign({}, this.props.user, this.state.user);
     }
     return (
-            <div className="row col-md-10 col-md-offset-1 col-sm-12" style={{ padding: 20 }}>
-                <div className="col-md-4 col-sm-4" >
-                    {!this.state.isEditing ?
-                        <Card style={{ maxWidth: 350, marginTop: 30 }}>
-                            <CardMedia overlay={<CardTitle title={user.userName} />} />
-                            <CardText>
-                                {user.email}
-                            </CardText>
-                            {this.canEdit(user) ?
-                                <CardActions>
-                                    <FlatButton label="Edit Profile" onClick={this.editUserToggle}
-                                        icon={<CreateIcon />} primary />
-                                </CardActions> : <span />}
-                        </Card> :
-                        <Card style={{ maxWidth: 350, marginTop: 30 }}>
-                            <CardMedia overlay={<CardTitle title={user.userName} />} />
-                            <CardText>
-                                <TextField
-                                    hintText="Username"
-                                    floatingLabelText="Username"
-                                    name="userName"
-                                    onChange={this.handleChange}
-                                    defaultValue={user.userName}
+      <div className="row col-md-10 col-md-offset-1 col-sm-12" style={{ padding: 20 }}>
+        <div className="col-md-4 col-sm-4" >
+          {!this.state.isEditing ?
+            <Card style={{ maxWidth: 350, marginTop: 30 }}>
+              <CardMedia overlay={<CardTitle title={user.userName} />} />
+              <CardText>
+                {user.email}
+              </CardText>
+              {this.canEdit(user) ?
+                <CardActions>
+                  <FlatButton label="Edit Profile" onClick={this.editUserToggle}
+                    icon={<CreateIcon />} primary />
+                </CardActions> : <span />}
+            </Card> :
+            <Card style={{ maxWidth: 350, marginTop: 30 }}>
+              <CardMedia overlay={<CardTitle title={user.userName} />} />
+              <CardText>
+                <TextField
+                  hintText="Username"
+                  floatingLabelText="Username"
+                  name="userName"
+                  onChange={this.handleChange}
+                  defaultValue={user.userName}
 
-                                /><br />
-                                <TextField
-                                    hintText="Email"
-                                    floatingLabelText="Email"
-                                    name="email"
-                                    onChange={this.handleChange}
-                                    defaultValue={user.email}
+                /><br />
+                <TextField
+                  hintText="Email"
+                  floatingLabelText="Email"
+                  name="email"
+                  onChange={this.handleChange}
+                  defaultValue={user.email}
 
-                                /><br />
-                                <TextField
-                                    hintText="Password"
-                                    floatingLabelText="Password"
-                                    onChange={this.handleChange}
-                                    name="password"
-                                    type="password"
-                                /><br />
-                                <TextField
-                                    hintText="Confirm Password"
-                                    floatingLabelText="Confirm Password"
-                                    onChange={this.handleChange}
-                                    name="confirmPassword"
-                                    type="password"
+                /><br />
+                <TextField
+                  hintText="Password"
+                  floatingLabelText="Password"
+                  onChange={this.handleChange}
+                  name="password"
+                  type="password"
+                /><br />
+                <TextField
+                  hintText="Confirm Password"
+                  floatingLabelText="Confirm Password"
+                  onChange={this.handleChange}
+                  name="confirmPassword"
+                  type="password"
 
 
-                                /><br />
-                            </CardText>
-                            <CardActions>
-                                <FlatButton label="Submit" onClick={this.handleSubmit} primary />
-                                <FlatButton label="Cancel" onClick={this.editUserToggle} primary />
-                            </CardActions>
-                        </Card>
-                    }
-                </div>
-                <div className="col-md-8 col-sm-8" >
-                    <DocumentList documents={user.documents} />
+                /><br />
+              </CardText>
+              <CardActions>
+                <FlatButton label="Submit" onClick={this.handleSubmit} primary />
+                <FlatButton label="Cancel" onClick={this.editUserToggle} primary />
+              </CardActions>
+            </Card>
+          }
+        </div>
+        <div className="col-md-8 col-sm-8" >
+          <DocumentList documents={user.documents} />
 
-                </div>
-            </div>
+        </div>
+      </div>
     );
   }
 }
