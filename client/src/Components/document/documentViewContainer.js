@@ -13,6 +13,7 @@ import DocumentView from './documentsView';
 import DocumentList from './documentList';
 import CreateDocument from './documentCreateForm';
 import DocumentEditForm from './documentEditForm';
+import DocumentSearch from './documentSearch';
 
 import * as tokenUtils from '../../utils/tokenUtils';
 
@@ -123,6 +124,7 @@ export class DocumentViewContainer extends React.Component {
       <div className="container">
         <div className="documents">
           <h1>Documents</h1>
+          <DocumentSearch />
           {this.props.documentList.documents.map(document =>
             (<DocumentView
               key={document.id}
@@ -184,6 +186,7 @@ DocumentViewContainer.propTypes = {
 // };
 
 function mapStateToProps(state) {
+  console.log('Dis be da state! ', state);
   return {
     documentList: state.documents
   };

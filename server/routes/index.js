@@ -22,7 +22,7 @@ module.exports = (app) => {
   // app.get('get/document/?limit={integer}&offset={integer}', documentController.list);
   app.get('/api/document/:documentId', Auth, documentController.retrieve);
   app.put('/api/document/:documentId', documentController.update);
-  app.get('/api/search/document', documentController.findByContent);
+  app.get('/api/search/document', documentController.findByTitle);
   app.delete('/api/document/:documentId', Auth, documentController.destroy);
 
 

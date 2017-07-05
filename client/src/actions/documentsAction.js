@@ -164,3 +164,12 @@ export const getDocument = documentId => (dispatch) => {
       })
   );
 };
+
+export const searchDocument = (title) => {
+  title = encodeURIComponent(title);
+  return (dispatch) => {
+    getEndpoint(`/api/search/document?q=${title}`)
+      .set('x-access-token', tokenUtils.getAuthToken())
+      .end((err, res) => dispatch(documentsSearchFilter(res.body)));
+  };
+};

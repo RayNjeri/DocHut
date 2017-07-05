@@ -121,11 +121,11 @@ module.exports = {
 
   //search document
 
-  findByContent(req, res) {
+  findByTitle(req, res) {
     return Document
       .findAll({
         where: {
-          content: { $like: `%${req.query.q}%` }
+          title: { $ilike: `%${req.query.q}%` }
         }
       })
       .then(response => res.status(302).send(response))
