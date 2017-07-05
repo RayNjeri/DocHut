@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/RayNjeri/DocHut.svg?branch=master)](https://travis-ci.org/RayNjeri/DocHut)
+
 # DocHut
 
 A RESTful API for DocHut
