@@ -253,8 +253,10 @@ describe('/POST user', () => {
   });
 
   it('should update fields sucessfully', (done) => {
-    let findByIdStub = sinon.stub(user, 'findById').resolves({});
-    let updateStub = sinon.stub(user, 'update').resolves({});
+    let findByIdStub = sinon.stub(user, 'findById').resolves({
+      update: () => new Promise((resolve, reject) => resolve({}))
+    });
+    // let updateStub = sinon.stub(user, 'update').resolves({});
     request(app)
       .put('/api/user/1')
       .set('x-access-token', token)
@@ -262,7 +264,7 @@ describe('/POST user', () => {
       .end((err, res) => {
         if (err) throw err;
         findByIdStub.restore();
-        updateStub.restore();
+        // updateStub.restore();
         done();
       });
   });

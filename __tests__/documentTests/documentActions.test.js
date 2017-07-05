@@ -114,4 +114,32 @@ describe('actions', () => {
     });
   });
 
+  it('should list all available documents', () => {
+    const response = {
+      body: {
+        documents: []
+      }
+    };
+
+    nock(/^.*$/)
+      .get('/api/document')
+      .reply(200, response.body);
+
+    const expectedActions = [{
+      type: types.DOCUMENTS_GET_REQUEST,
+      documents: response.body
+    }, {
+      type: types.DOCUMENTS_GET_SUCCESS,
+      documents: response.body,
+    }];
+
+    const store = mockStore({ documents: [] });
+
+    return store.dispatch(actions.listDocuments(response.body)).then(() => {
+      const actions = store.getActions();
+      expect(actions).toEqual(expectedActions);
+    });
+  });
+
+
 });

@@ -139,9 +139,13 @@ module.exports = {
           .then((updatedUser) => {
             res.status(201).send(updatedUser);
           })
-          .catch(error => { console.log('update catch', error); res.status(400).send(error); });
+          .catch(error => {
+            res.status(400).send(error);
+          });
       })
-      .catch(error => { console.log('Final catch', error); res.status(400).send(error); });
+      .catch(error => {
+        res.status(400).send(error);
+      });
   },
 
   // delete a user

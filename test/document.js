@@ -149,7 +149,7 @@ describe('/POST document', () => {
   });
 
   it('Should return all the documents', function (done) {
-    let findAllStub = sinon.stub(document, 'all').resolves([{}, {}]);
+    let findAllStub = sinon.stub(document, 'findAll').resolves([{}, {}]);
     request(app)
       .get('/api/document')
       .set('x-access-token', token)
