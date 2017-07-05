@@ -13,15 +13,18 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
   }, {
-    tableName: 'documents',
-    classMethods: {
-      associate: (models) => {
-        Document.belongsTo(models.User, {
-          foreignKey: 'userId',
-          onDelete: 'CASCADE',
-        });
+      tableName: 'documents',
+      classMethods: {
+        associate: (models) => {
+          Document.belongsTo(models.User, {
+            foreignKey: 'userId',
+            onDelete: 'CASCADE',
+          });
+          Document.belongsTo(models.role, {
+            foreignKey: 'roleId'
+          });
+        },
       },
-    },
-  });
+    });
   return Document;
 };

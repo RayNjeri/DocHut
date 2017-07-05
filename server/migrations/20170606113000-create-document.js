@@ -31,6 +31,14 @@ module.exports = {
           as: 'userId'
         },
       },
+      roleId: {
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'roles',
+          key: 'id',
+          as: 'roleId'
+        }
+      }
     });
   },
   down(queryInterface, Sequelize) {
