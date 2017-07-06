@@ -9,6 +9,8 @@ import configureStore from './store/ConfigureStore';
 import { postDocuments, allDocuments } from './actions/documentsAction.js';
 import { loadUsers } from './actions/userActions';
 import routes from './routes';
+require('./styles/index.scss');
+
 
 injectTapEventPlugin();
 

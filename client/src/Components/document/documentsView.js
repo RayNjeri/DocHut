@@ -20,7 +20,7 @@ const styles = {
 
 const DocumentView = props => (
   <div>
-    <GridList
+    <GridList className="gridlist"
       cellHeight="auto"
       cols={1}
     >
