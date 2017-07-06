@@ -64,7 +64,6 @@ export class OwnProfile extends React.Component {
     return true;
   }
   render() {
-    console.log('props: ', this.prop);
     let user = this.props.user;
     if (!user) {
       return (
@@ -74,7 +73,7 @@ export class OwnProfile extends React.Component {
       user = Object.assign({}, this.props.user, this.state.user);
     }
     return (
-      <div className="row col-md-10 col-md-offset-1 col-sm-12" style={{ padding: 20 }}>
+      <div className="row col-md-10 col-md-offset-1 col-sm-12" style={{ padding: 80 }}>
         <div className="col-md-4 col-sm-4" >
           {!this.state.isEditing ?
             <Card style={{ maxWidth: 350, marginTop: 30 }}>

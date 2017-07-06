@@ -1,19 +1,31 @@
-const Document = require('../models').Document;
-const Role = require('../models/role');
+const { Document, Role } = require('../models');
 
 // create document
 
 module.exports = {
   create(req, res) {
-    Document.create({
+    const { userId, roleId } = req;
+    const data = {
       title: req.body.title,
       content: req.body.content,
-      userId: req.userId,
       access: req.body.access,
-      roleId: req.body.roleId
-    })
-      .then(document => res.status(201).send(document))
-      .catch(error => res.status(400).send(error));
+      userId,
+      roleId,
+    };
+
+    if (req.body.access === 'role') {
+      Role.findById(roleId)
+        .then((role) => {
+          data.access = role.roleName;
+          Document.create(data)
+                .then(document => res.status(201).send(document))
+                .catch(error => res.status(400).send(error));
+        });
+    } else {
+      Document.create(data)
+            .then(document => res.status(201).send(document))
+            .catch(error => res.status(400).send(error));  
+    }
   },
 
     // update document by Id
@@ -41,7 +53,11 @@ module.exports = {
 
   list(req, res) {
     const querySearch = (offset, limit, isPublic, roleId) => {
-      let query = {};
+      let query = {
+        where: {
+          $or: []
+        }
+      };
       if (offset) {
         query.offset = offset;
       }
@@ -49,14 +65,11 @@ module.exports = {
         query.limit = limit;
       }
       if (isPublic) {
-        query.where = {
-          access: 'public'
-        };
+        query.where.$or.push({ acess: 'public' });
       }
       if (roleId) {
-        query.where = {
-          access: 'fellow'
-        };
+        console.log('Role id type', typeof (roleId));
+        query.where.$or.push({ acess: roleId });
       }
       return Document.findAll(query)
                 .then(response => res.status(200).send(response))
@@ -82,7 +95,7 @@ module.exports = {
       }
     } else {
       if (req.query.limit || req.query.offset) {
-        querySearch(req.query.offset, req.query.limit, true);
+        querySearch(req.query.offset, req.query.limit, true, req.roleId);
       } else {
         allSearch(true);
       }

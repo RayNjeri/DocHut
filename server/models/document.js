@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
           foreignKey: 'userId',
           onDelete: 'CASCADE',
         });
-        Document.belongsTo(models.role, {
+        Document.belongsTo(models.Role, {
           foreignKey: 'roleId'
         });
       },

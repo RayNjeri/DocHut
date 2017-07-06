@@ -56,4 +56,3 @@ export default (
 );
 
 
-{/*<Route path="users" onEnter={requireAuth} component={ProfilePageContainer} />*/ }

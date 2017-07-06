@@ -172,4 +172,33 @@ describe('actions', () => {
       expect(actions).toEqual(expectedActions);
     });
   });
+
+  // it('should delete a document', () => {
+  //   const response = {
+  //     body: {
+  //       documents: []
+  //     }
+  //   };
+
+  //   nock(/^.*$/)
+  //     .get('/api/document')
+  //     .reply(200, response.body);
+
+  //   const expectedActions = [{
+  //     type: types.DOCUMENTS_DELETE_REQUEST
+  //   }, {
+  //     type: types.DOCUMENTS_DELETE_SUCCESS,
+  //     documents: response.body,
+  //   }];
+
+  //   const store = mockStore({});
+
+  //   return store.dispatch(actions.documentsDeleteSuccess()).then(() => {
+  //     const actions = store.getActions();
+  //     expect(actions).toEqual(expectedActions);
+  //   });
+  // });
+
+
+
 });

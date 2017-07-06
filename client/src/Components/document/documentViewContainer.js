@@ -181,12 +181,8 @@ DocumentViewContainer.propTypes = {
   documentActions: PropTypes.object.isRequired
 };
 
-// DocumentViewContainer.contextTypes = {
-//   router: PropTypes.object.isRequired
-// };
 
 function mapStateToProps(state) {
-  console.log('Dis be da state! ', state);
   return {
     documentList: state.documents
   };
