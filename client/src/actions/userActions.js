@@ -89,7 +89,7 @@ export const listUsers = () => (dispatch) => {
   return (
     request
       .get('/api/user')
-      .set('x-access-token', window.localStorage.getItem('token'))
+      .set('x-access-token', tokenUtils.getAuthToken())
       .then((response) => {
         dispatch(usersSuccess(response.body));
       })
@@ -104,7 +104,7 @@ export const listUsers = () => (dispatch) => {
 //   return (
 //     request
 //       .post('/api/user')
-//       .set('x-access-token', window.localStorage.getItem('token'))
+//       .set('x-access-token', tokenUtils.getAuthToken())
 //       .send(userData)
 //       .then((response) => {
 //         dispatch(usersAddSuccess(response.body));
@@ -120,7 +120,7 @@ export const updateUser = userData => (dispatch) => {
   return (
     request
       .put(`/api/user/${userData.id}`)
-      .set('x-access-token', window.localStorage.getItem('token'))
+      .set('x-access-token', tokenUtils.getAuthToken())
       .send(userData)
       .then((response) => {
         dispatch(usersUpdateSuccess(response.body));
@@ -136,7 +136,7 @@ export const deleteUser = userId => (dispatch) => {
   return (
     request
       .delete(`/api/user/${userId}`)
-      .set('x-access-token', window.localStorage.getItem('token'))
+      .set('x-access-token', tokenUtils.getAuthToken())
       .then((response) => {
         dispatch(usersDeleteSuccess(response.body));
       })
@@ -151,7 +151,7 @@ export const getUser = userId => (dispatch) => {
   return (
     request
       .get(`/api/user/${userId}`)
-      .set('x-access-token', window.localStorage.getItem('token'))
+      .set('x-access-token', tokenUtils.getAuthToken())
     // .then((response) => {
     //   dispatch(usersGetSuccess(response.body));
     // })
