@@ -19,10 +19,9 @@ const Auth = (req, res, next) => {
         messsage: 'Invalid token provided'
       });
     }
-    console.log('This is decoded',decoded);
+
     req.roleId = decoded.roleId;
     req.userId = decoded.userId;
-    console.log('This is the req', req.roleId, req.userId);
     return next();
   });
 };
