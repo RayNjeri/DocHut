@@ -126,20 +126,50 @@ describe('actions', () => {
       .reply(200, response.body);
 
     const expectedActions = [{
-      type: types.DOCUMENTS_GET_REQUEST,
-      documents: response.body
+      type: types.DOCUMENTS_REQUEST
     }, {
-      type: types.DOCUMENTS_GET_SUCCESS,
+      type: types.DOCUMENTS_SUCCESS,
       documents: response.body,
     }];
 
-    const store = mockStore({ documents: [] });
+    const store = mockStore({});
 
-    return store.dispatch(actions.listDocuments(response.body)).then(() => {
+    return store.dispatch(actions.listDocuments()).then(() => {
       const actions = store.getActions();
       expect(actions).toEqual(expectedActions);
     });
   });
 
+  it('should update a document', () => {
+    const editFields = {
+      id:'1',
+      title: 'New title',
+      content: 'New content',
+    };
+    const response = {
+      body: {
+        id: 1,
+        title: 'New title',
+        content: 'New content',
+        access: 'Private',
+      }
+    };
+    nock(/^.*$/)
+      .put('/api/document/' + editFields.id)
+      .reply(201, response.body);
+    const expectedActions = [{
+      type: types.DOCUMENTS_UPDATE_REQUEST,
+      documents: editFields
+    }, {
+      type: types.DOCUMENTS_UPDATE_SUCCESS,
+      document: response.body,
+    }];
+    
+    const store = mockStore({});
 
+    return store.dispatch(actions.updateDocument(editFields)).then(() => {
+      const actions = store.getActions();
+      expect(actions).toEqual(expectedActions);
+    });
+  });
 });

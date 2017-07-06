@@ -84,4 +84,70 @@ describe('actions', () => {
     };
     // expect(actions.usersRequest()).toEqual(expectedAction);
   });
+
+  it('should list all available users', () => {
+    const response = {
+      body: {
+        users: []
+      }
+    };
+
+    nock(/^.*$/)
+      .get('/api/user')
+      .reply(200, response.body);
+
+    const expectedActions = [{
+      type: types.USERS_REQUEST
+    }, {
+      type: types.USERS_SUCCESS,
+      users: response.body,
+    }];
+
+    const store = mockStore({});
+
+    return store.dispatch(actions.listUsers()).then(() => {
+      const actions = store.getActions();
+      expect(actions).toEqual(expectedActions);
+    });
+  });
+
+  it('should update a user', () => {
+    const editFields = {
+      id: '1',
+      firstName: 'New firstName',
+      lastName: 'New lastName',
+      userName: 'New userName',
+      email: 'New email',
+      password: 'New Password'
+    };
+    const response = {
+      body: {
+        id: 1,
+        tfirstName: 'New firstName',
+        lastName: 'New lastName',
+        userName: 'New userName',
+        email: 'New email',
+        password: 'New Password'
+      }
+    };
+    nock(/^.*$/)
+      .put('/api/user/' + editFields.id)
+      .reply(201, response.body);
+    const expectedActions = [{
+      type: types.USERS_UPDATE_REQUEST,
+      users: editFields
+    }, {
+      type: types.USERS_UPDATE_SUCCESS,
+      user: response.body,
+    }];
+
+    const store = mockStore({});
+
+    return store.dispatch(actions.updateUser(editFields)).then(() => {
+      const actions = store.getActions();
+      expect(actions).toEqual(expectedActions);
+    });
+  });
+
+  
 });

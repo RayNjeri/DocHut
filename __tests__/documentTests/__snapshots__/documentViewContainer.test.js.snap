@@ -10,6 +10,7 @@ exports[`DocumentViewContainer component should have matching snapshot 1`] = `
     <h1>
       Documents
     </h1>
+    <Connect(DocumentSearch) />
     <div
       className="paginitaion"
     >
