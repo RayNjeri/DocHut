@@ -16,7 +16,7 @@ module.exports = {
     if (req.body.access === 'role') {
       Role.findById(roleId)
         .then((role) => {
-          data.access = role.roleName;
+          data.access = role.roleName;  
           Document.create(data)
                 .then(document => res.status(201).send(document))
                 .catch(error => res.status(400).send(error));
@@ -52,6 +52,11 @@ module.exports = {
     // list all documents
 
   list(req, res) {
+    const findDocs = (query) => {
+      return Document.findAll(query)
+        .then(response => res.status(200).send(response))
+        .catch(error => res.status(400).send(error));
+    };
     const querySearch = (offset, limit, isPublic, roleId) => {
       let query = {
         where: {
@@ -65,16 +70,17 @@ module.exports = {
         query.limit = limit;
       }
       if (isPublic) {
-        query.where.$or.push({ acess: 'public' });
+        query.where.$or.push({ access: 'public' });
       }
       if (roleId) {
-        console.log('Role id type', typeof (roleId));
-        query.where.$or.push({ acess: roleId });
+        Role.findById(roleId)
+          .then((role) => {
+            query.where.$or.push({ access: role.roleName });
+            findDocs(query);
+          });
+      } else {
+        findDocs(query);
       }
-      return Document.findAll(query)
-                .then(response => res.status(200).send(response))
-                .catch(error => res.status(400).send(error));
-
     };
     const allSearch = (isPublic) => {
       let query = {};
@@ -97,7 +103,8 @@ module.exports = {
       if (req.query.limit || req.query.offset) {
         querySearch(req.query.offset, req.query.limit, true, req.roleId);
       } else {
-        allSearch(true);
+        querySearch(null, null, true, req.roleId);
+       
       }
     }
   },

@@ -9,6 +9,7 @@ import FlatButton from 'material-ui/FlatButton';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import * as documentActions from '../../actions/documentsAction';
+import Snackbar from 'material-ui/Snackbar';
 import DocumentView from './documentsView';
 import DocumentList from './documentList';
 import CreateDocument from './documentCreateForm';
@@ -34,7 +35,8 @@ export class DocumentViewContainer extends React.Component {
         content: '',
         access: '',
         activePage: 1,
-        limit: 5
+        limit: 5,
+        snackBarOpen: false
       }
     };
     this.handleOpen = this.handleOpen.bind(this);
@@ -45,6 +47,7 @@ export class DocumentViewContainer extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handlePageChange = this.handlePageChange.bind(this);
+    this.closeSnackBar = this.closeSnackBar.bind(this);
   }
   componentWillMount() {
     this.props.documentActions.listDocuments();
@@ -98,12 +101,17 @@ export class DocumentViewContainer extends React.Component {
       ? this.props.documentActions.updateDocument(this.state.document)
       : this.props.documentActions.createDocument(this.state.document);
 
+    this.setState({ snackBarOpen: true });
     this.handleClose();
   }
 
   handlePageChange(pageNumber) {
     this.setState({ activePage: pageNumber });
     this.props.documentActions.listDocuments(this.state.limit, (this.state.limit * (pageNumber - 1)));
+  }
+
+  closeSnackBar() {
+    this.setState({ snackBarOpen: false });
   }
 
   render() {
@@ -172,6 +180,12 @@ export class DocumentViewContainer extends React.Component {
               />
             )}
         </Dialog>
+        <Snackbar
+          open={this.state.snackBarOpen}
+          message="Document Saved"
+          autoHideDuration={2000}
+          onRequestClose={this.closeSnackBar}
+        />
       </div>
     );
   }
