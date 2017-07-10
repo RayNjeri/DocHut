@@ -1,7 +1,15 @@
 'use strict';
 module.exports = function(sequelize, DataTypes) {
   let Role = sequelize.define('Role', {
-    roleName: DataTypes.STRING,
+    roleName: {
+      type:DataTypes.STRING,
+      unique: {
+        args: true,
+        msg: 'Oops. Looks like this roleName already exists',
+        fields: [sequelize.fn('lower', sequelize.col('roles'))]
+      },
+    },
+   
 
   }, {
     tableName: 'roles',      

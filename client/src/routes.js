@@ -10,6 +10,7 @@ import SignUp from './Components/Auth/signup/SignupPage';
 import Login from './Components/Auth/login/loginPage';
 import ProfilePage from './Components/user/userProfilePage';
 import content from './Components/common/content';
+import Roles from './Components/roles/roleViewContainer';
 import { getUserFromToken } from './utils/tokenUtils';
 
 
@@ -52,6 +53,7 @@ export default (
     <Route path="users" onEnter={requireAuth} component={ProfilePageContainer} />
     <Route path="profile/:id" component={ProfilePageContainer} />
     <Route path="content" component={content} />
+    <Route path="roles" component={Roles} />
   </Route>
 );
 

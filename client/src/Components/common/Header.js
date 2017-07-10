@@ -11,6 +11,10 @@ const Header = () => (
         <Link to="/documents" activeClassName="active">Documents</Link>
         {' | '}
         <Link to="/profile" activeClassName="active">Profile</Link>
+        {' | '}
+        <Link to="/logout" activeClassName="active">Logout</Link>
+        {' | '}
+        <Link to="/roles" activeClassName="active">Roles</Link>
 
     </nav>
 );
