@@ -31,7 +31,6 @@ export default function reducer(state = DOCUMENT_LIST, action) {
       documents: state.documents.filter(id => id !== action.documentId),
     });
   case types.SET_DOCUMENTS_SEARCH_FILTER:
-    console.log('reducer', action.searchFilter);
     return Object.assign({}, state, {
       documents: action.searchFilter,
     });

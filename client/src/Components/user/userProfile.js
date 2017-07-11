@@ -26,7 +26,6 @@ class ProfilePageContainer extends React.Component {
   }
 
   componentWillMount() {
-    console.log('xxxxx',this.props.roleActions);
     this.props.roleActions.listroles();
   }
 
@@ -147,7 +146,6 @@ ProfilePageContainer.contextTypes = {
 };
 
 function mapStateToProps(state, ownProps) {
-  console.log('The prof page container', state);
   const { id } = ownProps.params;
   const user = state.users.users.find(user => user.id === Number(id));
 

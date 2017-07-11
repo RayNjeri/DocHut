@@ -15,10 +15,8 @@ import { getUserFromToken } from './utils/tokenUtils';
 
 
 function isAdmin() {
-  console.log('Admin check function');
   let user = getUserFromToken();
   let role = user.roleId;
-  console.log(user, role);
   if (role === 1) {
     return true;
   }
@@ -32,7 +30,6 @@ function isAdmin() {
 
 
 function requireAuth(nextState, replace) {
-  console.log('Admin check', isAdmin());
   if (!isAdmin()) {
     replace({
       //  Redirect to path of choice

@@ -51,7 +51,6 @@ export class OwnProfile extends React.Component {
   }
   handleChange(e) {
     e.preventDefault();
-    console.log('HandleChange', e.target.name, e.target.value);
     let editedUser = this.state.editedUser;
     this.setState({
       editedUser: Object.assign({}, editedUser, {
