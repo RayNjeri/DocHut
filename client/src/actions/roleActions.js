@@ -9,7 +9,7 @@ export const rolesRequest = () => ({
   type: types.ROLES_REQUEST
 });
 
-export const roleSuccess = roles => ({
+export const rolesSuccess = roles => ({
   type: types.ROLES_SUCCESS,
   roles
 });
@@ -72,7 +72,8 @@ export const rolesDeleteSuccess = roles => ({
   roles
 });
 
-export const roleDeleteFailure = roles => ({
+
+export const rolesDeleteFailure = roles => ({
   type: types.ROLES_DELETE_FAILURE,
   roles
 });
@@ -85,7 +86,7 @@ export const rolesSearchFilter = searchFilter => ({
 /* eslint no-undef: "off"*/
 
 export const listroles = () => (dispatch) => {
-  dispatch(roleRequest());
+  dispatch(rolesRequest());
   return (
     request
       .get('/api/roles')

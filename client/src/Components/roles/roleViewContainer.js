@@ -24,8 +24,7 @@ class Roles extends Component {
   }
 
   componentDidMount() {
-    console.log('>>>>>>>>', roleActions.listroles);
-    roleActions.listroles();
+    this.props.listroles();
   }
 
   onChange(e) {
@@ -57,8 +56,6 @@ class Roles extends Component {
   render() {
     const { errors } = this.state;
     let roles = this.props.roles;
-    console.log('ROLES>>' + JSON.stringify(roles));
-    console.log(roles);
     let loading = this.props.loading;
     return (
       <div>
@@ -96,9 +93,9 @@ class Roles extends Component {
                     <form key={index} ><p>{role.id}&nbsp;&nbsp;{role.roleName}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                       <RaisedButton onTouchTap={() => {
                         if (confirm("Are you sure you want to delete this role?") === true) {
-                          this.props.deleteRole(role.id)
+                          this.props.deleterole(role.id)
                             .then(() => {
-                              roleActions.listroles();
+                              this.props.listroles();
                             });
                           alert("Role deleted");
                         }
@@ -124,19 +121,12 @@ Roles.contextTypes = {
 };
 
 function mapStateToProps(state) {
-  console.log('>>>>>>>>', state);
   return {
     roles: state.roles,
     loading: state.loading
   };
   
 }
-
-// function mapStateToProps(state) {
-//   return {
-//     listRoles: state.roles
-//   };
-// }
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(roleActions, dispatch);

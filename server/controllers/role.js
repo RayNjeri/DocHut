@@ -16,9 +16,6 @@ module.exports = {
         include: [{
           model: User,
           as: 'users',
-        }, {
-          model: Document,
-          as: 'documents'
         }],
       })
       .then(role => res.status(201).send(role))

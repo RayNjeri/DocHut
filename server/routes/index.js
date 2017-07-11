@@ -31,6 +31,7 @@ module.exports = (app) => {
   app.get('/api/roles', [Auth, isAdmin], roleController.getRoles);
   app.get('/api/roles/:roleId', [Auth, isAdmin], roleController.getarole);
   app.put('/api/roles/:roleId', [Auth, isAdmin], roleController.update);
+  app.delete('/api/roles/:roleId', [Auth, isAdmin], roleController.destroy);
 
 
   app.all('api/user/:userId', (req, res) => res.status(405).send({
