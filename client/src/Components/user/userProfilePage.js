@@ -14,28 +14,21 @@ import DocumentViewContainer from '../document/documentViewContainer';
 class ProfilePage extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       errors: {},
       isEditing: false,
       user: this.props.user,
+      value: this.props.roles.find(element => {return element.id === this.props.user.roleId; }).id
     };
 
     this.handleEditToggle = this.handleEditToggle.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    // this.handleClose = this.handleClose.bind(this);
     this.handleShowEdit = this.handleShowEdit.bind(this);
+    this.handleRoleChange = this.handleRoleChange.bind(this);
   }
 
-  // handleClose() {
-  //   this.props.userActions.closeUserToggle();
-  // }
   handleShowEdit(user) {
-    // In here, ensure the logged in user is either:
-    // - owner of the profile
-    // - an admin.
-    // const loggedUser = this.props.authReducer(['user', 'user']);
     return true;
   }
 
@@ -49,7 +42,6 @@ class ProfilePage extends React.Component {
     e.preventDefault();
     const hasErrors = Object.keys(this.state.errors).some(key => !!this.state.errors[key]);
     if (hasErrors) {
-      console.log('hase');
       return;
     }
     const updatedUser = Object.assign({}, this.state.user);
@@ -65,6 +57,11 @@ class ProfilePage extends React.Component {
         [e.target.name]: e.target.value
       })
     });
+  }
+
+  handleRoleChange(event, index, value) {
+    let editedUser = Object.assign({}, this.state.user, {roleId: value});
+    this.setState({value: value, user: editedUser});
   }
 
   render() {
@@ -121,6 +118,17 @@ class ProfilePage extends React.Component {
                     onBlur={this.props.onBlur}
 
                   /><br />
+                  <SelectField
+                  floatingLabelText="Role"
+                  value={this.state.value}
+                  onChange={this.handleRoleChange}>
+                    {this.props.roles.map(role => {
+                      return (
+                        <MenuItem value={role.id} primaryText={role.roleName} />
+                      )
+                    })}
+                  </SelectField>
+
                 </CardText>
                 <CardActions>
                   <FlatButton label="Submit" onClick={this.handleSubmit} primary />
@@ -142,6 +150,7 @@ class ProfilePage extends React.Component {
 ProfilePage.propTypes = {
   documents: PropTypes.array,
   user: PropTypes.object,
+  roles: PropTypes.array,
   editUserToggle: PropTypes.func,
   onChange: PropTypes.func,
   onBlur: PropTypes.func,

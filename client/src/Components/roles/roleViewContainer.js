@@ -117,7 +117,8 @@ class Roles extends Component {
   }
 }
 Roles.contextTypes = {
-  router: PropTypes.object
+  router: PropTypes.object,
+  listroles: PropTypes.func
 };
 
 function mapStateToProps(state) {
