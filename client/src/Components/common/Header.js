@@ -2,8 +2,19 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import AppBar from 'material-ui/AppBar';
 import { Link, IndexLink } from 'react-router';
+import jwtDecode from 'jwt-decode';
+import * as authActions from '../../actions/authActions';
 
-const Header = () => (
+export default class Header extends React.Component {
+  constructor(props) {
+    super(props);
+    this.logout = this.logout.bind(this);
+  }
+  logout() {
+    window.localStorage.removeItem('token');
+  }
+  render() {
+    return (
     <nav>
           <AppBar
             className="navbar"
@@ -19,10 +30,10 @@ const Header = () => (
 
         <Link to="/documents" activeClassName="active">Documents</Link>
         <Link to="/profile" activeClassName="active">Profile</Link>
-        <Link to="/logout" activeClassName="active">Logout</Link>
+        <Link to="/" activeClassName="active" onClick={this.logout} >Logout</Link>
         <Link to="/roles" activeClassName="active">Roles</Link>
         </AppBar>
     </nav>
-);
-export default Header;
-
+    );
+  }
+ }
