@@ -98,6 +98,7 @@ exports[`DocumentViewContainer component should have matching snapshot 1`] = `
           "activePage": 1,
           "content": "",
           "limit": 5,
+          "snackBarOpen": false,
           "title": "",
         }
       }
@@ -114,5 +115,10 @@ exports[`DocumentViewContainer component should have matching snapshot 1`] = `
       }
     />
   </Dialog>
+  <Snackbar
+    autoHideDuration={2000}
+    message="Document Saved"
+    onRequestClose={[Function]}
+  />
 </div>
 `;
