@@ -67,7 +67,7 @@ class ProfilePage extends React.Component {
   render() {
     return (
       <div>
-        <div className="row col-md-10 col-md-offset-1 col-sm-12" style={{ padding: 20 }}>
+        <div className="row col-md-10 col-md-offset-1 col-sm-12" style={{ padding: 80 }}>
           <div className="col-md-4 col-sm-4" >
             {!this.state.isEditing ?
               <Card style={{ maxWidth: 350, marginTop: 30 }}>

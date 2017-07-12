@@ -18,16 +18,9 @@ const NavBar = (props) => {
   return (
     <div>
       <AppBar
-        title="DocHut"
-        titleStyle={{ color: 'white' }}
-        iconStyleLeft={{ color: 'white' }}
+        style={{ backgroundColor: 'transparent'}}
+        iconStyleLeft={{ color: 'white', background: 'rgb(59, 172, 149)' }}
         onLeftIconButtonTouchTap={props.openDrawer}
-        iconElementRight={
-          <span>
-            <FlatButton label="LogOut" onClick={props.onLogOut}
-              style={{ color: props.muiTheme.palette.alternateTextColor }} />
-          </span>
-        }
       />
 
       <Drawer
@@ -36,20 +29,7 @@ const NavBar = (props) => {
         open={props.isOpen.open}
         onRequestChange={props.onClose}
       >
-        <div style={{ backgroundColor: props.muiTheme.palette.primary1Color }}>
-          <br />
-          <p style={{
-            margin: 12, fontSize: 14, fontWeight: 500,
-            color: props.muiTheme.palette.alternateTextColor
-          }} /> : <p style={{
-            margin: 12, fontSize: 14, fontWeight: 500,
-            color: props.muiTheme.palette.alternateTextColor
-          }} />
-          }
-          <p style={{
-            margin: 12, fontSize: 14, fontWeight: 500,
-            color: props.muiTheme.palette.alternateTextColor
-          }} />
+        <div style={{ backgroundColor: 'rgb(59, 172, 149)' }}>
           <br />
         </div>
         <Divider />
