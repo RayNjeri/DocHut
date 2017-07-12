@@ -15,6 +15,7 @@ export class Header extends React.Component {
   }
   render() {
     const { user, isAuthenticated } = this.props;
+    console.log(">>>>", isAuthenticated );
     const isAdmin = user.roleId === 1;
     return (
     <nav>
@@ -26,10 +27,17 @@ export class Header extends React.Component {
             showMenuIconButton={false}
             iconClassNameRight="muidocs-icon-navigation-expand-more"
           >
-         <IndexLink to="/" activeClassName="active">Home</IndexLink>
+          
+          <span>
+            <IndexLink to="/" activeClassName="active">Home</IndexLink>
+          </span>
     
-        {isAdmin && <Link to="/users" activeClassName="active">Users</Link>}
-        {isAdmin && <Link to="/roles" activeClassName="active">Roles</Link>}
+        {isAdmin && (
+          <span>
+            <Link to="/users" activeClassName="active">Users</Link>
+            <Link to="/roles" activeClassName="active">Roles</Link>
+            </span>
+        )}
         {isAuthenticated && (
           <span>
             <Link to="/documents" activeClassName="active">Documents</Link>
@@ -46,6 +54,6 @@ export class Header extends React.Component {
 export default connect(
     state => {
       const { authReducer: { isAuthenticated, user = {} } } = state;
-      return { user };
+      return { user, isAuthenticated };
     }
 )(Header);

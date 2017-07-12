@@ -125,7 +125,7 @@ class ProfilePage extends React.Component {
                     {this.props.roles.map(role => {
                       return (
                         <MenuItem value={role.id} primaryText={role.roleName} />
-                      )
+                      );
                     })}
                   </SelectField>
 
