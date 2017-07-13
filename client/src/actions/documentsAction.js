@@ -71,9 +71,9 @@ export const documentsDeleteRequest = () => ({
   type: types.DOCUMENTS_DELETE_REQUEST
 });
 
-export const documentsDeleteSuccess = documents => ({
+export const documentsDeleteSuccess = documentId => ({
   type: types.DOCUMENTS_DELETE_SUCCESS,
-  documents
+  documentId
 });
 
 export const documentsDeleteFailure = documents => ({
@@ -142,7 +142,7 @@ export const deleteDocument = documentId => (dispatch) => {
       .delete(`/api/document/${documentId}`)
       .set('x-access-token', tokenUtils.getAuthToken())
       .then((response) => {
-        dispatch(documentsDeleteSuccess(response.body));
+        dispatch(documentsDeleteSuccess(documentId));
       })
       .catch((error) => {
         dispatch(documentsDeleteFailure(error.response));

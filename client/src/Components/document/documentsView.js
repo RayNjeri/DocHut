@@ -39,9 +39,6 @@ const DocumentView = props => (
             primaryText="Delete Document"
             onTouchTap={() => {
               props.deleteDocument(props.document.id)
-                .then(() => {
-                  props.listDocuments();
-                });
             }
             }
           />

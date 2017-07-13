@@ -28,7 +28,7 @@ export default function reducer(state = DOCUMENT_LIST, action) {
     });
   case types.DOCUMENTS_DELETE_SUCCESS:
     return Object.assign({}, state, {
-      documents: state.documents.filter(id => id !== action.documentId),
+      documents: state.documents.filter(document => document.id !== action.documentId),
     });
   case types.SET_DOCUMENTS_SEARCH_FILTER:
     return Object.assign({}, state, {

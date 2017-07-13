@@ -36,7 +36,10 @@ export class LoginForm extends React.Component {
       this.props.authActions.login(this.state).then((res) => {
         this.context.router.push('/content');
       })
-                .catch(err => this.setState({ errors: err, isLoading: false }));
+      .catch(err => {
+        console.log("....", err);
+        this.setState({ errors: err, isLoading: false })
+      });
     }
   }
 
@@ -62,7 +65,7 @@ export class LoginForm extends React.Component {
             <form action="/" onSubmit={this.onSubmit}>
               <h2 className="card-heading">Login</h2>
 
-              {errors.form && <div className="alert alert-danger">{errors.form}</div>}
+              {errors.message && <div className="alert alert-danger">{errors.message}</div>}
 
               <div className="field-line">
                 <TextField

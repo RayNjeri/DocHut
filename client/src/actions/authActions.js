@@ -64,6 +64,7 @@ export const login = (userData) => (dispatch) => {
       })
       .catch((error) => {
         dispatch(loginFailed(error.response));
+        return Promise.reject(error.response.body);
       })
   );
 };

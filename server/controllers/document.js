@@ -33,20 +33,23 @@ module.exports = {
   update(req, res) {
     Document.findById(req.params.documentId, {
     })
-            .then((document) => {
-              if (!document) {
-                return res.status(404).send({
-                  message: 'Document Not Found',
-                });
-              }
-              Document.update({
-                content: req.body.content || document.content,
-                access: req.body.access || document.access,
-              })
-                    .then(() => res.status(201).send(document))
-                    .catch(error => res.status(400).send(error));
-            })
-            .catch(error => res.status(400).send(error));
+    .then((document) => {
+      if (!document) {
+        return res.status(404).send({
+          message: 'Document Not Found',
+        });
+      }
+      document.update(req.body, { fields: Object.keys(req.body)})
+      .then(() => res.status(201).send(document))
+      .catch(error => {
+        console.log("xxxx", error );
+        res.status(400).send(error); 
+      });
+    })
+    .catch(error => {
+      console.log('e: ', error);
+      res.status(400).send(error)
+    });
   },
 
     // list all documents
