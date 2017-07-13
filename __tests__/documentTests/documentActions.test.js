@@ -189,7 +189,7 @@ describe('actions', () => {
       type: types.DOCUMENTS_DELETE_REQUEST
     }, {
       type: types.DOCUMENTS_DELETE_SUCCESS,
-      documents: response.body,
+      documentId: documentId,
     }];
 
     const store = mockStore({});
