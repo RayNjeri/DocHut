@@ -88,11 +88,11 @@ export const documentsSearchFilter = searchFilter => ({
 
 /* eslint no-undef: "off"*/
 
-export const listDocuments = () => (dispatch) => {
+export const listDocuments = (limit, offset) => (dispatch) => {
   dispatch(documentsRequest());
   return (
     request
-      .get('/api/document')
+      .get(`/api/document?limit=${limit}&offset=${offset}`)
       .set('x-access-token', tokenUtils.getAuthToken())
       .then((response) => {
         dispatch(documentsSuccess(response.body));

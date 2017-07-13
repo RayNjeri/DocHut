@@ -53,7 +53,10 @@ module.exports = {
 
   list(req, res) {
     const findDocs = (query) => {
-      return Document.findAll(query)
+      return Document.findAll({
+        offset: req.query.offset,
+        limit: req.query.limit,
+        query})
         .then(response => res.status(200).send(response))
         .catch(error => res.status(400).send(error));
     };
@@ -64,10 +67,10 @@ module.exports = {
         }
       };
       if (offset) {
-        query.offset = offset;
+        req.query.offset = offset;
       }
       if (limit) {
-        query.limit = limit;
+        req.query.limit = limit;
       }
       if (isPublic) {
         query.where.$or.push({ access: 'public' });

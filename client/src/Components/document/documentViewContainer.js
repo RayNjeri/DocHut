@@ -30,12 +30,13 @@ export class DocumentViewContainer extends React.Component {
     super(props, context);
     this.state = {
       open: false,
+      activePage: 1,
+      limit: 3,
+      offset: 0,
       document: {
         title: '',
         content: '',
         access: '',
-        activePage: 1,
-        limit: 5,
         snackBarOpen: false
       }
     };
@@ -50,7 +51,7 @@ export class DocumentViewContainer extends React.Component {
     this.closeSnackBar = this.closeSnackBar.bind(this);
   }
   componentWillMount() {
-    this.props.documentActions.listDocuments();
+    this.props.documentActions.listDocuments(this.state.limit, this.state.offset);
   }
   onSetAccess(e, index, value) {
     const Document = this.state.document;
@@ -146,8 +147,8 @@ export class DocumentViewContainer extends React.Component {
             <Pagination
               activePage={this.state.activePage}
               itemsCountPerPage={this.state.limit}
-              totalItemsCount={50}
-              pageRangeDisplayed={5}
+              totalItemsCount={10}
+              pageRangeDisplayed={3}
               onChange={this.handlePageChange}
             />
           </div>
