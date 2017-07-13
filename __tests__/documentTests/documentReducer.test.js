@@ -85,4 +85,26 @@ describe('documentReducer', () => {
     const newState = reducer(state, action);
     expect(newState).toEqual(expected);
   });
+
+  it('should handle get document failure', () => {
+    const state = {
+      documents: [],
+      loading: false,
+      searchFilter: '',
+    };
+
+    const action = {
+      type: types.DOCUMENTS_GET_FAILURE,
+      documents: document
+    };
+
+    const expected = Object.assign({}, state, {
+      documents: []
+    });
+
+    const newState = reducer(state, action);
+    expect(newState).toEqual(expected);
+  });
+
 });
+

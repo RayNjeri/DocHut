@@ -40,10 +40,10 @@ describe('reducer', () => {
       users: user
     };
 
-    const expected = {
+    const expected = Object.assign({}, state, {
       users: [user],
       loading: false,
-    };
+    });
 
     const newState = reducer(state, action);
     expect(newState).toEqual(expected);
@@ -54,7 +54,6 @@ describe('reducer', () => {
       type: types.USERS_GET_REQUEST
     };
     const expected = {
-      // users: null,
       error: null,
       loading: true
     };

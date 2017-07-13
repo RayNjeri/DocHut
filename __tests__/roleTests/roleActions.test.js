@@ -110,6 +110,59 @@ describe('actions', () => {
     });
   });
 
+  it('should update a user', () => {
+    const editFields = {
+      id: '1',
+      roleName: 'New roleName',
+    };
+    const response = {
+      body: {
+        id: 1,
+        roleName: 'New roleName',
+      }
+    };
+    nock(/^.*$/)
+      .put('/api/roles/' + editFields.id)
+      .reply(201, response.body);
+    const expectedActions = [{
+      type: types.ROLES_UPDATE_REQUEST,
+      roles: editFields
+    }, {
+      type: types.ROLES_UPDATE_SUCCESS,
+      role: response.body,
+    }];
+
+    const store = mockStore({});
+
+    return store.dispatch(actions.updaterole(editFields)).then(() => {
+      const actions = store.getActions();
+      expect(actions).toEqual(expectedActions);
+    });
+  });
+
+  it('should delete a role', () => {
+    const response = {
+      body: {}
+    };
+    const roleId = 1;
+    nock(/^.*$/)
+      .delete(`/api/roles/${roleId}`)
+      .reply(204, response.body);
+
+    const expectedActions = [{
+      type: types.  ROLES_DELETE_REQUEST
+    }, {
+      type: types.ROLES_DELETE_SUCCESS,
+      roles: response.body,
+    }];
+
+    const store = mockStore({});
+    return store.dispatch(actions.deleterole(roleId)).then(() => {
+      const actions = store.getActions();
+      expect(actions).toEqual(expectedActions);
+    });
+  });
+
 
   
 });

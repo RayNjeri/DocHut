@@ -149,5 +149,28 @@ describe('actions', () => {
     });
   });
 
+  it('should delete a user', () => {
+    const response = {
+      body: {}
+    };
+    const userId = 1;
+    nock(/^.*$/)
+      .delete(`/api/user/${userId}`)
+      .reply(204, response.body);
+
+    const expectedActions = [{
+      type: types.  USERS_DELETE_REQUEST
+    }, {
+      type: types.USERS_DELETE_SUCCESS,
+      users: response.body,
+    }];
+
+    const store = mockStore({});
+    return store.dispatch(actions.deleteUser(userId)).then(() => {
+      const actions = store.getActions();
+      expect(actions).toEqual(expectedActions);
+    });
+  });
+
   
 });
