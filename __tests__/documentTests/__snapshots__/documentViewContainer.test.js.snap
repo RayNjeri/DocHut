@@ -18,13 +18,13 @@ exports[`DocumentViewContainer component should have matching snapshot 1`] = `
         activePage={1}
         firstPageText="«"
         innerClass="pagination"
-        itemsCountPerPage={10}
+        itemsCountPerPage={3}
         lastPageText="»"
         nextPageText="⟩"
         onChange={[Function]}
-        pageRangeDisplayed={5}
+        pageRangeDisplayed={3}
         prevPageText="⟨"
-        totalItemsCount={50}
+        totalItemsCount={10}
       />
     </div>
     <div>
@@ -95,9 +95,7 @@ exports[`DocumentViewContainer component should have matching snapshot 1`] = `
       document={
         Object {
           "access": "",
-          "activePage": 1,
           "content": "",
-          "limit": 5,
           "snackBarOpen": false,
           "title": "",
         }

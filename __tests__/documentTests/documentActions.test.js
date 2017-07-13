@@ -121,8 +121,11 @@ describe('actions', () => {
       }
     };
 
+    const limit = 3;
+    const offset = 0;
+
     nock(/^.*$/)
-      .get('/api/document')
+      .get(`/api/document?limit=${limit}&offset=${offset}`)
       .reply(200, response.body);
 
     const expectedActions = [{
@@ -134,7 +137,7 @@ describe('actions', () => {
 
     const store = mockStore({});
 
-    return store.dispatch(actions.listDocuments()).then(() => {
+    return store.dispatch(actions.listDocuments(limit, offset)).then(() => {
       const actions = store.getActions();
       expect(actions).toEqual(expectedActions);
     });
@@ -173,32 +176,53 @@ describe('actions', () => {
     });
   });
 
-  // it('should delete a document', () => {
-  //   const response = {
-  //     body: {
-  //       documents: []
-  //     }
-  //   };
+  it('should delete a document', () => {
+    const response = {
+      body: {}
+    };
+    const documentId = 1;
+    nock(/^.*$/)
+      .delete(`/api/document/${documentId}`)
+      .reply(204, response.body);
 
-  //   nock(/^.*$/)
-  //     .get('/api/document')
-  //     .reply(200, response.body);
+    const expectedActions = [{
+      type: types.DOCUMENTS_DELETE_REQUEST
+    }, {
+      type: types.DOCUMENTS_DELETE_SUCCESS,
+      documents: response.body,
+    }];
 
-  //   const expectedActions = [{
-  //     type: types.DOCUMENTS_DELETE_REQUEST
-  //   }, {
-  //     type: types.DOCUMENTS_DELETE_SUCCESS,
-  //     documents: response.body,
-  //   }];
+    const store = mockStore({});
+    return store.dispatch(actions.deleteDocument(documentId)).then(() => {
+      const actions = store.getActions();
+      expect(actions).toEqual(expectedActions);
+    });
+  });
 
-  //   const store = mockStore({});
+  it('should search a document', () => {
+    const res = {
+      body: {
+        id: 2,
+        title: 'New title',
+        content: 'New content',
+        access: 'Private',
+      }
+    };
+    const title = "title";
+    nock(/^.*$/)
+      .get(`/api/search/document?q=${title}`)
+      .reply(201, res.body);
+    const expectedActions = [{
+      type: types.SET_DOCUMENTS_SEARCH_FILTER,
+      searchFilter: res.body,
+    }];
 
-  //   return store.dispatch(actions.documentsDeleteSuccess()).then(() => {
-  //     const actions = store.getActions();
-  //     expect(actions).toEqual(expectedActions);
-  //   });
-  // });
+    const store = mockStore({});
 
-
+    return store.dispatch(actions.searchDocument(title)).then(() => {
+      const actions = store.getActions();
+      expect(actions).toEqual(expectedActions);
+    });
+  });
 
 });

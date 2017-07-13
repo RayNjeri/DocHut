@@ -15,7 +15,6 @@ export class Header extends React.Component {
   }
   render() {
     const { user, isAuthenticated } = this.props;
-    console.log(">>>>", isAuthenticated );
     const isAdmin = user.roleId === 1;
     return (
     <nav>

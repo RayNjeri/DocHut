@@ -57,11 +57,20 @@ describe('DocumentViewContainer component', () => {
     expect(wrapper.find('Dialog').props().open).toBe(true);
   });
 
-  it('handleClose', () => {
-    beforeEach((done) => {
-      setTimeout(() => {
-        done();
-      }, 500);
-    });
+
+  it('handleClose closes the modal', () => {
+    const props = constructProps();
+    const wrapper = constructWrapper(props);
+
+    let state = wrapper.state();
+    expect(state.open).toBe(false);
+    expect(wrapper.find('Dialog').props().open).toBe(false);
+
+    const button = wrapper.find('FlatButton').first();
+    button.simulate('click');
+
+    state = wrapper.state();
+    expect(state.open).toBe(false);
+    expect(wrapper.find('Dialog').props().open).toBe(false);
   });
 });
