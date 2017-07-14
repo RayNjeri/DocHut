@@ -174,7 +174,7 @@ export const searchDocument = (title) => {
         dispatch(documentsSearchFilter(res.body));
       })
       .catch((error) => {
-        dispatch(documentsSearchFilter(err));
+        dispatch(documentsSearchFilter(error));
       });
   };
 };
