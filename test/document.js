@@ -104,8 +104,11 @@ describe('/POST document', () => {
   });
 
   it('should update fields sucessfully', (done) => {
-    let findByIdStub = sinon.stub(document, 'findById').resolves({});
-    let updateStub = sinon.stub(document, 'update').resolves({});
+    let findByIdStub = sinon.stub(document, 'findById').resolves({
+      update: () => new Promise((resolve, reject) => {
+        resolve({});
+      })
+    });
     request(app)
       .put('/api/document/1')
       .set('x-access-token', token)
@@ -113,7 +116,6 @@ describe('/POST document', () => {
       .end((err, res) => {
         if (err) throw err;
         findByIdStub.restore();
-        updateStub.restore();
         done();
       });
   });
