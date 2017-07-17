@@ -156,7 +156,7 @@ module.exports = {
                 title: { $ilike: `%${req.query.q}%` }
               }
             })
-            .then(response => res.status(302).send(response))
+            .then(response => res.status(200).send(response))
             .catch(error => res.status(400).send(error));
   },
 

@@ -81,8 +81,17 @@ export const documentsDeleteFailure = documents => ({
   documents
 });
 
-export const documentsSearchFilter = searchFilter => ({
-  type: types.SET_DOCUMENTS_SEARCH_FILTER,
+export const documentsSearchFilterSuccess = searchFilter => ({
+  type: types.SET_DOCUMENTS_SEARCH_FILTER_SUCCESS,
+  searchFilter
+});
+
+export const documentsSearchFilterRequest = searchFilter => ({
+  type: types.SET_DOCUMENTS_SEARCH_FILTER_REQUEST,
+});
+
+export const documentsSearchFilterfailure = searchFilter => ({
+  type: types.SET_DOCUMENTS_SEARCH_FILTER_FAILURE,
   searchFilter
 });
 
@@ -165,16 +174,35 @@ export const getDocument = documentId => (dispatch) => {
   );
 };
 
-export const searchDocument = (title) => {
-  title = encodeURIComponent(title);
-  return (dispatch) => {
-    return getEndpoint(`/api/search/document?q=${title}`)
+// export const searchDocument = (title) => {
+//   title = encodeURIComponent(title);
+//   return (dispatch) => {
+//     return getEndpoint(`/api/search/document?q=${title}`)
+//       .set('x-access-token', tokenUtils.getAuthToken())
+//       .then((res) => {
+//         console.log('This is the search result', res.body);
+//         dispatch(documentsSearchFilterSuccess(res.body));
+//       })
+//       .catch((error) => {
+//         dispatch(documentsSearchFilterfailure(error));
+//       });
+//   };
+// };
+
+export const searchDocument = title => (dispatch) => {
+  dispatch(documentsSearchFilterRequest());
+  return (
+    request
+      .get(`/api/search/document?q=${title}`)
       .set('x-access-token', tokenUtils.getAuthToken())
-      .then((res) => {
-        dispatch(documentsSearchFilter(res.body));
+      .then((response) => {
+        console.log('this: ', response);
+        dispatch(documentsSearchFilterSuccess(response.body));
       })
       .catch((error) => {
-        dispatch(documentsSearchFilter(error));
-      });
-  };
+        console.log(">>>", error);
+        dispatch(documentsSearchFilterfailure(error.response));
+        throw error;
+      })
+  );
 };

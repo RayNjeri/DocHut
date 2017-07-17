@@ -93,7 +93,6 @@
     "style-loader": "^0.18.2",
     "superagent": "^3.5.2",
     "supertest": "^3.0.0",
-    "underscore": "^1.8.3",
     "validator": "^7.0.0",
     "webdriverio": "^4.8.0",
     "webpack": "^1.15.0",

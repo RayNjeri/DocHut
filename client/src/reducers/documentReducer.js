@@ -30,7 +30,7 @@ export default function reducer(state = DOCUMENT_LIST, action) {
     return Object.assign({}, state, {
       documents: state.documents.filter(document => document.id !== action.documentId),
     });
-  case types.SET_DOCUMENTS_SEARCH_FILTER:
+  case types.SET_DOCUMENTS_SEARCH_FILTER_SUCCESS:
     return Object.assign({}, state, {
       documents: action.searchFilter,
     });
@@ -61,20 +61,21 @@ export default function reducer(state = DOCUMENT_LIST, action) {
         ...state.documents],
       loading: false,
     });
-
+      
+  case types.SET_DOCUMENTS_SEARCH_FILTER_FAILURE:
   case types.DOCUMENTS_GET_FAILURE:
   case types.DOCUMENTS_ADD_FAILURE:
     return Object.assign({}, state, {
       error: action.error,
       loading: false,
     });
-
+      
+  case types.SET_DOCUMENTS_SEARCH_FILTER_REQUEST:
   case types.DOCUMENTS_GET_REQUEST:
-    return {
-      documents: null,
+    return Object.assign({}, state, {
       error: null,
       loading: true,
-    };
+    });
   default:
     return state;
   }
