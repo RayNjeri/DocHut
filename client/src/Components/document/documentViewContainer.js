@@ -53,19 +53,19 @@ export class DocumentViewContainer extends React.Component {
   componentWillMount() {
     this.props.documentActions.listDocuments(this.state.limit, this.state.offset);
   }
-  onSetAccess(e, index, value) {
+  onSetAccess(event, index, value) {
     const Document = this.state.document;
     Document.access = value;
     this.setState({ document: Document });
   }
-  onTitleChange(e) {
+  onTitleChange(event) {
     const Document = this.state.document;
-    Document.title = e.target.value;
+    Document.title = event.target.value;
     this.setState({ document: Document });
   }
-  onContentChange(e) {
+  onContentChange(event) {
     const Document = this.state.document;
-    Document.content = e.target.value;
+    Document.content = event.target.value;
     this.setState({ document: Document });
   }
 
@@ -77,8 +77,8 @@ export class DocumentViewContainer extends React.Component {
     this.setState({ open: false, edit: false });
   }
 
-  handleChange(e) {
-    const { name, value } = e.target;
+  handleChange(event) {
+    const { name, value } = event.target;
     this.setState({
       document: Object.assign({}, this.state.document, {
         [name]: value
@@ -87,7 +87,7 @@ export class DocumentViewContainer extends React.Component {
   }
 
   updateDocument(document) {
-    return e => {
+    return event => {
       this.setState({
         document,
         edit: true,
@@ -96,8 +96,8 @@ export class DocumentViewContainer extends React.Component {
     };
   }
 
-  handleSubmit(e) {
-    e.preventDefault();
+  handleSubmit(event) {
+    event.preventDefault();
     this.state.edit
       ? this.props.documentActions.updateDocument(this.state.document)
       : this.props.documentActions.createDocument(this.state.document);

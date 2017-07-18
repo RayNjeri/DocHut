@@ -88,7 +88,6 @@ module.exports = {
       });
 
     const findDocs = (query) => {  
-      console.log('query: ', JSON.stringify(query, null, 2));
       return Document.findAll(Object.assign({}, query, {
         offset: req.query.offset,
         limit: req.query.limit
@@ -112,7 +111,7 @@ module.exports = {
     if (req.roleId == 1) {
       if (req.query.limit || req.query.offset) {
         constructQuery(true, req.roleId)
-          .then(findDocs)
+          .then(findDocs);
       } else {
         allSearch();
       }
@@ -122,7 +121,7 @@ module.exports = {
           .then(findDocs);
       } else {
         constructQuery(null, null, true, req.roleId)
-          .then(findDocs)
+          .then(findDocs);
       }
     }
   },

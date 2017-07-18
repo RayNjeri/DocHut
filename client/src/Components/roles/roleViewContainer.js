@@ -27,9 +27,9 @@ class Roles extends Component {
     this.props.listroles();
   }
 
-  onChange(e) {
+  onChange(event) {
     this.setState({
-      roleName: e.target.value
+      roleName: event.target.value
     });
   }
   onSubmit(event) {

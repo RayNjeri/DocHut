@@ -38,8 +38,8 @@ export class OwnProfile extends React.Component {
   editUserToggle() {
     this.setState({ isEditing: !this.state.isEditing });
   }
-  handleSubmit(e) {
-    e.preventDefault();
+  handleSubmit(event) {
+    event.preventDefault();
     const hasErrors = Object.keys(this.state.errors).some(key => !!this.state.errors[key]);
     if (hasErrors) {
       return;
@@ -49,12 +49,12 @@ export class OwnProfile extends React.Component {
     });
     this.props.updateUser(updatedUser);
   }
-  handleChange(e) {
-    e.preventDefault();
+  handleChange(event) {
+    event.preventDefault();
     let editedUser = this.state.editedUser;
     this.setState({
       editedUser: Object.assign({}, editedUser, {
-        [e.target.name]: e.target.value
+        [event.target.name]: event.target.value
       })
     });
   }

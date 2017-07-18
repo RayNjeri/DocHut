@@ -38,8 +38,8 @@ class ProfilePage extends React.Component {
     });
   }
 
-  handleSubmit(e) {
-    e.preventDefault();
+  handleSubmit(event) {
+    event.preventDefault();
     const hasErrors = Object.keys(this.state.errors).some(key => !!this.state.errors[key]);
     if (hasErrors) {
       return;
@@ -49,12 +49,12 @@ class ProfilePage extends React.Component {
     this.props.userActions.updateUser(updatedUser);
   }
 
-  handleChange(e) {
-    e.preventDefault();
+  handleChange(event) {
+    event.preventDefault();
     let editedUser = Object.assign({}, this.props.user, this.state.user);
     this.setState({
       user: Object.assign({}, editedUser, {
-        [e.target.name]: e.target.value
+        [event.target.name]: event.target.value
       })
     });
   }
