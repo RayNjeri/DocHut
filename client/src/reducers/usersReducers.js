@@ -30,10 +30,6 @@ export default function reducer(state = USER_LIST, action) {
     return Object.assign({}, state, {
       users: state.users.filter(id => id !== action.userId),
     });
-  case types.SET_USERS_SEARCH_FILTER:
-    return Object.assign({}, state, {
-      searchFilter: action.searchFilter,
-    });
   case types.USERS_UPDATE_REQUEST:
     return Object.assign({}, state, {
       error: null,

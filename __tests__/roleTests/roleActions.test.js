@@ -57,19 +57,6 @@ describe('actions', () => {
     expect(actions.rolesGetFailure()).toEqual(expectedAction);
   });
 
-  it('should update a role on role update success', () => {
-    const expectedAction = {
-      type: types.ROLES_UPDATE_SUCCESS
-    };
-    expect(actions.rolesUpdateSuccess()).toEqual(expectedAction);
-  });
-
-  it('should not update a role on role update failure', () => {
-    const expectedAction = {
-      type: types.ROLES_UPDATE_FAILURE
-    };
-    expect(actions.rolesUpdateFailure()).toEqual(expectedAction);
-  });
 
   it('should delete a role on role delete success', () => {
     const expectedAction = {
@@ -110,35 +97,6 @@ describe('actions', () => {
     });
   });
 
-  it('should update a user', () => {
-    const editFields = {
-      id: '1',
-      roleName: 'New roleName',
-    };
-    const response = {
-      body: {
-        id: 1,
-        roleName: 'New roleName',
-      }
-    };
-    nock(/^.*$/)
-      .put('/api/roles/' + editFields.id)
-      .reply(201, response.body);
-    const expectedActions = [{
-      type: types.ROLES_UPDATE_REQUEST,
-      roles: editFields
-    }, {
-      type: types.ROLES_UPDATE_SUCCESS,
-      role: response.body,
-    }];
-
-    const store = mockStore({});
-
-    return store.dispatch(actions.updaterole(editFields)).then(() => {
-      const actions = store.getActions();
-      expect(actions).toEqual(expectedActions);
-    });
-  });
 
   it('should delete a role', () => {
     const response = {

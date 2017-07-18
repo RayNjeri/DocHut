@@ -77,11 +77,6 @@ export const userDeleteFailure = users => ({
   users
 });
 
-export const usersSearchFilter = searchFilter => ({
-  type: types.SET_USERS_SEARCH_FILTER,
-  searchFilter
-});
-
 /* eslint no-undef: "off"*/
 
 export const listUsers = () => (dispatch) => {
@@ -98,22 +93,6 @@ export const listUsers = () => (dispatch) => {
       })
   );
 };
-
-// export const createUser = userData => (dispatch) => {
-//   dispatch(usersAddRequest(userData));
-//   return (
-//     request
-//       .post('/api/user')
-//       .set('x-access-token', tokenUtils.getAuthToken())
-//       .send(userData)
-//       .then((response) => {
-//         dispatch(usersAddSuccess(response.body));
-//       })
-//       .catch((error) => {
-//         dispatch(usersAddFailure(error.response));
-//       })
-//   );
-// };
 
 export const updateUser = userData => (dispatch) => {
   dispatch(usersUpdateRequest(userData));
@@ -147,17 +126,11 @@ export const deleteUser = userId => (dispatch) => {
 };
 
 export const getUser = userId => (dispatch) => {
-  // dispatch(usersGetRequest());
   return (
     request
       .get(`/api/user/${userId}`)
       .set('x-access-token', tokenUtils.getAuthToken())
-    // .then((response) => {
-    //   dispatch(usersGetSuccess(response.body));
-    // })
-    // .catch((error) => {
-    //   dispatch(usersGetFailure(error.response));
-    // })
+    
   );
 };
 

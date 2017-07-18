@@ -22,16 +22,12 @@ describe('Header Component unauthenticated', () => {
   }),
 
   it('Should render the header component', () => {
-    // const header = shallow(<Header />);
     const tree = shallowToJSON(headerWrapper);
     expect(tree).toMatchSnapshot();
   });
 });
 
 describe('Header Component authenticated', () => {
-
-  // const initialState = { authReducer: { user: {}, isAuthenticated: false }};
-  // const mockStore = configureStore();
 
   const user = {
     createdAt: "2017-07-10T17:08:22.941Z",
@@ -64,12 +60,10 @@ describe('Header Component authenticated', () => {
       user: user,
       isAuthenticated: true
     }
-    // store = mockStore(initialState);
     headerWrapper = shallow(<Header {...props} /> );  
   }),
 
   it('Should render the header component with user authenticated', () => {
-    // const header = shallow(<Header />);
     const tree = shallowToJSON(headerWrapper);
     expect(tree).toMatchSnapshot();
   });

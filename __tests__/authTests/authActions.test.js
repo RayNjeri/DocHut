@@ -134,7 +134,7 @@ describe('async actions', () => {
     });
   });
 
-  it.skip('should login a user', () => {
+  it('should login a user', () => {
     const response = {
       body: {
         email: 'email',
@@ -165,7 +165,5 @@ describe('async actions', () => {
       expect(actions).toEqual(expectedActions);
     });
   });
-
-
 
 });

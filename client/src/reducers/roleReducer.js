@@ -29,22 +29,7 @@ export default function reducer(state = ROLE_LIST, action) {
     return Object.assign({}, state, {
       roles: state.roles.filter(id => id !== action.roleId),
     });
-  case types.ROLES_UPDATE_REQUEST:
-    return Object.assign({}, state, {
-      error: null,
-      loading: true,
-    });
-  case types.ROLES_UPDATE_SUCCESS:
-    return Object.assign({}, state, {
-      roles: state.roles.map(role => role.id === action.role.id ? action.role : role),
-      error: null,
-      loading: true,
-    });
-  case types.ROLES_UPDATE_FAILURE:
-    return Object.assign({}, state, {
-      error: action.error,
-      loading: false,
-    });
+
   case types.ROLES_ADD_REQUEST:
     return Object.assign({}, state, {
       error: null,

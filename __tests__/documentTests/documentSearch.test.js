@@ -23,9 +23,6 @@ const constructWrapper = props => shallow(<DocumentSearch {...props} />);
 
 describe('DocumentSearch component', () => {
 
-  // const initialState = {documentReducer:{ document: {}, searchFilter: false }};
-  // const mockStore = configureStore();
-  // let store,container,isAunthenticated,roleId;
   let wrapper, sandbox;
   const props = {
     actions: {
@@ -34,8 +31,6 @@ describe('DocumentSearch component', () => {
   };
 
   beforeEach(()=>{
-    // store = mockStore(initialState);
-    // inputSpy = sinon.spy(DocumentSearch.prototype, 'handleSearchInput');
     sandbox = sinon.sandbox.create();
     sandbox.spy(DocumentSearch.prototype, 'handleSearchInput');
     wrapper = shallow(<DocumentSearch {...props} /> );  
@@ -45,7 +40,6 @@ describe('DocumentSearch component', () => {
   });
 
   it('renders correctly', () => {
-    // const wrapper = constructWrapper(constructProps());
     expect(
       wrapper.props().className
     ).toBe('search-wrapper card');
