@@ -196,11 +196,9 @@ export const searchDocument = title => (dispatch) => {
       .get(`/api/search/document?q=${title}`)
       .set('x-access-token', tokenUtils.getAuthToken())
       .then((response) => {
-        console.log('this: ', response);
         dispatch(documentsSearchFilterSuccess(response.body));
       })
       .catch((error) => {
-        console.log(">>>", error);
         dispatch(documentsSearchFilterfailure(error.response));
         throw error;
       })

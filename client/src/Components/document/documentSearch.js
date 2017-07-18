@@ -34,6 +34,7 @@ export class DocumentSearch extends React.Component {
           id="search"
           onChange={this.handleSearchInput}
         />
+        <i className="material-icons">search</i>
       </div>
 
     );
