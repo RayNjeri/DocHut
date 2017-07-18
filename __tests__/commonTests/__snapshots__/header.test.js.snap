@@ -1,38 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Header Component Should render the header component 1`] = `
-<nav>
-  <AppBar
-    className="navbar"
-    iconClassNameRight="muidocs-icon-navigation-expand-more"
-    showMenuIconButton={false}
-    style={
-      Object {
-        "background": "#3bac95",
-      }
-    }
-    title="DocHut"
-    titleStyle={
-      Object {
-        "flex": "none",
-      }
-    }
-    zDepth={1}
-  >
-    <span>
-      <IndexLink
-        activeClassName="active"
-        to="/"
-      >
-        Home
-      </IndexLink>
-    </span>
-  </AppBar>
-</nav>
-`;
-
-exports[`Header Component authenticated Should render the header component 1`] = `undefined`;
-
 exports[`Header Component authenticated Should render the header component with user authenticated 1`] = `
 <nav>
   <AppBar

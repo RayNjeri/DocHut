@@ -48,6 +48,12 @@ describe('documentReducer', () => {
   });
 
   it('should handle get document request', () => {
+    const initialState = {
+      documents: null,
+      error: null,
+      loading: false
+    };
+
     const action = {
       type: types.DOCUMENTS_GET_REQUEST
     };
@@ -56,7 +62,7 @@ describe('documentReducer', () => {
       error: null,
       loading: true
     };
-    expect(reducer({}, action)).toEqual(expected);
+    expect(reducer(initialState, action)).toEqual(expected);
   });
 
   it('should handle get documents success', () => {
@@ -100,6 +106,42 @@ describe('documentReducer', () => {
 
     const expected = Object.assign({}, state, {
       documents: []
+    });
+
+    const newState = reducer(state, action);
+    expect(newState).toEqual(expected);
+  });
+
+  it('should handle update document success', () => {
+    const oldDocument = {
+      id: 1,
+      title: 'title',
+      content: 'content',
+      access: 'access'
+    };
+
+    const state = {
+      error: null,
+      documents: [oldDocument],
+      loading: false
+    };
+
+    const newDocument = {
+      id: 1,
+      title: 'newtitle',
+      content: 'newContent',
+      access: 'newAccess'
+    };
+
+    const action = {
+      type: types.DOCUMENTS_UPDATE_SUCCESS,
+      document: newDocument
+    };
+
+    const expected = Object.assign({}, state, {
+      documents
+      : [newDocument],
+      loading: true,
     });
 
     const newState = reducer(state, action);

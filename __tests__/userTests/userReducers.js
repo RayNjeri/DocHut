@@ -88,4 +88,54 @@ describe('reducer', () => {
     const newState = reducer(state, action);
     expect(newState).toEqual(expected);
   });
+
+  it('should handle update user request', () => {
+    const action = {
+      type: types.USERS_UPDATE_REQUEST
+    };
+    const expected = {
+      error: null,
+      loading: true
+    };
+    expect(reducer({}, action)).toEqual(expected);
+  });
+
+  it('should handle update user success', () => {
+    const oldUser = {
+      id: 1,
+      firstName: 'FirstName',
+      lastName: 'LastName',
+      userName: 'UserName',
+      email: 'Email',
+      password: 'Password'
+    };
+
+    const state = {
+      error: null,
+      users: [oldUser],
+      loading: false
+    };
+    
+    const newUser = {
+      id: 1,
+      firstName: 'newFirstName',
+      lastName: 'newLastName',
+      userName: 'newUserName',
+      email: 'newEmail',
+      password: 'newPassword'
+    };
+
+    const action = {
+      type: types.USERS_UPDATE_SUCCESS,
+      user: newUser
+    };
+
+    const expected = Object.assign({}, state, {
+      users: [newUser],
+      loading: true,
+    });
+
+    const newState = reducer(state, action);
+    expect(newState).toEqual(expected);
+  });
 });

@@ -78,10 +78,6 @@ export const rolesDeleteFailure = roles => ({
   roles
 });
 
-export const rolesSearchFilter = searchFilter => ({
-  type: types.SET_ROLES_SEARCH_FILTER,
-  searchFilter
-});
 
 /* eslint no-undef: "off"*/
 

@@ -6,8 +6,7 @@ describe('reducer', () => {
     expect(reducer(undefined, {})).toEqual({
       roles: [],
       error: null,
-      loading: false,
-      searchFilter: '',
+      loading: false
     });
   });
 
@@ -79,5 +78,33 @@ describe('reducer', () => {
 
     const newState = reducer(state, action);
     expect(newState).toEqual(expected);
+  });
+
+  it('should handle update role success', () => {
+    const oldRole = {
+      id: 1,
+      roleName: 'roleName'
+    };
+
+    const state = {
+      error: null,
+      roles: [oldRole],
+      loading: false
+    };
+
+    const newRole = {
+      id: 1,
+      roleName: 'newroleName',
+    };
+
+    const action = {
+      type: types.ROLES_UPDATE_SUCCESS,
+      role: newRole
+    };
+
+    const expected = Object.assign({}, state, {
+      roles: [newRole],
+      loading: true,
+    });
   });
 });

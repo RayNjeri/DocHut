@@ -4,7 +4,6 @@ const ROLE_LIST = {
   roles: [],
   error: null,
   loading: false,
-  searchFilter: '',
 };
 
 export default function reducer(state = ROLE_LIST, action) {
@@ -29,10 +28,6 @@ export default function reducer(state = ROLE_LIST, action) {
   case types.ROLES_DELETE_SUCCESS:
     return Object.assign({}, state, {
       roles: state.roles.filter(id => id !== action.roleId),
-    });
-  case types.SET_ROLES_SEARCH_FILTER:
-    return Object.assign({}, state, {
-      searchFilter: action.searchFilter,
     });
   case types.ROLES_UPDATE_REQUEST:
     return Object.assign({}, state, {
