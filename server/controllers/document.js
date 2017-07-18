@@ -54,39 +54,49 @@ module.exports = {
     // list all documents
 
   list(req, res) {
-    const findDocs = (query) => {
-      return Document.findAll({
+    const ADMIN_ROLE = 1;
+    const isAdmin = req.roleId === ADMIN_ROLE;
+  
+    const constructQuery = (isPublic, roleId) =>
+      new Promise((resolve, reject) => {
+        const query = {};
+        const { offset, limit } = req.query;
+        if (offset) {
+          query.offset = offset;
+        }
+        if (limit) {
+          query.limit = limit;
+        }
+
+        if (isAdmin) {
+          return resolve(query);
+        }
+        
+        query.where = {
+          $or: []
+        };
+
+        if (isPublic) {
+          query.where.$or.push({ access: 'public' });
+        }
+
+        return Role.findById(roleId)
+          .then((role) => {
+            query.where.$or.push({ access: role.roleName });
+            return resolve(query);
+          });    
+      });
+
+    const findDocs = (query) => {  
+      console.log('query: ', JSON.stringify(query, null, 2));
+      return Document.findAll(Object.assign({}, query, {
         offset: req.query.offset,
-        limit: req.query.limit,
-        query})
+        limit: req.query.limit
+      }))
         .then(response => res.status(200).send(response))
         .catch(error => res.status(400).send(error));
     };
-    const querySearch = (offset, limit, isPublic, roleId) => {
-      let query = {
-        where: {
-          $or: []
-        }
-      };
-      if (offset) {
-        req.query.offset = offset;
-      }
-      if (limit) {
-        req.query.limit = limit;
-      }
-      if (isPublic) {
-        query.where.$or.push({ access: 'public' });
-      }
-      if (roleId) {
-        Role.findById(roleId)
-          .then((role) => {
-            query.where.$or.push({ access: role.roleName });
-            findDocs(query);
-          });
-      } else {
-        findDocs(query);
-      }
-    };
+    
     const allSearch = (isPublic) => {
       let query = {};
       if (isPublic) {
@@ -95,21 +105,24 @@ module.exports = {
         };
       }
       return Document.findAll(query)
-                .then(document => res.status(200).send(document))
-                .catch(error => res.status(400).send(error));
+        .then(document => res.status(200).send(document))
+        .catch(error => res.status(400).send(error));
     };
+
     if (req.roleId == 1) {
       if (req.query.limit || req.query.offset) {
-        querySearch(req.query.offset, req.query.limit);
+        constructQuery(true, req.roleId)
+          .then(findDocs)
       } else {
         allSearch();
       }
     } else {
       if (req.query.limit || req.query.offset) {
-        querySearch(req.query.offset, req.query.limit, true, req.roleId);
+        constructQuery(true, req.roleId)
+          .then(findDocs);
       } else {
-        querySearch(null, null, true, req.roleId);
-       
+        constructQuery(null, null, true, req.roleId)
+          .then(findDocs)
       }
     }
   },

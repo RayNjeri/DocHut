@@ -213,7 +213,7 @@ describe('actions', () => {
       .get(`/api/search/document?q=${title}`)
       .reply(201, res.body);
     const expectedActions = [{
-      type: types.SET_DOCUMENTS_SEARCH_FILTER,
+      type: types.SET_DOCUMENTS_SEARCH_FILTER_SUCCESS,
       searchFilter: res.body,
     }];
 
