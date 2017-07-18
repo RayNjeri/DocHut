@@ -174,21 +174,6 @@ export const getDocument = documentId => (dispatch) => {
   );
 };
 
-// export const searchDocument = (title) => {
-//   title = encodeURIComponent(title);
-//   return (dispatch) => {
-//     return getEndpoint(`/api/search/document?q=${title}`)
-//       .set('x-access-token', tokenUtils.getAuthToken())
-//       .then((res) => {
-//         console.log('This is the search result', res.body);
-//         dispatch(documentsSearchFilterSuccess(res.body));
-//       })
-//       .catch((error) => {
-//         dispatch(documentsSearchFilterfailure(error));
-//       });
-//   };
-// };
-
 export const searchDocument = title => (dispatch) => {
   dispatch(documentsSearchFilterRequest());
   return (

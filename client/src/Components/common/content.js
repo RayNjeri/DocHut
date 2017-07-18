@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import DocumentViewContainer from '../../Components/document/documentViewContainer';
 import { Card } from 'material-ui/Card';
 
-class content extends Component {
+class content extends React.Component {
   render() {
     return (
       <div>

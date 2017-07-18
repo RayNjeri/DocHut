@@ -37,7 +37,6 @@ export class LoginForm extends React.Component {
         this.context.router.push('/content');
       })
       .catch(err => {
-        console.log("....", err);
         this.setState({ errors: err, isLoading: false })
       });
     }
