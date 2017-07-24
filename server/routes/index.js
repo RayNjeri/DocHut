@@ -4,11 +4,12 @@ const documentController = require('../controllers').document;
 const roleController = require('../controllers/role');
 const { Auth, isAdmin } = require('../middlewares'); // authorise middlwares
 
-
-module.exports = (app) => {
-  app.get('/api', (req, res) => res.status(200).send({
-    message: 'Welcome to the User API!',
-  }));
+module.exports = app => {
+  app.get('/api', (req, res) =>
+    res.status(200).send({
+      message: 'Welcome to the User API!'
+    })
+  );
 
   app.post('/api/user', userController.create);
   app.post('/api/user/login', userController.login);
@@ -21,7 +22,7 @@ module.exports = (app) => {
 
   app.post('/api/document', Auth, documentController.create);
   app.get('/api/document', Auth, documentController.list);
-    // app.get('api/document/?limit={integer}&offset={integer}', documentController.list);
+  // app.get('api/document/?limit={integer}&offset={integer}', documentController.list);
   app.get('/api/document/:documentId', Auth, documentController.retrieve);
   app.put('/api/document/:documentId', documentController.update);
   app.get('/api/search/document', documentController.findByTitle);
@@ -33,8 +34,9 @@ module.exports = (app) => {
   app.put('/api/roles/:roleId', [Auth, isAdmin], roleController.update);
   app.delete('/api/roles/:roleId', [Auth, isAdmin], roleController.destroy);
 
-
-  app.all('api/user/:userId', (req, res) => res.status(405).send({
-    message: 'Method Not Allowed',
-  }));
+  app.all('api/user/:userId', (req, res) =>
+    res.status(405).send({
+      message: 'Method Not Allowed'
+    })
+  );
 };
