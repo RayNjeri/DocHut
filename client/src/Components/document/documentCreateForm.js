@@ -1,9 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import TextField from 'material-ui/TextField';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
-import DocumentView from './documentsView';
 
 const CreateDocument = props => (
   <div>
@@ -14,8 +12,9 @@ const CreateDocument = props => (
       onChange={props.onTitleChange}
       defaultValue={props.document.title}
       fullWidth
-    /> <br /><br />
-
+    />{' '}
+    <br />
+    <br />
     <TextField
       className="content"
       name="content"
@@ -27,8 +26,8 @@ const CreateDocument = props => (
       multiLine
       rows={2}
       rowsMax={10}
-    /><br /> <br />
-
+    />
+    <br /> <br />
     <SelectField
       floatingLabelText="Access"
       value={props.document.access}
@@ -37,8 +36,6 @@ const CreateDocument = props => (
       <MenuItem value={'public'} primaryText="Public" />
       <MenuItem value={'private'} primaryText="Private" />
       <MenuItem value={'role'} primaryText="Role" />
-
-
     </SelectField>
   </div>
 );

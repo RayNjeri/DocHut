@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { browserHistory } from 'react-router';
 import Pagination from 'react-js-pagination';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
@@ -11,18 +10,15 @@ import ContentAdd from 'material-ui/svg-icons/content/add';
 import * as documentActions from '../../actions/documentsAction';
 import Snackbar from 'material-ui/Snackbar';
 import DocumentView from './documentsView';
-import DocumentList from './documentList';
 import CreateDocument from './documentCreateForm';
 import DocumentEditForm from './documentEditForm';
 import DocumentSearch from './documentSearch';
-
-import * as tokenUtils from '../../utils/tokenUtils';
 
 const style = {
   position: 'fixed',
   bottom: 20,
   right: 20,
-  marginRight: 20,
+  marginRight: 20
 };
 
 export class DocumentViewContainer extends React.Component {
@@ -51,9 +47,12 @@ export class DocumentViewContainer extends React.Component {
     this.closeSnackBar = this.closeSnackBar.bind(this);
   }
   componentWillMount() {
-    this.props.documentActions.listDocuments(this.state.limit, this.state.offset);
+    this.props.documentActions.listDocuments(
+      this.state.limit,
+      this.state.offset
+    );
   }
-  onSetAccess(event, index, value) {
+  onSetAccess(value) {
     const Document = this.state.document;
     Document.access = value;
     this.setState({ document: Document });
@@ -87,11 +86,11 @@ export class DocumentViewContainer extends React.Component {
   }
 
   updateDocument(document) {
-    return event => {
+    return () => {
       this.setState({
         document,
         edit: true,
-        open: true,
+        open: true
       });
     };
   }
@@ -108,7 +107,10 @@ export class DocumentViewContainer extends React.Component {
 
   handlePageChange(pageNumber) {
     this.setState({ activePage: pageNumber });
-    this.props.documentActions.listDocuments(this.state.limit, (this.state.limit * (pageNumber - 1)));
+    this.props.documentActions.listDocuments(
+      this.state.limit,
+      this.state.limit * (pageNumber - 1)
+    );
   }
 
   closeSnackBar() {
@@ -117,33 +119,29 @@ export class DocumentViewContainer extends React.Component {
 
   render() {
     const viewActions = [
-      <FlatButton
-        label="Cancel"
-        primary
-        onTouchTap={this.handleClose}
-      />,
+      <FlatButton label="Cancel" primary onTouchTap={this.handleClose} />,
       <FlatButton
         label="Submit"
         primary
         keyboardFocused
         onTouchTap={this.handleSubmit}
-      />,
+      />
     ];
     return (
       <div className="container">
         <div className="documents">
           <h1>Documents</h1>
           <DocumentSearch />
-          {this.props.documentList.documents.map(document =>
-            (<DocumentView
+          {this.props.documentList.documents.map(document => (
+            <DocumentView
               key={document.id}
               document={document}
               onUpdate={this.updateDocument(document)}
               deleteDocument={this.props.documentActions.deleteDocument}
               listDocuments={this.props.documentActions.listDocuments}
-            />)
-          )}
-          <div className="paginitaion" >
+            />
+          ))}
+          <div className="paginitaion">
             <Pagination
               activePage={this.state.activePage}
               itemsCountPerPage={this.state.limit}
@@ -153,7 +151,11 @@ export class DocumentViewContainer extends React.Component {
             />
           </div>
           <div>
-            <FloatingActionButton onClick={this.handleOpen} backgroundColor="#123c69" style={style}>
+            <FloatingActionButton
+              onClick={this.handleOpen}
+              backgroundColor="#123c69"
+              style={style}
+            >
               <ContentAdd />
             </FloatingActionButton>
           </div>
@@ -172,14 +174,14 @@ export class DocumentViewContainer extends React.Component {
               onChange={this.handleChange}
             />
           ) : (
-              <CreateDocument
-                style={style}
-                onSetAccess={this.onSetAccess}
-                document={this.state.document}
-                onTitleChange={this.onTitleChange}
-                onContentChange={this.onContentChange}
-              />
-            )}
+            <CreateDocument
+              style={style}
+              onSetAccess={this.onSetAccess}
+              document={this.state.document}
+              onTitleChange={this.onTitleChange}
+              onContentChange={this.onContentChange}
+            />
+          )}
         </Dialog>
         <Snackbar
           open={this.state.snackBarOpen}
@@ -196,7 +198,6 @@ DocumentViewContainer.propTypes = {
   documentActions: PropTypes.object.isRequired
 };
 
-
 function mapStateToProps(state) {
   return {
     documentList: state.documents
@@ -209,4 +210,7 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(DocumentViewContainer);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(DocumentViewContainer);

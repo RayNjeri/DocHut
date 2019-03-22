@@ -1,10 +1,6 @@
 import React, { PropTypes } from 'react';
 import TextField from 'material-ui/TextField';
 
-const style = {
-  margin: 12,
-};
-
 export default function DocumentEditForm(props) {
   return (
     <form>
@@ -35,7 +31,7 @@ DocumentEditForm.propTypes = {
     id: PropTypes.number.isRequired,
     title: PropTypes.string.isRequired,
     content: PropTypes.string.isRequired,
-    access: PropTypes.string.isRequired,
+    access: PropTypes.string.isRequired
   }),
   onChange: PropTypes.func.isRequired
 };

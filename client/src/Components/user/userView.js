@@ -2,8 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import Tabs from 'material-ui/Tabs';
-import Drawer from 'material-ui/Drawer';
 import NavBar from './appBar';
 import CircularProgress from 'material-ui/CircularProgress';
 import * as userActions from '../../actions/userActions';
@@ -46,17 +44,17 @@ class UserContainer extends React.Component {
   }
 
   render() {
-    return (
-      this.props.users.loading ?
-        <CircularProgress size={60} thickness={5} /> :
-        <NavBar
-          openDrawer={this.handleOpen}
-          users={this.props.users}
-          isOpen={this.state}
-          onClose={this.handleClose}
-          onLogOut={this.handleLogOut}
-          onSelectUser={this.handleSelect}
-        />
+    return this.props.users.loading ? (
+      <CircularProgress size={60} thickness={5} />
+    ) : (
+      <NavBar
+        openDrawer={this.handleOpen}
+        users={this.props.users}
+        isOpen={this.state}
+        onClose={this.handleClose}
+        onLogOut={this.handleLogOut}
+        onSelectUser={this.handleSelect}
+      />
     );
   }
 }
@@ -65,7 +63,7 @@ UserContainer.propTypes = {
   userActions: PropTypes.object.isRequired,
   users: PropTypes.array,
   authReducer: PropTypes.object,
-  authActions: PropTypes.object,
+  authActions: PropTypes.object
 };
 
 UserContainer.contextTypes = {
@@ -86,4 +84,7 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserContainer);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(UserContainer);

@@ -1,9 +1,6 @@
 import request from 'superagent';
-import jwtDecode from 'jwt-decode';
 import * as types from './actionTypes';
 import * as tokenUtils from '../utils/tokenUtils';
-
-import { postEndpoint, getEndpoint, deleteEndpoint } from '../API/api';
 
 export const usersRequest = () => ({
   type: types.USERS_REQUEST
@@ -79,58 +76,48 @@ export const userDeleteFailure = users => ({
 
 /* eslint no-undef: "off"*/
 
-export const listUsers = () => (dispatch) => {
+export const listUsers = () => dispatch => {
   dispatch(usersRequest());
-  return (
-    request
-      .get('/api/user')
-      .set('x-access-token', tokenUtils.getAuthToken())
-      .then((response) => {
-        dispatch(usersSuccess(response.body));
-      })
-      .catch((error) => {
-        dispatch(usersFailure(error));
-      })
-  );
+  return request
+    .get('/api/user')
+    .set('x-access-token', tokenUtils.getAuthToken())
+    .then(response => {
+      dispatch(usersSuccess(response.body));
+    })
+    .catch(error => {
+      dispatch(usersFailure(error));
+    });
 };
 
-export const updateUser = userData => (dispatch) => {
+export const updateUser = userData => dispatch => {
   dispatch(usersUpdateRequest(userData));
-  return (
-    request
-      .put(`/api/user/${userData.id}`)
-      .set('x-access-token', tokenUtils.getAuthToken())
-      .send(userData)
-      .then((response) => {
-        dispatch(usersUpdateSuccess(response.body));
-      })
-      .catch((error) => {
-        dispatch(usersUpdateFailure(error.response));
-      })
-  );
+  return request
+    .put(`/api/user/${userData.id}`)
+    .set('x-access-token', tokenUtils.getAuthToken())
+    .send(userData)
+    .then(response => {
+      dispatch(usersUpdateSuccess(response.body));
+    })
+    .catch(error => {
+      dispatch(usersUpdateFailure(error.response));
+    });
 };
 
-export const deleteUser = userId => (dispatch) => {
+export const deleteUser = userId => dispatch => {
   dispatch(usersDeleteRequest());
-  return (
-    request
-      .delete(`/api/user/${userId}`)
-      .set('x-access-token', tokenUtils.getAuthToken())
-      .then((response) => {
-        dispatch(usersDeleteSuccess(response.body));
-      })
-      .catch((error) => {
-        dispatch(usersDeleteFailure(error.response));
-      })
-  );
+  return request
+    .delete(`/api/user/${userId}`)
+    .set('x-access-token', tokenUtils.getAuthToken())
+    .then(response => {
+      dispatch(usersDeleteSuccess(response.body));
+    })
+    .catch(error => {
+      dispatch(usersDeleteFailure(error.response));
+    });
 };
 
-export const getUser = userId => (dispatch) => {
-  return (
-    request
-      .get(`/api/user/${userId}`)
-      .set('x-access-token', tokenUtils.getAuthToken())
-    
-  );
+export const getUser = userId => () => {
+  return request
+    .get(`/api/user/${userId}`)
+    .set('x-access-token', tokenUtils.getAuthToken());
 };
-

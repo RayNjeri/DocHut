@@ -17,9 +17,11 @@ const app = express();
 const compiler = webpack(config);
 
 if (NODE_ENV != 'test') {
-  app.use(require('webpack-dev-middleware')(compiler, {
-    publicPath: config.output.publicPath
-  }));
+  app.use(
+    require('webpack-dev-middleware')(compiler, {
+      publicPath: config.output.publicPath
+    })
+  );
 
   app.use(require('webpack-hot-middleware')(compiler));
 }
@@ -41,7 +43,7 @@ app.get('*', (req, res) => {
 //     message: 'Welcome to DocHut.',
 // }));
 
-app.listen(port, (err) => {
+app.listen(port, err => {
   if (err) {
     console.log(err);
   } else {

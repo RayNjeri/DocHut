@@ -4,7 +4,10 @@ import * as tokenUtils from '../utils/tokenUtils';
 
 /* eslint-disable max-len */
 
-const authReducer = (state = { isFetching: false, isAuthenticated: !!tokenUtils.getAuthToken() }, action) => {
+const authReducer = (
+  state = { isFetching: false, isAuthenticated: !!tokenUtils.getAuthToken() },
+  action
+) => {
   switch (action.type) {
   case types.SET_CURRENT_USER:
     return {
@@ -14,7 +17,7 @@ const authReducer = (state = { isFetching: false, isAuthenticated: !!tokenUtils.
   case types.LOGIN_USER:
     return Object.assign({}, state, {
       isFetching: true,
-      isAuthenticated: false,
+      isAuthenticated: false
     });
   case types.LOGIN_SUCCESS:
     return Object.assign({}, state, {
@@ -38,13 +41,13 @@ const authReducer = (state = { isFetching: false, isAuthenticated: !!tokenUtils.
   case types.SIGNUP_USER:
     return Object.assign({}, state, {
       isFetching: true,
-      isSignedUp: false,
+      isSignedUp: false
     });
   case types.SIGNUP_SUCCESS:
     return Object.assign({}, state, {
       isFetching: false,
       isSignedUp: true,
-      errorMessage: '',
+      errorMessage: ''
     });
   case types.SIGNUP_FAILURE:
     return Object.assign({}, state, {

@@ -11,8 +11,9 @@ export class App extends React.Component {
     const { authReducer, dispatch } = this.props;
     if (authReducer.isAuthenticated && !authReducer.user) {
       const user = getUserFromToken();
-      getUser(user.userId)(dispatch)
-        .then(({ body }) => dispatch(loginSuccessful({ user: body })));
+      getUser(user.userId)(dispatch).then(({ body }) =>
+        dispatch(loginSuccessful({ user: body }))
+      );
     }
   }
 
@@ -28,6 +29,4 @@ export class App extends React.Component {
 
 App.propTypes = { children: PropTypes.object.isRequired };
 
-export default connect(
-  ({ authReducer }) => ({ authReducer })
-)(App);
+export default connect(({ authReducer }) => ({ authReducer }))(App);

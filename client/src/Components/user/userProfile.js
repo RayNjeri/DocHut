@@ -15,7 +15,7 @@ class ProfilePageContainer extends React.Component {
     this.state = {
       errors: {},
       isEditing: false,
-      user: this.props.user,
+      user: this.props.user
     };
 
     this.handleEditToggle = this.handleEditToggle.bind(this);
@@ -54,7 +54,6 @@ class ProfilePageContainer extends React.Component {
     return true;
   }
 
-
   handleLogOut() {
     this.props.authActions.logoutUser();
     this.context.router.push('/login');
@@ -63,13 +62,13 @@ class ProfilePageContainer extends React.Component {
   handleValidate() {
     const user = this.state.user;
     if (!Validator.isEmail(user.email)) {
-      this.setState((prevState) => ({
+      this.setState(prevState => ({
         errors: Object.assign({}, prevState.errors, {
           email: 'Email is invalid'
         })
       }));
     } else if (this.state.errors.email) {
-      this.setState((prevState) => ({
+      this.setState(prevState => ({
         errors: Object.assign({}, prevState.errors, {
           email: null
         })
@@ -77,14 +76,13 @@ class ProfilePageContainer extends React.Component {
     }
 
     if (user.password && user.confirmPassword !== user.password) {
-      this.setState((prevState) => ({
+      this.setState(prevState => ({
         errors: Object.assign({}, prevState.errors, {
-          confirmPassword: 'Doesn\'t match password'
+          confirmPassword: "Doesn't match password"
         })
       }));
-
     } else if (this.state.errors.confirmPassword) {
-      this.setState((prevState) => ({
+      this.setState(prevState => ({
         errors: Object.assign({}, prevState.errors, {
           confirmPassword: null
         })
@@ -110,21 +108,22 @@ class ProfilePageContainer extends React.Component {
           editUserToggle={this.handleEditToggle}
         />
 
-        {this.state.user && <ProfilePage
-          documents={this.state.documents}
-          roles={this.props.roles}
-          errors={this.state.errors}
-          onBlur={this.handleValidate}
-          onChange={this.handleChange}
-          onSubmit={this.handleSubmit}
-          canEdit={this.handleShowEdit}
-          onTitleTouchTap={this.handleTitleTouch}
-          editUserToggle={this.handleEditToggle}
-          user={this.state.user}
-          isEditing={this.state.isEditing}
-          userActions={this.props.userActions}
-
-        />}
+        {this.state.user && (
+          <ProfilePage
+            documents={this.state.documents}
+            roles={this.props.roles}
+            errors={this.state.errors}
+            onBlur={this.handleValidate}
+            onChange={this.handleChange}
+            onSubmit={this.handleSubmit}
+            canEdit={this.handleShowEdit}
+            onTitleTouchTap={this.handleTitleTouch}
+            editUserToggle={this.handleEditToggle}
+            user={this.state.user}
+            isEditing={this.state.isEditing}
+            userActions={this.props.userActions}
+          />
+        )}
       </div>
     );
   }
@@ -164,4 +163,7 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProfilePageContainer);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ProfilePageContainer);

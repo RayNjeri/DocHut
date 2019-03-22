@@ -5,7 +5,6 @@ import { bindActionCreators } from 'redux';
 import _ from 'lodash';
 import * as documentActions from '../../actions/documentsAction';
 
-
 export class DocumentSearch extends React.Component {
   constructor(props, context) {
     super(props);
@@ -26,17 +25,12 @@ export class DocumentSearch extends React.Component {
     this.makeSearch();
   }
 
-  
   render() {
     return (
       <div className="search-wrapper card" style={{ marginLeft: '80%' }}>
-        <input
-          id="search"
-          onChange={this.handleSearchInput}
-        />
+        <input id="search" onChange={this.handleSearchInput} />
         <i className="material-icons">search</i>
       </div>
-
     );
   }
 }
@@ -47,4 +41,7 @@ DocumentSearch.propTypes = {
 const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators(documentActions, dispatch)
 });
-export default connect(null, mapDispatchToProps)(DocumentSearch);
+export default connect(
+  null,
+  mapDispatchToProps
+)(DocumentSearch);

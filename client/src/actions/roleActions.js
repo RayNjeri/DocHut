@@ -1,9 +1,6 @@
 import request from 'superagent';
-import jwtDecode from 'jwt-decode';
 import * as types from './actionTypes';
 import * as tokenUtils from '../utils/tokenUtils';
-
-import { postEndpoint, getEndpoint, deleteEndpoint } from '../API/api';
 
 export const rolesRequest = () => ({
   type: types.ROLES_REQUEST
@@ -62,62 +59,50 @@ export const rolesDeleteFailure = roles => ({
   roles
 });
 
-
 /* eslint no-undef: "off"*/
 
-export const listroles = () => (dispatch) => {
+export const listroles = () => dispatch => {
   dispatch(rolesRequest());
-  return (
-    request
-      .get('/api/roles')
-      .set('x-access-token', tokenUtils.getAuthToken())
-      .then((response) => {
-        dispatch(rolesSuccess(response.body));
-      })
-      .catch((error) => {
-        dispatch(rolesFailure(error));
-      })
-  );
+  return request
+    .get('/api/roles')
+    .set('x-access-token', tokenUtils.getAuthToken())
+    .then(response => {
+      dispatch(rolesSuccess(response.body));
+    })
+    .catch(error => {
+      dispatch(rolesFailure(error));
+    });
 };
 
-export const createrole = roleData => (dispatch) => {
+export const createrole = roleData => dispatch => {
   dispatch(rolesAddRequest(roleData));
-  return (
-    request
-      .post('/api/roles')
-      .set('x-access-token', tokenUtils.getAuthToken())
-      .send(roleData)
-      .then((response) => {
-        dispatch(rolesAddSuccess(response.body));
-      })
-      .catch((error) => {
-        dispatch(rolesAddFailure(error.response));
-      })
-  );
+  return request
+    .post('/api/roles')
+    .set('x-access-token', tokenUtils.getAuthToken())
+    .send(roleData)
+    .then(response => {
+      dispatch(rolesAddSuccess(response.body));
+    })
+    .catch(error => {
+      dispatch(rolesAddFailure(error.response));
+    });
 };
 
-
-export const deleterole = roleId => (dispatch) => {
+export const deleterole = roleId => dispatch => {
   dispatch(rolesDeleteRequest());
-  return (
-    request
-      .delete(`/api/roles/${roleId}`)
-      .set('x-access-token', tokenUtils.getAuthToken())
-      .then((response) => {
-        dispatch(rolesDeleteSuccess(response.body));
-      })
-      .catch((error) => {
-        dispatch(rolesDeleteFailure(error.response));
-      })
-  );
+  return request
+    .delete(`/api/roles/${roleId}`)
+    .set('x-access-token', tokenUtils.getAuthToken())
+    .then(response => {
+      dispatch(rolesDeleteSuccess(response.body));
+    })
+    .catch(error => {
+      dispatch(rolesDeleteFailure(error.response));
+    });
 };
 
-export const getrole = roleId => (dispatch) => {
-  return (
-    request
-      .get(`/api/roles/${roleId}`)
-      .set('x-access-token', tokenUtils.getAuthToken())
-    
-  );
+export const getrole = roleId => () => {
+  return request
+    .get(`/api/roles/${roleId}`)
+    .set('x-access-token', tokenUtils.getAuthToken());
 };
-

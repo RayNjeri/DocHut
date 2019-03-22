@@ -1,15 +1,17 @@
 import React, { PropTypes } from 'react';
-import { Card, CardActions, CardTitle, CardMedia, CardText } from 'material-ui/Card';
+import {
+  Card,
+  CardActions,
+  CardTitle,
+  CardMedia,
+  CardText
+} from 'material-ui/Card';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
-import AppBar from 'material-ui/AppBar';
 import CreateIcon from 'material-ui/svg-icons/content/create';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import DocumentList from '../document/documentList';
-import userContainer from './userView';
-import DocumentViewContainer from '../document/documentViewContainer';
-
 
 class ProfilePage extends React.Component {
   constructor(props) {
@@ -18,7 +20,9 @@ class ProfilePage extends React.Component {
       errors: {},
       isEditing: false,
       user: this.props.user,
-      value: this.props.roles.find(element => {return element.id === this.props.user.roleId; }).id
+      value: this.props.roles.find(element => {
+        return element.id === this.props.user.roleId;
+      }).id
     };
 
     this.handleEditToggle = this.handleEditToggle.bind(this);
@@ -28,7 +32,7 @@ class ProfilePage extends React.Component {
     this.handleRoleChange = this.handleRoleChange.bind(this);
   }
 
-  handleShowEdit(user) {
+  handleShowEdit() {
     return true;
   }
 
@@ -40,7 +44,9 @@ class ProfilePage extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    const hasErrors = Object.keys(this.state.errors).some(key => !!this.state.errors[key]);
+    const hasErrors = Object.keys(this.state.errors).some(
+      key => !!this.state.errors[key]
+    );
     if (hasErrors) {
       return;
     }
@@ -59,30 +65,43 @@ class ProfilePage extends React.Component {
     });
   }
 
-  handleRoleChange(event, index, value) {
-    let editedUser = Object.assign({}, this.state.user, {roleId: value});
-    this.setState({value: value, user: editedUser});
+  handleRoleChange(value) {
+    let editedUser = Object.assign({}, this.state.user, { roleId: value });
+    this.setState({ value: value, user: editedUser });
   }
 
   render() {
     return (
       <div>
-        <div className="row col-md-10 col-md-offset-1 col-sm-12" style={{ padding: 80 }}>
-          <div className="col-md-4 col-sm-4" >
-            {!this.state.isEditing ?
+        <div
+          className="row col-md-10 col-md-offset-1 col-sm-12"
+          style={{ padding: 80 }}
+        >
+          <div className="col-md-4 col-sm-4">
+            {!this.state.isEditing ? (
               <Card style={{ maxWidth: 350, marginTop: 30 }}>
-                <CardMedia overlay={<CardTitle title={this.state.user.userName} />} />
-                <CardText>
-                  {this.state.user.email}
-                </CardText>
-                {this.handleShowEdit(this.state.user) ?
+                <CardMedia
+                  overlay={<CardTitle title={this.state.user.userName} />}
+                />
+                <CardText>{this.state.user.email}</CardText>
+                {this.handleShowEdit() ? (
                   <CardActions>
-                    <FlatButton label="Edit Profile" onClick={this.handleEditToggle}
-                      icon={<CreateIcon />} primary />
-                  </CardActions> : <span />}
-              </Card> :
+                    <FlatButton
+                      label="Edit Profile"
+                      onClick={this.handleEditToggle}
+                      icon={<CreateIcon />}
+                      primary
+                    />
+                  </CardActions>
+                ) : (
+                  <span />
+                )}
+              </Card>
+            ) : (
               <Card style={{ maxWidth: 350, marginTop: 30 }}>
-                <CardMedia overlay={<CardTitle title={this.state.user.userName} />} />
+                <CardMedia
+                  overlay={<CardTitle title={this.state.user.userName} />}
+                />
                 <CardText>
                   <TextField
                     hintText="Username"
@@ -91,8 +110,8 @@ class ProfilePage extends React.Component {
                     onChange={this.handleChange}
                     onBlur={this.props.onBlur}
                     defaultValue={this.state.user.userName}
-
-                  /><br />
+                  />
+                  <br />
                   <TextField
                     hintText="Email"
                     floatingLabelText="Email"
@@ -100,15 +119,16 @@ class ProfilePage extends React.Component {
                     onChange={this.handleChange}
                     onBlur={this.props.onBlur}
                     defaultValue={this.state.user.email}
-
-                  /><br />
+                  />
+                  <br />
                   <TextField
                     hintText="Password"
                     floatingLabelText="Password"
                     name="password"
                     type="password"
                     onChange={this.handleChange}
-                  /><br />
+                  />
+                  <br />
                   <TextField
                     hintText="Confirm Password"
                     floatingLabelText="Confirm Password"
@@ -116,30 +136,37 @@ class ProfilePage extends React.Component {
                     type="password"
                     onChange={this.handleChange}
                     onBlur={this.props.onBlur}
-
-                  /><br />
+                  />
+                  <br />
                   <SelectField
-                  floatingLabelText="Role"
-                  value={this.state.value}
-                  onChange={this.handleRoleChange}>
+                    floatingLabelText="Role"
+                    value={this.state.value}
+                    onChange={this.handleRoleChange}
+                  >
                     {this.props.roles.map(role => {
                       return (
                         <MenuItem value={role.id} primaryText={role.roleName} />
                       );
                     })}
                   </SelectField>
-
                 </CardText>
                 <CardActions>
-                  <FlatButton label="Submit" onClick={this.handleSubmit} primary />
-                  <FlatButton label="Cancel" onClick={this.handleEditToggle} primary />
+                  <FlatButton
+                    label="Submit"
+                    onClick={this.handleSubmit}
+                    primary
+                  />
+                  <FlatButton
+                    label="Cancel"
+                    onClick={this.handleEditToggle}
+                    primary
+                  />
                 </CardActions>
               </Card>
-            }
+            )}
           </div>
-          <div className="col-md-8 col-sm-8" >
+          <div className="col-md-8 col-sm-8">
             <DocumentList documents={this.state.user.documents} />
-
           </div>
         </div>
       </div>

@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Link, browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { Card, CardText } from 'material-ui/Card';
@@ -157,4 +156,7 @@ SignUpForm.contextTypes = {
   router: React.PropTypes.object.isRequired
 };
 
-export default connect(null, { userSignupRequest })(SignUpForm);
+export default connect(
+  null,
+  { userSignupRequest }
+)(SignUpForm);
