@@ -1,0 +1,108 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header Component authenticated Should render the header component with user authenticated 1`] = `
+<nav>
+  <AppBar
+    className="navbar"
+    iconClassNameRight="muidocs-icon-navigation-expand-more"
+    showMenuIconButton={false}
+    style={
+      Object {
+        "background": "#3bac95",
+      }
+    }
+    title="DocHut"
+    titleStyle={
+      Object {
+        "flex": "none",
+      }
+    }
+    zDepth={1}
+  >
+    <span>
+      <IndexLink
+        activeClassName="active"
+        to="/"
+      >
+        Home
+      </IndexLink>
+    </span>
+    <span>
+      <Link
+        activeClassName="active"
+        onlyActiveOnIndex={false}
+        style={Object {}}
+        to="/users"
+      >
+        Users
+      </Link>
+      <Link
+        activeClassName="active"
+        onlyActiveOnIndex={false}
+        style={Object {}}
+        to="/roles"
+      >
+        Roles
+      </Link>
+    </span>
+    <span>
+      <Link
+        activeClassName="active"
+        onlyActiveOnIndex={false}
+        style={Object {}}
+        to="/documents"
+      >
+        Documents
+      </Link>
+      <Link
+        activeClassName="active"
+        onlyActiveOnIndex={false}
+        style={Object {}}
+        to="/profile"
+      >
+        Profile
+      </Link>
+      <Link
+        activeClassName="active"
+        onClick={[Function]}
+        onlyActiveOnIndex={false}
+        style={Object {}}
+        to="/"
+      >
+        Logout
+      </Link>
+    </span>
+  </AppBar>
+</nav>
+`;
+
+exports[`Header Component unauthenticated Should render the header component 1`] = `
+<nav>
+  <AppBar
+    className="navbar"
+    iconClassNameRight="muidocs-icon-navigation-expand-more"
+    showMenuIconButton={false}
+    style={
+      Object {
+        "background": "#3bac95",
+      }
+    }
+    title="DocHut"
+    titleStyle={
+      Object {
+        "flex": "none",
+      }
+    }
+    zDepth={1}
+  >
+    <span>
+      <IndexLink
+        activeClassName="active"
+        to="/"
+      >
+        Home
+      </IndexLink>
+    </span>
+  </AppBar>
+</nav>
+`;

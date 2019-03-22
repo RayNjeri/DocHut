@@ -1,0 +1,122 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DocumentViewContainer component should have matching snapshot 1`] = `
+<div
+  className="container"
+>
+  <div
+    className="documents"
+  >
+    <h1>
+      Documents
+    </h1>
+    <Connect(DocumentSearch) />
+    <div
+      className="paginitaion"
+    >
+      <Pagination
+        activePage={1}
+        firstPageText="«"
+        innerClass="pagination"
+        itemsCountPerPage={3}
+        lastPageText="»"
+        nextPageText="⟩"
+        onChange={[Function]}
+        pageRangeDisplayed={3}
+        prevPageText="⟨"
+        totalItemsCount={10}
+      />
+    </div>
+    <div>
+      <FloatingActionButton
+        backgroundColor="#123c69"
+        disabled={false}
+        mini={false}
+        onClick={[Function]}
+        secondary={false}
+        style={
+          Object {
+            "bottom": 20,
+            "marginRight": 20,
+            "position": "fixed",
+            "right": 20,
+          }
+        }
+        zDepth={2}
+      >
+        <ContentAdd />
+      </FloatingActionButton>
+    </div>
+  </div>
+  <br />
+  <Dialog
+    actions={
+      Array [
+        <FlatButton
+          disabled={false}
+          fullWidth={false}
+          label="Cancel"
+          labelPosition="after"
+          labelStyle={Object {}}
+          onKeyboardFocus={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onTouchStart={[Function]}
+          onTouchTap={[Function]}
+          primary={true}
+          secondary={false}
+      />,
+        <FlatButton
+          disabled={false}
+          fullWidth={false}
+          keyboardFocused={true}
+          label="Submit"
+          labelPosition="after"
+          labelStyle={Object {}}
+          onKeyboardFocus={[Function]}
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          onTouchStart={[Function]}
+          onTouchTap={[Function]}
+          primary={true}
+          secondary={false}
+      />,
+      ]
+    }
+    autoDetectWindowHeight={true}
+    autoScrollBodyContent={false}
+    modal={false}
+    onRequestClose={[Function]}
+    open={false}
+    repositionOnUpdate={true}
+    title="Create a new Document"
+  >
+    <CreateDocument
+      document={
+        Object {
+          "access": "",
+          "content": "",
+          "snackBarOpen": false,
+          "title": "",
+        }
+      }
+      onContentChange={[Function]}
+      onSetAccess={[Function]}
+      onTitleChange={[Function]}
+      style={
+        Object {
+          "bottom": 20,
+          "marginRight": 20,
+          "position": "fixed",
+          "right": 20,
+        }
+      }
+    />
+  </Dialog>
+  <Snackbar
+    autoHideDuration={2000}
+    message="Document Saved"
+    onRequestClose={[Function]}
+  />
+</div>
+`;

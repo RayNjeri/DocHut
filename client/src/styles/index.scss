@@ -1,0 +1,33 @@
+$font-stack: cursive;
+$primary-color:purple;
+
+h1{
+    font-family:$font-stack;
+    color: black;
+    text-align: center;
+    font-size: 50px;
+    
+}
+body{
+    font-family:$font-stack;
+    color: black;
+    background-color: whitesmoke;
+    margin: 0 0 100px 0;
+    height: 100%;
+    width: 100%;
+    border: 1px solid black
+}
+.gridlist{
+    height: 600;
+    flex: 4;
+    text-align: 'center';
+    padding-top: 60px;
+    padding-right: 200px;
+    padding-bottom: 60px;
+    padding-left: 200px;
+}
+.navbar a{
+    font-family:$font-stack;
+    padding: 7px;
+    text-decoration: none;
+}
