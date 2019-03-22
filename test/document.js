@@ -26,12 +26,14 @@ describe('/POST document', () => {
   const documentsEndpoint = '/api/document';
 
   //
-  it('Should return that the user successfully logged in', (done) => {
+  it('Should return that the user successfully logged in', done => {
     const saltRounds = bcrypt.genSaltSync(10);
 
     const password = bcrypt.hashSync('aStrongPassword', saltRounds);
 
-    let findOneStub = sinon.stub(user, 'findOne').resolves({ password, id: 1, roleId: 1 });
+    let findOneStub = sinon
+      .stub(user, 'findOne')
+      .resolves({ password, id: 1, roleId: 1 });
 
     request(app)
       .post('/api/user/login')
@@ -50,7 +52,7 @@ describe('/POST document', () => {
       });
   });
 
-  it('should create a document successfully', (done) => {
+  it('should create a document successfully', done => {
     let createStub = sinon.stub(document, 'create').resolves(testDocument);
     request(app)
       .post(documentsEndpoint)
@@ -64,7 +66,7 @@ describe('/POST document', () => {
       });
   });
 
-  it('should fail to add a document', (done) => {
+  it('should fail to add a document', done => {
     let createStub = sinon.stub(document, 'create').rejects();
     request(app)
       .post(documentsEndpoint)
@@ -77,7 +79,7 @@ describe('/POST document', () => {
       });
   });
 
-  it('should fail to update when document id not found', (done) => {
+  it('should fail to update when document id not found', done => {
     let findByIdStub = sinon.stub(document, 'findById').resolves();
     request(app)
       .put('/api/document/1')
@@ -103,11 +105,12 @@ describe('/POST document', () => {
       });
   });
 
-  it('should update fields sucessfully', (done) => {
+  it('should update fields sucessfully', done => {
     let findByIdStub = sinon.stub(document, 'findById').resolves({
-      update: () => new Promise((resolve, reject) => {
-        resolve({});
-      })
+      update: () =>
+        new Promise((resolve, reject) => {
+          resolve({});
+        })
     });
     request(app)
       .put('/api/document/1')
@@ -120,7 +123,7 @@ describe('/POST document', () => {
       });
   });
 
-  it('should fail when update fails', (done) => {
+  it('should fail when update fails', done => {
     let findByIdStub = sinon.stub(document, 'findById').resolves({});
     let updateStub = sinon.stub(document, 'update').rejects({});
     request(app)
@@ -135,7 +138,7 @@ describe('/POST document', () => {
       });
   });
 
-  it('Should return all the documents with pagination', function (done) {
+  it('Should return all the documents with pagination', function(done) {
     let findAllStub = sinon.stub(document, 'findAll').resolves([{}, {}]);
     request(app)
       .get('/api/document')
@@ -150,7 +153,7 @@ describe('/POST document', () => {
       });
   });
 
-  it('Should return all the documents', function (done) {
+  it('Should return all the documents', function(done) {
     let findAllStub = sinon.stub(document, 'findAll').resolves([{}, {}]);
     request(app)
       .get('/api/document')
@@ -164,7 +167,7 @@ describe('/POST document', () => {
       });
   });
 
-  it('Should  fail to return all the documents', function (done) {
+  it('Should  fail to return all the documents', function(done) {
     let findAllStub = sinon.stub(document, 'findAll').rejects([{}, {}]);
     request(app)
       .get('/api/document')
@@ -204,7 +207,7 @@ describe('/POST document', () => {
       });
   });
 
-  it('should retrieve one document by id', (done) => {
+  it('should retrieve one document by id', done => {
     let findByIdStub = sinon.stub(document, 'findById').resolves({ id: 1 });
     request(app)
       .get('/api/document/1')
@@ -217,7 +220,7 @@ describe('/POST document', () => {
         done();
       });
   });
-  it('should fail to delete when document id not found', (done) => {
+  it('should fail to delete when document id not found', done => {
     let findByIdStub = sinon.stub(document, 'findById').resolves();
     request(app)
       .delete('/api/document/1')
@@ -230,11 +233,12 @@ describe('/POST document', () => {
       });
   });
 
-  it('should delete a document successfully ', (done) => {
+  it('should delete a document successfully ', done => {
     let findByIdStub = sinon.stub(document, 'findById').resolves({
-      destroy: () => new Promise((resolve, reject) => {
-        resolve(true);
-      })
+      destroy: () =>
+        new Promise((resolve, reject) => {
+          resolve(true);
+        })
     });
     let destroyStub = sinon.stub(document, 'destroy').resolves({});
     request(app)
@@ -249,4 +253,3 @@ describe('/POST document', () => {
       });
   });
 });
-

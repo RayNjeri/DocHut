@@ -3,5 +3,5 @@ const document = require('./document');
 
 module.exports = {
   user,
-  document,
+  document
 };

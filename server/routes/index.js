@@ -2,7 +2,7 @@ const userController = require('../controllers').user;
 const documentController = require('../controllers').document;
 // const roleController = require('../controllers').role;
 const roleController = require('../controllers/role');
-const { Auth, isAdmin } = require('../middlewares'); // authorise middlwares
+const { Auth, isAdmin } = require('../middlewares'); // authorize middlwares
 
 module.exports = app => {
   app.get('/api', (req, res) =>

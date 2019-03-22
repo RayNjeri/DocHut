@@ -12,10 +12,12 @@ const document = require('../models').Document;
 
 const findWithDocuments = (method, params) => {
   const includeDocuments = {
-    include: [{
-      model: document,
-      as: 'documents',
-    }],
+    include: [
+      {
+        model: document,
+        as: 'documents'
+      }
+    ]
   };
 
   if (params) {
@@ -26,7 +28,6 @@ const findWithDocuments = (method, params) => {
 };
 
 module.exports = {
-
   // create a new user
 
   create(req, res) {
@@ -39,8 +40,12 @@ module.exports = {
 
     if (!firstName || !lastName || !userName || !email || !password) {
       return res.status(400).json({ message: 'Enter All Required Fields' });
-    } else if (!(/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(req.body.email))) {
-      return res.status(400).json({ message: 'Please Enter A Valid Email Address' });
+    } else if (
+      !/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(req.body.email)
+    ) {
+      return res
+        .status(400)
+        .json({ message: 'Please Enter A Valid Email Address' });
     }
     User.create({
       firstName,
@@ -48,10 +53,12 @@ module.exports = {
       userName,
       email,
       password,
-      roleId,
+      roleId
     })
-      .then((user) => {
-        const token = jwt.sign({ userId: user.id, roleId }, secretKey, { expiresIn: '24h' });
+      .then(user => {
+        const token = jwt.sign({ userId: user.id, roleId }, secretKey, {
+          expiresIn: '24h'
+        });
         let data = {
           firstName: firstName,
           lastName: lastName,
@@ -74,10 +81,10 @@ module.exports = {
         email: req.body.email
       }
     })
-      .then((user) => {
+      .then(user => {
         if (!user) {
           return res.status(401).send({
-            message: 'Invalid user',
+            message: 'Invalid user'
           });
         }
 
@@ -86,14 +93,17 @@ module.exports = {
             message: 'Password/email does not match'
           });
         }
-        const token = jwt.sign({ userId: user.id, roleId: user.roleId }, secretKey, { expiresIn: '24h' });
+        const token = jwt.sign(
+          { userId: user.id, roleId: user.roleId },
+          secretKey,
+          { expiresIn: '24h' }
+        );
         return res.status(200).send({
           message: 'You were successfully logged in',
           user,
           token,
           expiresIn: '24h'
         });
-
       })
       .catch(() => {
         res.status(401).send({
@@ -114,10 +124,10 @@ module.exports = {
 
   retrieve(req, res) {
     findWithDocuments('findById', req.params.userId)
-      .then((user) => {
+      .then(user => {
         if (!user) {
           return res.status(404).send({
-            message: 'user Not Found',
+            message: 'user Not Found'
           });
         }
         return res.status(200).send(user);
@@ -128,14 +138,15 @@ module.exports = {
   // Update user attributes
   update(req, res) {
     findWithDocuments('findById', req.params.userId)
-      .then((user) => {
+      .then(user => {
         if (!user) {
           return res.status(404).send({
-            message: 'User Not Found',
+            message: 'User Not Found'
           });
         }
-        user.update(req.body, { fields: Object.keys(req.body) })
-          .then((updatedUser) => {
+        user
+          .update(req.body, { fields: Object.keys(req.body) })
+          .then(updatedUser => {
             res.status(201).send(updatedUser);
           })
           .catch(error => {
@@ -151,13 +162,14 @@ module.exports = {
 
   destroy(req, res) {
     User.findById(req.params.userId)
-      .then((resp) => {
+      .then(resp => {
         if (!resp) {
           return res.status(404).send({
-            message: 'User Not Found',
+            message: 'User Not Found'
           });
         }
-        resp.destroy()
+        resp
+          .destroy()
           .then(() => res.status(204).send({ message: 'user deleted' }))
           .catch(error => res.status(400).send(error));
       })
@@ -182,7 +194,6 @@ module.exports = {
     })
       .then(response => res.status(200).send(response))
       .catch(error => res.status(400).send(error));
-
   },
 
   // logout a user
@@ -192,4 +203,3 @@ module.exports = {
     });
   }
 };
-

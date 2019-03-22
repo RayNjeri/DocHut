@@ -11,7 +11,7 @@ const Auth = (req, res, next) => {
     });
   }
 
- // logic
+  // logic
   jwt.verify(token, secretKey, (err, decoded) => {
     if (err) {
       return res.status(401).json({
