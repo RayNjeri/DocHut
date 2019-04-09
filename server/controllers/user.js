@@ -31,11 +31,7 @@ module.exports = {
   // create a new user
 
   create(req, res) {
-    const firstName = req.body.firstName;
-    const lastName = req.body.lastName;
-    const userName = req.body.userName;
-    const email = req.body.email;
-    const password = req.body.password;
+    const { firstName, lastName, userName, email, password } = req.body;
     const roleId = 2;
 
     if (!firstName || !lastName || !userName || !email || !password) {
